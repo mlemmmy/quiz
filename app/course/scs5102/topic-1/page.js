@@ -1,6 +1,6 @@
-import Quiz from "@/components/Quiz";
+import Quiz from "../../../../components/Quiz";
 import Link from "next/link";
-import { questions } from "@/data/scs5102-topic1";
+import { questions } from "../../../../data/scs5102-topic1";
 
 export default function TopicOne() {
   return (
