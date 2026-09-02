@@ -14,3 +14,6 @@ Shared revision hub for SCS5102 and SCS5103.
 The Study Hub uses the same light, minimal visual language shown in the supplied Study Hub screenshot: warm off-white background, large black typography, rounded white cards, thin borders, generous whitespace, and simple arrow navigation.
 
 The Pattern Recognition Week 1 document keeps its original learning content, questions, diagrams, flashcards and scripts; only the presentation/navigation layer was rebuilt to match the Study Hub style.
+
+- `/course/sids5101` — Big Data Analytics
+- `/sids5101/week1.html` — Complete Big Data Analytics Week 1 content and Foundation Test

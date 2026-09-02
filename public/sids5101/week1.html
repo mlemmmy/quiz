@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Big Data Analytics — Week 1 Foundation</title>
+<style>
+:root{--bg:#f5f5f2;--surface:#fff;--surface-2:#f0f0eb;--text:#171717;--muted:#70706c;--line:#deded9;--mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;--sans:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65}a{color:inherit}
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:.85rem;min-height:66px;padding:.7rem 1.25rem;background:rgba(245,245,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.burger{display:none}.topbar-title{font-size:1rem;font-weight:800;letter-spacing:-.01em}.topbar-title small{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.home-link{margin-left:auto;background:#171717;color:#fff!important;padding:9px 13px;border-radius:24px;font-size:11px;font-weight:900;letter-spacing:.12em;text-decoration:none}
+.wrap{display:block;max-width:1000px;margin:0 auto}.content{width:100%;padding:2.5rem 0 5rem}main{max-width:1000px;margin:0 auto}
+#sidenav{display:block!important;position:relative!important;width:100%!important;height:auto!important;overflow:visible!important;padding:0!important;margin:0 0 22px!important;border:1px solid var(--line)!important;border-radius:18px!important;background:var(--surface)!important}
+.contents-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;border:0;background:transparent;color:var(--text);padding:18px 20px;border-radius:18px;cursor:pointer;font:inherit;font-size:11px;font-weight:900;letter-spacing:.12em;text-align:left}
+.contents-toggle:hover{background:var(--surface-2)}.toggle-icon{width:28px;height:28px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-size:18px;font-weight:400;line-height:1;transition:transform .18s ease}
+#sidenav.open .toggle-icon{transform:rotate(45deg)}.contents-panel{border-top:1px solid var(--line);padding:15px 20px 20px}.contents-panel[hidden]{display:none}
+.nav-group{display:inline-block;vertical-align:top;width:48%;padding-right:20px}.nav-group h4{display:block!important;margin:8px 0 7px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.nav-group ol,.nav-group ul{margin:0;padding-left:20px}.nav-group li{margin:3px 0}.nav-group a{display:inline-block!important;padding:2px 0!important;margin:0!important;color:var(--muted)!important;font-size:.85rem!important;text-decoration:none!important}.nav-group a:hover{color:var(--text)!important;text-decoration:underline!important}
+.hero{padding:55px 0 60px}.kicker,.eyebrow{display:inline-block;background:#171717;color:#fff;padding:9px 13px;border-radius:24px;font-size:11px;font-weight:900;letter-spacing:.12em}
+.hero h1{font-size:clamp(48px,7vw,78px);line-height:.96;letter-spacing:-.065em;margin:34px 0 24px}.hero p{color:var(--muted);font-size:19px;max-width:760px}
+section{margin:42px 0}section>h2{font-size:27px;letter-spacing:-.03em}.concept-head{display:flex;gap:14px;align-items:center}.concept-num{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.block,.anchor-box,.must-remember,.fc,.kw,.flow,.node,.test-question,.result,.callout,.definition,.comparison{background:var(--surface)!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:none!important}
+details.block{margin:12px 0;overflow:hidden}details.block summary{cursor:pointer;padding:18px 20px;font-weight:800}details.block .body{padding:0 20px 20px}
+.anchor-box,.must-remember{padding:20px!important;margin:16px 0}.flashcards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.fc{padding:20px!important;cursor:pointer}.fc .a{display:none}.fc.revealed .a{display:block;margin-top:12px;color:var(--muted)}
+table{background:#fff;border-collapse:separate;border-spacing:0;width:100%;overflow:hidden;border:1px solid var(--line);border-radius:16px}th,td{padding:.75rem;border-bottom:1px solid var(--line);text-align:left}th{background:var(--surface-2)}
+pre.ascii{background:#171717;color:#fff;padding:20px;border-radius:14px;overflow:auto}.kw-grid{display:flex;flex-wrap:wrap;gap:8px}.kw{padding:8px 11px!important}.flow{padding:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}.node{padding:9px 12px!important}.arrow{color:var(--muted)}
+@media(max-width:700px){.wrap{padding:0 16px}.content{padding-top:1rem}.hero{padding:42px 0}.hero h1{font-size:clamp(44px,13vw,62px)}.nav-group{display:block;width:100%;padding-right:0;margin-bottom:8px}.flashcards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="burger" id="burgerBtn" role="button" aria-label="Open navigation"><span></span></div>
+  <div class="topbar-title">Big Data Analytics<small>Week 1 · Foundation Build</small></div>
+  <a class="home-link" href="/">← Study hub</a>
+</div>
+<div class="navmask" id="navMask"></div>
+
+<div class="wrap">
+
+<nav id="sidenav" aria-label="Week 1 contents">
+  <button class="contents-toggle" id="contentsToggle" type="button" aria-expanded="false" aria-controls="contentsPanel">
+    <span>WEEK 1 CONTENTS</span><span class="toggle-icon">+</span>
+  </button>
+  <div class="contents-panel" id="contentsPanel" hidden>
+    <div class="nav-group">
+      <h4>Concepts</h4>
+      <ol>
+        <li><a href="#c1">Big Data</a></li>
+        <li><a href="#c2">The Big Data Ecosystem</a></li>
+        <li><a href="#c3">Descriptive, Predictive &amp; Prescriptive Analytics</a></li>
+        <li><a href="#c4">Data Visualization Fundamentals</a></li>
+        <li><a href="#c5">Principles of Good Chart Design</a></li>
+        <li><a href="#c6">History &amp; Perception of Visualization</a></li>
+      </ol>
+    </div>
+    <div class="nav-group">
+      <h4>Review</h4>
+      <ul>
+        <li><a href="#map">Week 1 master map</a></li>
+        <li><a href="#test">30-question foundation test</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <section class="hero">
+    <div class="kicker">WEEK 1 · FOUNDATION</div>
+    <h1>Building the conceptual base of Big Data Analytics</h1>
+    <p>Six ideas, in the order they build on each other — starting with what big data actually is, moving through how it's analyzed, and ending with how results are turned into visuals people can actually understand. Tap a concept in the menu to jump straight to it.</p>
+    <div class="hero-flow">
+      <div class="flow">
+        <div class="node">Big Data</div><div class="arrow">→</div>
+        <div class="node">Big Data Ecosystem</div><div class="arrow">→</div>
+        <div class="node">Analytics Types</div><div class="arrow">→</div>
+        <div class="node">Data Viz Fundamentals</div><div class="arrow">→</div>
+        <div class="node">Good Chart Design</div><div class="arrow">→</div>
+        <div class="node">History &amp; Perception</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONCEPT 1 ============ -->
+  <section class="concept" id="c1">
+    <div class="concept-head"><span class="concept-num">01</span><h2>Big Data</h2></div>
+    <p class="builds-on">The starting point — everything else this week is either about analyzing it or visualizing what came out of it.</p>
+
+    <details class="block" open>
+      <summary>1. Definition</summary>
+      <div class="body">
+        <p><b>Academic (Gartner):</b> "Big data" is high-volume, high-velocity, and high-variety information assets that demand cost-effective, innovative forms of information processing for enhanced insight and decision making.</p>
+        <p><b>Plain English:</b> Big data is data that's too large, too fast-moving, or too varied for traditional tools (like a spreadsheet or a single database) to handle — so you need new methods to store it, process it, and pull useful insight out of it.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>2. Keywords</summary>
+      <div class="body">
+        <div class="kw-grid">
+          <span class="kw">Big Data</span>
+          <span class="kw"><b>Volume</b> — the amount of data</span>
+          <span class="kw"><b>Velocity</b> — the speed data is generated/processed</span>
+          <span class="kw"><b>Variety</b> — the different forms/types of data</span>
+          <span class="kw"><b>Veracity</b> — the trustworthiness of data</span>
+          <span class="kw"><b>Value</b> — the usefulness of the insight extracted</span>
+          <span class="kw">Structured data</span><span class="kw">Unstructured data</span><span class="kw">Semi-structured data</span>
+          <span class="kw"><b>Quantitative data</b> — measurable, closed-ended</span>
+          <span class="kw"><b>Qualitative data</b> — descriptive, open-ended</span>
+          <span class="kw">Information continuum</span>
+          <span class="kw">Petabyte / exabyte / zettabyte</span>
+          <span class="kw">Data-driven decision making</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>3. Core explanation</summary>
+      <div class="body">
+        <p><b>What is it?</b> A collection of large, complex datasets that traditional processing techniques can't adequately handle.</p>
+        <p><b>What does it mean?</b> Modern organizations generate data continuously — transactions, sensors, social media, video — at a scale where normal spreadsheets and single-server databases break down.</p>
+        <p><b>Purpose:</b> to capture and process this data so it can be turned into insight rather than just sitting unused.</p>
+        <p><b>Why it matters:</b> the volume of data being created is still accelerating — mentions of "Big Data" in research literature alone grew from a handful of papers before 2010 to over a thousand a year by the mid-2010s.</p>
+        <p><b>Problem it solves:</b> without big data techniques, organizations either drown in data they can't use or are forced to throw useful data away.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>4. How it works</summary>
+      <div class="body">
+        <ol>
+          <li><b>Generation:</b> data is created continuously by transactions, sensors, social media, and machine-to-machine activity.</li>
+          <li><b>Capture:</b> the data is collected from these sources.</li>
+          <li><b>Storage:</b> it is stored across distributed, scalable systems built for volume.</li>
+          <li><b>Processing/analysis:</b> big data tools process it to extract patterns.</li>
+          <li><b>Insight:</b> the result feeds into decisions and strategy.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>5. Diagram</summary>
+      <div class="body">
+<pre class="ascii">THE INFORMATION CONTINUUM
+
+  Data ──► Information ──► Knowledge ──► Insight ──► Wisdom
+ (raw)      (organized)      (understood)  (applied)   (judged well)
+
+THE FIVE V's OF BIG DATA
+
+        Volume
+          │
+Veracity ─┼─ Velocity
+          │
+        Variety ── Value (the point of it all)</pre>
+        <p>Raw data only becomes useful as it moves along the continuum — and the 5 V's describe the *challenges* that make that movement hard at big-data scale.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>6. Example</summary>
+      <div class="body">
+        <p>By some estimates, 40 zettabytes of data were expected to exist by 2020 — a 300-times increase from 2005 — and most companies in the US already hold over 100 terabytes of stored data. Every day, roughly 2.5 quintillion bytes of data are created — enough to fill 10 million Blu-ray discs.</p>
+        <p>A retailer analyzing millions of point-of-sale transactions in real time to spot buying patterns is a direct, everyday example of putting the 5 V's to work.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>7. Applications</summary>
+      <div class="body">
+        <ul>
+          <li><b>Banking:</b> fraud detection and risk portfolio recalculation in minutes.</li>
+          <li><b>Government:</b> public service planning and resource allocation.</li>
+          <li><b>Education:</b> tracking learner engagement and outcomes at scale.</li>
+          <li><b>Healthcare:</b> patient outcome analysis and capacity planning.</li>
+          <li><b>Manufacturing:</b> sensor data for predictive maintenance.</li>
+          <li><b>Retail:</b> personalized offers generated at the point of sale.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>8. Advantages</summary>
+      <div class="body">
+        <ul>
+          <li><b>Finds root causes fast:</b> combined with high-powered analytics, big data can find the root cause of failures or defects in real time.</li>
+          <li><b>Enables real-time personalization:</b> e.g. generating offers at the point of sale based on buying habits.</li>
+          <li><b>Improves risk management:</b> entire risk portfolios can be recalculated in minutes instead of days.</li>
+          <li><b>Detects fraud earlier:</b> patterns of fraudulent behavior can be flagged before they cause damage.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>9. Limitations</summary>
+      <div class="body">
+        <ul>
+          <li><b>Synchronization:</b> pulling together disparate data sources is genuinely hard.</li>
+          <li><b>Skills shortage:</b> there's an acute shortage of professionals who understand big data analysis.</li>
+          <li><b>Meaningful insight is not guaranteed:</b> having more data doesn't automatically mean better answers.</li>
+          <li><b>Ingestion at scale:</b> getting voluminous data into a big data platform is itself an engineering challenge.</li>
+          <li><b>Security &amp; privacy:</b> more data collected means more sensitive information to protect.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>10. Comparisons</summary>
+      <div class="body">
+        <table class="cmp">
+          <tr><th></th><th>Quantitative Data</th><th>Qualitative Data</th></tr>
+          <tr><td>Nature</td><td>Measurable</td><td>Descriptive</td></tr>
+          <tr><td>Collected via</td><td>Measuring something with a fixed reality</td><td>Observation, field work, focus groups, interviews</td></tr>
+          <tr><td>Question style</td><td>Close-ended</td><td>Open-ended</td></tr>
+        </table>
+        <p><b>Common confusion:</b> "Big Data" is often used loosely to mean "a lot of data." In this field it specifically refers to data whose volume, velocity, or variety exceeds what traditional processing can handle — size alone isn't the full definition.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>11. Mathematical / formula component</summary>
+      <div class="body">
+        <p>Scale is usually expressed in powers of 1000 bytes: kilobyte (10³) → megabyte (10⁶) → gigabyte (10⁹) → terabyte (10¹²) → petabyte (10¹⁵) → exabyte (10¹⁸) → zettabyte (10²¹). No further formal mathematics is needed at this foundational stage — the scale itself is the point.</p>
+      </div>
+    </details>
+
+    <div class="anchor-box"><b>MEMORY ANCHOR</b>"Too big, too fast, too messy for the old tools." That's Big Data in one line — the 5 V's just name each way it gets too much.</div>
+    <div class="must-remember">
+      <b>MUST REMEMBER</b>
+      <ol>
+        <li>Big Data = high-volume, high-velocity, high-variety data that traditional processing can't handle (Gartner).</li>
+        <li>The 5 V's: Volume, Velocity, Variety, Veracity, Value.</li>
+        <li>The Information Continuum: Data → Information → Knowledge → Insight → Wisdom.</li>
+        <li>Quantitative data is measurable/closed-ended; qualitative data is descriptive/open-ended.</li>
+        <li>Big data's biggest challenges are skills shortage, synchronization, ingestion, and security/privacy — not just "having enough data."</li>
+      </ol>
+    </div>
+    <div class="flashcards">
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: State Gartner's definition of Big Data.</div><div class="a">A: High-volume, high-velocity, and high-variety information assets that demand cost-effective, innovative forms of processing for enhanced insight and decision making.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Name the 5 V's of Big Data.</div><div class="a">A: Volume, Velocity, Variety, Veracity, Value.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What does "Veracity" refer to?</div><div class="a">A: The trustworthiness, accuracy, and integrity of the data.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Give the five stages of the Information Continuum.</div><div class="a">A: Data → Information → Knowledge → Insight → Wisdom.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Quantitative vs qualitative data — what's the key difference?</div><div class="a">A: Quantitative is measurable and close-ended; qualitative is descriptive and open-ended.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ CONCEPT 2 ============ -->
+  <section class="concept" id="c2">
+    <div class="concept-head"><span class="concept-num">02</span><h2>The Big Data Ecosystem</h2></div>
+    <p class="builds-on">Builds on <a href="#c1">Big Data</a> — now: where does it come from, how is it categorized, and what stops it from flowing smoothly?</p>
+
+    <details class="block" open>
+      <summary>1. Definition</summary>
+      <div class="body">
+        <p><b>Academic:</b> The big data ecosystem is the set of sources, categories, storage/processing infrastructure, and barriers involved in capturing, managing, and using big data across its lifecycle.</p>
+        <p><b>Plain English:</b> It's the whole surrounding world of big data — where it comes from, what bucket it falls into, what technology stores and moves it, and what gets in the way.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>2. Keywords</summary>
+      <div class="body">
+        <div class="kw-grid">
+          <span class="kw">Doug Laney</span><span class="kw">Enterprise ("dark") data</span><span class="kw">Public data</span>
+          <span class="kw">Commercial data</span><span class="kw">Social media data</span>
+          <span class="kw"><b>Black box data</b> — e.g. flight/vehicle recorder data</span>
+          <span class="kw"><b>Search engine data</b></span><span class="kw"><b>Power grid data</b></span><span class="kw"><b>Transport data</b></span>
+          <span class="kw"><b>Operational Big Data</b> — interactive, real-time systems</span>
+          <span class="kw"><b>Analytical Big Data</b> — large-scale, complex analysis</span>
+          <span class="kw">NoSQL</span><span class="kw">MongoDB</span><span class="kw">MapReduce</span>
+          <span class="kw"><b>BASE</b> — Basic Availability, Soft state, Eventual consistency</span>
+          <span class="kw">Barriers (capture, storage, search, share, transfer, analysis, presentation)</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>3. Core explanation</summary>
+      <div class="body">
+        <p><b>What is it?</b> Big data doesn't come from one place — it's assembled from enterprise systems, the public, commercial partners, social media, and machine sensors, and each type needs different handling.</p>
+        <p><b>What does it mean?</b> The concept of Big Data itself dates to the early 2000s, when analyst Doug Laney first defined it by three characteristics — Volume, Velocity, and Variety — the origin of what later grew into the 5 V's.</p>
+        <p><b>Purpose:</b> understanding where data comes from and how it's categorized determines which storage and processing model fits it.</p>
+        <p><b>Why it matters:</b> real-time systems (operational) and deep-analysis systems (analytical) have fundamentally different technology needs — mixing them up leads to systems that are either too slow or too shallow.</p>
+        <p><b>Problem it solves:</b> without this map, organizations don't know which barriers (capture, storage, search, sharing, transfer, analysis, presentation) they still need to solve for a given data source.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>4. How it works</summary>
+      <div class="body">
+        <ol>
+          <li><b>Data originates</b> from enterprise, public, commercial, social media, or sensor sources.</li>
+          <li><b>It's categorized</b> — e.g. black box data, social media data, stock exchange data, power grid data, transport data, search engine data.</li>
+          <li><b>It's routed</b> to Operational Big Data systems (fast, interactive, e.g. MongoDB) for real-time use, or Analytical Big Data systems (large-scale batch analysis, e.g. MapReduce) for deep insight.</li>
+          <li><b>It's stored</b> following BASE properties rather than traditional strict consistency, trading some immediate accuracy for massive scale and availability.</li>
+          <li><b>Barriers are addressed</b> at every stage — capturing, storing, searching, sharing, transferring, analyzing, and presenting the data.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>5. Diagram</summary>
+      <div class="body">
+<pre class="ascii">SOURCES
+Enterprise · Public · Commercial · Social Media · Sensors
+        │
+        ▼
+CATEGORIES
+Black box · Social media · Stock exchange · Power grid · Transport · Search engine
+        │
+        ├────────────────┐
+        ▼                ▼
+Operational Big Data   Analytical Big Data
+(real-time, e.g.       (large-scale, e.g.
+ MongoDB/NoSQL)          MapReduce)
+        │                │
+        └───────┬────────┘
+                 ▼
+   BARRIERS: capture → storage → search → share → transfer → analyze → present</pre>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>6. Example</summary>
+      <div class="body">
+        <p>A bank's live fraud-detection system checking each transaction as it happens is Operational Big Data — it needs speed and availability over deep analysis. A quarterly customer-segmentation report built by crunching a year of transactions in batches is Analytical Big Data — it needs depth over speed.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>7. Applications</summary>
+      <div class="body">
+        <ul>
+          <li><b>Banking:</b> operational fraud checks + analytical risk modeling.</li>
+          <li><b>Transport:</b> real-time route data + long-term capacity planning.</li>
+          <li><b>Social platforms:</b> operational feeds + analytical trend/sentiment analysis.</li>
+          <li><b>Utilities:</b> power grid monitoring in real time and long-range demand forecasting.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>8. Advantages</summary>
+      <div class="body">
+        <ul>
+          <li><b>Scalability:</b> BASE-style systems can scale across thousands of low-cost machines rather than a few expensive ones.</li>
+          <li><b>Continuous availability:</b> systems stay usable even during network failures, tolerating temporary inconsistency.</li>
+          <li><b>Right tool for the job:</b> separating operational and analytical needs lets each be optimized independently.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>9. Limitations</summary>
+      <div class="body">
+        <ul>
+          <li><b>The seven barriers:</b> capture, storage capacity, searching, sharing, transfer, analysis, and presentation each remain real bottlenecks.</li>
+          <li><b>Uncertain landscape:</b> the tools and standards for managing big data are still evolving.</li>
+          <li><b>Storage &amp; quality trade-offs:</b> more storage doesn't guarantee better data quality.</li>
+          <li><b>Security &amp; privacy:</b> distributing data across many sources and systems increases exposure.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>10. Comparisons</summary>
+      <div class="body">
+        <table class="cmp">
+          <tr><th></th><th>Operational Big Data</th><th>Analytical Big Data</th></tr>
+          <tr><td>Purpose</td><td>Interactive, real-time capture and access</td><td>Retrospective, complex analysis</td></tr>
+          <tr><td>Example technology</td><td>MongoDB (NoSQL)</td><td>MapReduce</td></tr>
+          <tr><td>Scale style</td><td>Designed for reasonable performance under massive concurrent access</td><td>Designed to scale from single servers to thousands of machines</td></tr>
+        </table>
+        <p><b>Common confusion:</b> BASE is sometimes assumed to mean "unreliable." It doesn't — it's a deliberate trade-off (favoring availability and scale over instant consistency) used because traditional strict-consistency databases can't scale to big data's size.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>11. Mathematical / formula component</summary>
+      <div class="body">
+        <p>Mathematical component: Not applicable at this foundational level. BASE (Basic Availability, Soft state, Eventual consistency) is a set of design properties, not a formula — the key idea to remember is that "eventual consistency" means all users will see the same value for an item once enough time passes without further updates.</p>
+      </div>
+    </details>
+
+    <div class="anchor-box"><b>MEMORY ANCHOR</b>"Where it's from decides where it goes." Every source maps to a category, and every category leans operational or analytical.</div>
+    <div class="must-remember">
+      <b>MUST REMEMBER</b>
+      <ol>
+        <li>Big Data's concept dates to Doug Laney's early-2000s definition based on Volume, Velocity, Variety.</li>
+        <li>Data categories include black box, social media, stock exchange, power grid, transport, and search engine data.</li>
+        <li>Operational Big Data = real-time/interactive (e.g. MongoDB); Analytical Big Data = large-scale/retrospective (e.g. MapReduce).</li>
+        <li>BASE = Basic Availability, Soft state, Eventual consistency — the scaling trade-off big data systems make.</li>
+        <li>Seven barriers: capture, storage, searching, sharing, transfer, analysis, presentation.</li>
+      </ol>
+    </div>
+    <div class="flashcards">
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Who first defined Big Data by three characteristics, and what were they?</div><div class="a">A: Doug Laney, in the early 2000s — Volume, Velocity, and Variety.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Operational vs Analytical Big Data — what's the difference?</div><div class="a">A: Operational is fast/interactive/real-time (e.g. MongoDB); Analytical is large-scale, complex, retrospective analysis (e.g. MapReduce).</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What does BASE stand for?</div><div class="a">A: Basic Availability, Soft state, Eventual consistency.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What does "eventual consistency" mean?</div><div class="a">A: If no further updates are made to a data item for long enough, all users will eventually see the same value for it.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: List the seven barriers imposed on big data.</div><div class="a">A: Capture, storage capacity, searching, sharing, transfer, analysis, presentation.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ CONCEPT 3 ============ -->
+  <section class="concept" id="c3">
+    <div class="concept-head"><span class="concept-num">03</span><h2>Descriptive, Predictive &amp; Prescriptive Analytics</h2></div>
+    <p class="builds-on">Builds on <a href="#c2">The Big Data Ecosystem</a> — once data is captured and stored, this is how it's actually turned into decisions.</p>
+
+    <details class="block" open>
+      <summary>1. Definition</summary>
+      <div class="body">
+        <p><b>Academic:</b> Big data analytics is the examination of large datasets to uncover patterns, correlations, and insights, commonly classified into descriptive, predictive, and prescriptive analytics based on the question each answers.</p>
+        <p><b>Plain English:</b> Three levels of getting smarter from data — descriptive tells you what happened, predictive tells you what's likely to happen next, and prescriptive tells you what to actually do about it.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>2. Keywords</summary>
+      <div class="body">
+        <div class="kw-grid">
+          <span class="kw">Descriptive analytics</span><span class="kw">Predictive analytics</span><span class="kw">Prescriptive analytics</span>
+          <span class="kw">Data aggregation</span><span class="kw">Data mining</span>
+          <span class="kw">Regression analysis</span><span class="kw">Machine learning</span><span class="kw">Algorithm</span>
+          <span class="kw">Forecasting</span><span class="kw">Optimization</span><span class="kw">Recommendation engine</span>
+          <span class="kw">Business Analytics</span><span class="kw">Business Intelligence (BI)</span>
+          <span class="kw">Dashboard</span><span class="kw">Return on Investment (ROI)</span><span class="kw">OLAP</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>3. Core explanation</summary>
+      <div class="body">
+        <p><b>What is it?</b> A ladder of analytics maturity — hindsight, insight, foresight, and optimization — each stage answering a harder question than the last.</p>
+        <p><b>What does it mean?</b> Descriptive analytics summarizes what already happened; predictive analytics forecasts what's likely to happen; prescriptive analytics recommends what to do about it.</p>
+        <p><b>Purpose:</b> to move organizations from simply reporting the past toward actively shaping the future.</p>
+        <p><b>Why it matters:</b> value and difficulty both increase as you climb the ladder — descriptive reporting is common in traditional BI, but prescriptive analytics is where the highest-value, hardest-to-build systems live.</p>
+        <p><b>Problem it solves:</b> raw data and even accurate forecasts don't act on their own — prescriptive analytics closes the loop from insight to action.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>4. How it works</summary>
+      <div class="body">
+        <ol>
+          <li><b>Descriptive:</b> aggregate and mine historical data — gather and sort it, then search it for patterns and meaning.</li>
+          <li><b>Predictive:</b> apply statistical models, algorithms, and machine learning to that historical data to forecast future behavior.</li>
+          <li><b>Prescriptive:</b> starting from a defined problem, apply algorithmic models to the predicted outcomes to generate a specific recommendation or automated decision.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>5. Diagram</summary>
+      <div class="body">
+<pre class="ascii">VALUE
+  ▲
+  │                                   Prescriptive
+  │                        Predictive   (optimization)
+  │                        (foresight)
+  │          Diagnostic
+  │          (insight)
+  │  Descriptive
+  │  (hindsight)
+  └───────────────────────────────────────► DIFFICULTY</pre>
+        <p>Each step up asks "how can we make it happen?" a little more directly than the last — hindsight (what happened) → insight (why) → foresight (what will happen) → optimization (what should we do).</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>6. Example</summary>
+      <div class="body">
+        <p>A training manager uses <b>predictive</b> analysis to discover that most learners without a particular skill won't complete a newly launched course. A <b>prescriptive</b> system then detects those at-risk learners and automatically sends them a recommendation to complete an additional training resource that fills the missing skill — turning a forecast into an action.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>7. Applications</summary>
+      <div class="body">
+        <ul>
+          <li><b>Learning &amp; development:</b> LMS dashboards showing completion rates (descriptive), forecasting who's falling behind (predictive), and auto-recommending resources (prescriptive).</li>
+          <li><b>Healthcare:</b> prescriptive analytics for capital investment planning using demographic and health trend data.</li>
+          <li><b>Marketing:</b> predictive targeting of likely customers.</li>
+          <li><b>Finance:</b> descriptive ROI reporting and predictive risk forecasting.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>8. Advantages</summary>
+      <div class="body">
+        <ul>
+          <li><b>Descriptive:</b> quick, easy ROI reporting; identifies performance gaps and at-risk individuals early; highlights successes worth reinforcing.</li>
+          <li><b>Predictive:</b> personalizes support by spotting gaps, strengths and weaknesses; helps retain talent by forecasting career/skill needs; enables early intervention before performance suffers.</li>
+          <li><b>Prescriptive:</b> turns forecasts directly into targeted, automated recommendations rather than leaving action up to guesswork.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>9. Limitations</summary>
+      <div class="body">
+        <ul>
+          <li><b>Descriptive analytics only looks backward</b> — it can't explain why something happened or what comes next.</li>
+          <li><b>Predictive accuracy is bounded by data quality</b> — biased or incomplete historical data produces biased forecasts.</li>
+          <li><b>Prescriptive analytics needs a clearly defined problem</b> — a recommendation can't be generated without first knowing what to look for.</li>
+          <li><b>Recommendation quality is only as good as the algorithm and data behind it</b> — a weak model produces confidently wrong advice.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>10. Comparisons</summary>
+      <div class="body">
+        <table class="cmp">
+          <tr><th></th><th>Descriptive</th><th>Predictive</th><th>Prescriptive</th></tr>
+          <tr><td>Question</td><td>What happened?</td><td>What will happen?</td><td>What should we do?</td></tr>
+          <tr><td>Basis</td><td>Historical data only</td><td>Historical data + statistical models</td><td>Predicted outcomes + algorithmic recommendation models</td></tr>
+          <tr><td>Output</td><td>Summary/report</td><td>Forecast</td><td>Recommendation or automated decision</td></tr>
+        </table>
+        <p><b>Common confusion:</b> predictive and prescriptive analytics are often used interchangeably; predictive stops at a forecast, while prescriptive goes further and tells you what action to take about that forecast.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>11. Mathematical / formula component</summary>
+      <div class="body">
+        <p>Mathematical component: Not applicable at this foundational level. Predictive analytics does draw on regression analysis and machine learning models, but the specific formulas are beyond Week 1's scope — the key idea for now is simply that these models learn from historical data to forecast future values.</p>
+      </div>
+    </details>
+
+    <div class="anchor-box"><b>MEMORY ANCHOR</b>"What happened → what's next → what to do." The three analytics types are just those three questions, in order.</div>
+    <div class="must-remember">
+      <b>MUST REMEMBER</b>
+      <ol>
+        <li>Descriptive = historical summary; Predictive = forecast; Prescriptive = recommendation/action.</li>
+        <li>Data aggregation + data mining are the two core techniques behind descriptive analytics.</li>
+        <li>Predictive analytics relies on algorithms, regression, and machine learning applied to historical data.</li>
+        <li>Prescriptive analytics must start from a clearly defined problem to generate a useful recommendation.</li>
+        <li>Value and difficulty both increase moving from descriptive → predictive → prescriptive.</li>
+      </ol>
+    </div>
+    <div class="flashcards">
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What question does descriptive analytics answer?</div><div class="a">A: What happened? (It summarizes historical data.)</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What two techniques underlie descriptive analytics?</div><div class="a">A: Data aggregation (gathering/sorting) and data mining (searching for patterns).</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What does predictive analytics add on top of descriptive analytics?</div><div class="a">A: It applies algorithms, regression, and machine learning to historical data to forecast future behavior.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Why does prescriptive analytics "begin with a problem"?</div><div class="a">A: Because a recommendation cannot be generated without first knowing what to look for or what problem needs solving.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What limits the accuracy of a prescriptive recommendation?</div><div class="a">A: The quality of the underlying data and the algorithmic models used to generate it.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ CONCEPT 4 ============ -->
+  <section class="concept" id="c4">
+    <div class="concept-head"><span class="concept-num">04</span><h2>Data Visualization Fundamentals</h2></div>
+    <p class="builds-on">Builds on <a href="#c3">Analytics Types</a> — once analysis produces an answer, visualization is how that answer actually gets communicated.</p>
+
+    <details class="block" open>
+      <summary>1. Definition</summary>
+      <div class="body">
+        <p><b>Academic:</b> Data visualization is the act of taking information (data) and placing it into a visual context, such as a chart or map, so patterns, trends, and outliers become easier for the human brain to detect.</p>
+        <p><b>Plain English:</b> It's turning numbers into pictures, because people spot patterns in a chart far faster than in a table of raw numbers.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>2. Keywords</summary>
+      <div class="body">
+        <div class="kw-grid">
+          <span class="kw">Data visualization</span>
+          <span class="kw"><b>Data discovery</b> — breaking complex data into understandable groups/relationships</span>
+          <span class="kw">Visualization tool</span>
+          <span class="kw"><b>Declarative purpose</b> — the chart makes a statement</span>
+          <span class="kw"><b>Exploratory purpose</b> — the chart looks for new ideas</span>
+          <span class="kw"><b>Conceptual data</b> — qualitative, idea-based</span>
+          <span class="kw"><b>Data-driven visualization</b> — quantitative, dataset-based</span>
+          <span class="kw">Idea illustration</span><span class="kw">Idea generation</span>
+          <span class="kw">Everyday dataviz</span><span class="kw">Visual discovery</span>
+          <span class="kw">Data science</span><span class="kw">Dashboard</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>3. Core explanation</summary>
+      <div class="body">
+        <p><b>What is it?</b> The visual translation layer between raw analytics output and human understanding.</p>
+        <p><b>What does it mean?</b> Data discovery is the process of breaking complex data collections into information users can actually manage — it answers "what does it all mean?"; visualization is its representation.</p>
+        <p><b>Purpose:</b> to make big and small data easier for the human brain to understand, and to make it easier to detect patterns, trends, and outliers.</p>
+        <p><b>Why it matters:</b> data science is not one single process — data visualization is a subset of it, and often the only part a non-technical audience ever actually sees.</p>
+        <p><b>Problem it solves:</b> it turns incomprehensible mounds of raw data into organized, interpretable groups, sets, and relationships.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>4. How it works</summary>
+      <div class="body">
+        <ol>
+          <li><b>Data discovery:</b> break down complex data collections into groups, sets, and relationships.</li>
+          <li><b>Decide the purpose:</b> is the information conceptual (qualitative) or data-driven (quantitative)? Is the visual meant to be declarative (make a statement) or exploratory (look for new ideas)?</li>
+          <li><b>Choose the right tool/chart type</b> for that purpose — not every visualization tool suits every purpose.</li>
+          <li><b>Build and present</b> the visualization to its audience.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>5. Diagram</summary>
+      <div class="body">
+<pre class="ascii">FOUR TYPES OF DATA VISUALIZATION
+
+                     Declarative
+                         │
+  Conceptual  Idea         │        Everyday
+              Illustration │        Dataviz      Data-Driven
+                         │
+                     Idea Generation │ Visual Discovery
+                         │
+                     Exploratory</pre>
+        <p>The vertical axis asks "make a statement, or go looking?" The horizontal axis asks "is this an idea, or an actual dataset?" — together they define four distinct visualization purposes.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>6. Example</summary>
+      <div class="body">
+        <p>An infographic explaining a concept with icons and simple diagrams is conceptual + declarative ("idea illustration"). An interactive sales dashboard that analysts explore to hunt for unexpected patterns is data-driven + exploratory ("visual discovery").</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>7. Applications</summary>
+      <div class="body">
+        <ul>
+          <li><b>Business dashboards:</b> real-time performance tracking.</li>
+          <li><b>Infographics:</b> communicating a concept quickly to a broad audience.</li>
+          <li><b>Exploratory data analysis:</b> analysts searching for hidden patterns.</li>
+          <li><b>Journalism:</b> explaining complex public data (e.g. election maps, economic trends) to general readers.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>8. Advantages</summary>
+      <div class="body">
+        <ul>
+          <li><b>Instant pattern recognition:</b> outliers and trends that are invisible in a table jump out visually.</li>
+          <li><b>Condenses large data:</b> a single chart can represent millions of data points in a small space.</li>
+          <li><b>Faster decisions:</b> stakeholders grasp a well-made chart in seconds.</li>
+          <li><b>Accessible to non-technical audiences:</b> visuals don't require statistical training to interpret.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>9. Limitations</summary>
+      <div class="body">
+        <ul>
+          <li><b>Not automatic:</b> a spreadsheet like Excel is a general data tool, not a dedicated visualization tool — the two solve different problems.</li>
+          <li><b>Can mislead:</b> a poorly designed chart can distort perception just as easily as a good one clarifies it.</li>
+          <li><b>Wrong type, wrong result:</b> choosing a chart that doesn't match the data's actual purpose (declarative vs exploratory) reduces clarity instead of adding it.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>10. Comparisons</summary>
+      <div class="body">
+        <table class="cmp">
+          <tr><th></th><th>Excel</th><th>Dedicated visualization tool (e.g. Tableau)</th></tr>
+          <tr><td>Core purpose</td><td>Spreadsheet tool for storing/calculating data in cells</td><td>Purpose-built for visual representation of data</td></tr>
+          <tr><td>Data layout</td><td>Tabular (rows and columns)</td><td>Visual (charts, maps, dashboards)</td></tr>
+        </table>
+        <p><b>Common confusion:</b> data science and data visualization are sometimes treated as separate fields, but they aren't two different entities — data visualization is a subset of data science, not an alternative to it.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>11. Mathematical / formula component</summary>
+      <div class="body">
+        <p>Mathematical component: Not applicable at this foundational level.</p>
+      </div>
+    </details>
+
+    <div class="anchor-box"><b>MEMORY ANCHOR</b>"Data discovery asks what it means; visualization shows the answer." One finds the story, the other tells it.</div>
+    <div class="must-remember">
+      <b>MUST REMEMBER</b>
+      <ol>
+        <li>Data visualization = placing data into a visual context so patterns/trends/outliers are easier to detect.</li>
+        <li>Data discovery answers "what does it all mean?"; visualization is its representation.</li>
+        <li>Four types of visualization come from crossing conceptual/data-driven with declarative/exploratory.</li>
+        <li>Data visualization is a subset of data science, not a separate field.</li>
+        <li>Excel is a spreadsheet tool; Tableau (and similar) are dedicated data visualization tools.</li>
+      </ol>
+    </div>
+    <div class="flashcards">
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Define data visualization.</div><div class="a">A: Taking data and placing it into a visual context (like a chart or map) so patterns, trends, and outliers are easier to detect.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What question does data discovery answer?</div><div class="a">A: "What does it all mean?" — it breaks complex data into understandable groups, sets, and relationships.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Name the two axes that define the four types of data visualization.</div><div class="a">A: Conceptual vs data-driven, and declarative vs exploratory.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Is data visualization a separate field from data science?</div><div class="a">A: No — data visualization is a subset of data science.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Why is Excel not considered a data visualization tool?</div><div class="a">A: Excel is a spreadsheet tool built around tabular cells; a data visualization tool (like Tableau) is purpose-built for visual representation.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ CONCEPT 5 ============ -->
+  <section class="concept" id="c5">
+    <div class="concept-head"><span class="concept-num">05</span><h2>Principles of Good Chart Design</h2></div>
+    <p class="builds-on">Builds on <a href="#c4">Data Visualization Fundamentals</a> — now that you're building a chart, these are the rules that keep it honest and clear.</p>
+
+    <details class="block" open>
+      <summary>1. Definition</summary>
+      <div class="body">
+        <p><b>Academic (adapted from Tufte, 2009):</b> The principles of good chart design hold that a chart should tell a story, maintain graphical integrity, and minimize graphical complexity.</p>
+        <p><b>Plain English:</b> Rules that stop a chart from being boring, misleading, or cluttered — so the data itself, not the decoration, does the talking.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>2. Keywords</summary>
+      <div class="body">
+        <div class="kw-grid">
+          <span class="kw">Edward Tufte</span>
+          <span class="kw"><b>Graphical integrity</b> — the visual accurately reflects the data</span>
+          <span class="kw"><b>Lie Factor</b> — size of effect shown ÷ size of effect in data</span>
+          <span class="kw"><b>Data-ink ratio</b> — data-ink ÷ total ink used in a graphic</span>
+          <span class="kw"><b>Chartjunk</b> — unnecessary visual clutter</span>
+          <span class="kw">3D chart distortion</span><span class="kw">Moiré effect</span>
+          <span class="kw">"The Grid" (as chartjunk)</span>
+          <span class="kw">Tell a story</span><span class="kw">Erase ink whenever possible</span>
+          <span class="kw">Table vs chart</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>3. Core explanation</summary>
+      <div class="body">
+        <p><b>What is it?</b> A compact set of design rules distilled from Edward Tufte's work on quantitative information design.</p>
+        <p><b>What does it mean?</b> Charts are often used to persuade, so poor design — intentional or not — can mislead an audience about what the data actually shows.</p>
+        <p><b>Purpose:</b> to keep a reader's attention on the data itself, not on decoration.</p>
+        <p><b>Why it matters:</b> "if the statistics are boring, then you've got the wrong numbers" (Tufte) — a well-designed chart should be interesting because the data is interesting, not because of visual effects layered on top.</p>
+        <p><b>Problem it solves:</b> visually busy or numerically distorted charts waste the reader's time, or actively deceive them.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>4. How it works</summary>
+      <div class="body">
+        <ol>
+          <li><b>Principle 1 — Tell a story:</b> graphics should be clear on their own, enable meaningful comparison, and yield insight beyond the text.</li>
+          <li><b>Principle 2 — Graphical integrity:</b> the visual size of an effect shown must match its real size in the data; measured with Tufte's Lie Factor.</li>
+          <li><b>Principle 3 — Minimize graphical complexity:</b> generally, simpler is better — erase "chartjunk" and keep the data-ink ratio high.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>5. Diagram</summary>
+      <div class="body">
+<pre class="ascii">1  The chart should tell a story
+2  The chart should have graphical integrity
+3  The chart should minimize graphical complexity
+
+        Tufte's fundamental principle:
+        "Above all else, show the data."
+
+LIE FACTOR = size of effect shown in graphic
+             ─────────────────────────────
+             size of effect shown in data
+
+   > 1  →  exaggerated effect
+   < 1  →  understated effect
+   = 1  →  honest chart</pre>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>6. Example</summary>
+      <div class="body">
+        <p>A fuel-economy chart in Tufte's own analysis had a Lie Factor of roughly 9.4 — the visual change looked almost 10 times bigger than the real change in the data, a serious graphical-integrity violation. A 3D bar chart can distort bar heights through perspective, and a chart drowning in gridlines, background art, or gradient fills raises chartjunk while lowering the data-ink ratio. Sometimes the best answer is neither: for a few data points, a plain table (like a box score) can carry more information in less space, and more precisely, than a chart.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>7. Applications</summary>
+      <div class="body">
+        <ul>
+          <li><b>Business reporting:</b> keeping performance charts honest and easy to scan.</li>
+          <li><b>Journalism:</b> presenting public data (elections, economics) without accidental distortion.</li>
+          <li><b>Dashboards:</b> avoiding chartjunk so users can act on data quickly.</li>
+          <li><b>Scientific publishing:</b> maintaining graphical integrity is often a peer-review requirement.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>8. Advantages</summary>
+      <div class="body">
+        <ul>
+          <li><b>Builds trust:</b> an honest Lie Factor means readers can rely on what they see.</li>
+          <li><b>Faster comprehension:</b> a high data-ink ratio means less visual noise to filter out.</li>
+          <li><b>Prevents accidental (or deliberate) misrepresentation.</b></li>
+          <li><b>Saves the reader's attention</b> for what actually matters in the data.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>9. Limitations</summary>
+      <div class="body">
+        <ul>
+          <li><b>Over-minimizing can strip useful context:</b> some labels or gridlines genuinely help interpretation.</li>
+          <li><b>Not all data is simple:</b> multi-variable comparisons sometimes need more visual complexity than a minimalist chart allows.</li>
+          <li><b>"Simpler" isn't automatic:</b> a well-designed table can beat a chart entirely for small, precise datasets.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>10. Comparisons</summary>
+      <div class="body">
+        <table class="cmp">
+          <tr><th></th><th>Chart</th><th>Table</th></tr>
+          <tr><td>Best for</td><td>Spotting trends/patterns across many points</td><td>Small numbers of precise, exact values</td></tr>
+          <tr><td>Precision</td><td>Approximate, visual</td><td>Exact, numeric</td></tr>
+          <tr><td>Example</td><td>Sales trend over a year</td><td>A box score with every player's exact stats</td></tr>
+        </table>
+        <p><b>Common confusion:</b> "minimize complexity" is sometimes read as "remove everything decorative," but the actual rule is to erase ink that isn't data — necessary labels and structure stay; ink that isn't carrying information goes.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>11. Mathematical / formula component</summary>
+      <div class="body">
+        <p><b>Lie Factor</b> = size of effect shown in graphic ÷ size of effect shown in the data. A value near 1 is honest; well above or below 1 means the chart exaggerates or understates the real change.</p>
+        <p><b>Data-ink ratio</b> = data-ink ÷ total ink used in the graphic. A ratio near 1 means almost all the ink on the page is carrying information — the goal Tufte describes as "erase ink whenever possible."</p>
+      </div>
+    </details>
+
+    <div class="anchor-box"><b>MEMORY ANCHOR</b>"Tell it straight, size it right, cut the clutter." Story, integrity, simplicity — in that order.</div>
+    <div class="must-remember">
+      <b>MUST REMEMBER</b>
+      <ol>
+        <li>Three principles: tell a story, maintain graphical integrity, minimize graphical complexity.</li>
+        <li>Lie Factor = size of effect shown ÷ size of effect in data — should be close to 1.</li>
+        <li>Data-ink ratio = data-ink ÷ total ink used — should be close to 1; excess is chartjunk.</li>
+        <li>3D effects and moiré patterns are classic chartjunk that distort or clutter a chart.</li>
+        <li>For small, precise datasets, a table can carry more information, more precisely, than a chart.</li>
+      </ol>
+    </div>
+    <div class="flashcards">
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Name Tufte's three basic principles of good chart design.</div><div class="a">A: The chart should tell a story, have graphical integrity, and minimize graphical complexity.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Give the formula for the Lie Factor.</div><div class="a">A: Size of effect shown in graphic ÷ size of effect shown in the data.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What does a Lie Factor greater than 1 mean?</div><div class="a">A: The chart exaggerates the real effect in the data.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is chartjunk?</div><div class="a">A: Unnecessary visual clutter in a chart that doesn't add insight and distracts from the data's story.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Why does Tufte recommend avoiding 3D charts?</div><div class="a">A: 3D perspective distorts data proportions (hurting graphical integrity) and adds unnecessary visual elements (raising graphical complexity).</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: When might a table beat a chart?</div><div class="a">A: With a small number of data points where exact, precise values matter more than spotting a visual trend.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ CONCEPT 6 ============ -->
+  <section class="concept" id="c6">
+    <div class="concept-head"><span class="concept-num">06</span><h2>History &amp; Perception of Data Visualization</h2></div>
+    <p class="builds-on">Builds on <a href="#c5">Good Chart Design</a> — the rules you just learned came from real people solving real problems, and from research on how eyes actually read a chart.</p>
+
+    <details class="block" open>
+      <summary>1. Definition</summary>
+      <div class="body">
+        <p><b>Academic:</b> The history of data visualization traces the key figures and milestones that shaped how data is visually encoded, alongside the perceptual research explaining how humans actually read visual information.</p>
+        <p><b>Plain English:</b> The story of who invented today's charting conventions, and what science says about how our eyes and brains process them.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>2. Keywords</summary>
+      <div class="body">
+        <div class="kw-grid">
+          <span class="kw">Charles Joseph Minard (1812/1869)</span>
+          <span class="kw">Florence Nightingale (1858)</span><span class="kw">Coxcomb chart</span>
+          <span class="kw">Willard Brinton (1914)</span>
+          <span class="kw">Mary Eleanor Spear (1952/1969)</span><span class="kw">Box plot</span>
+          <span class="kw">Jacques Bertin (1967)</span><span class="kw">Seven visual variables</span>
+          <span class="kw">Expressiveness principle</span><span class="kw">Effectiveness principle</span>
+          <span class="kw">Edward Tufte (1983)</span><span class="kw">Jock Mackinlay (1986)</span>
+          <span class="kw">Preattentive processing</span><span class="kw">Visual convention/metaphor</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>3. Core explanation</summary>
+      <div class="body">
+        <p><b>What is it?</b> A lineage of statisticians, nurses, engineers, and designers, each of whom contributed a rule or technique still in use today.</p>
+        <p><b>What does it mean?</b> Modern conventions — the box plot, minimalist design, formal visual grammar — aren't arbitrary; they were each built to solve a specific communication problem.</p>
+        <p><b>Purpose:</b> to show that visualization is a mature, evidence-based discipline rather than decoration layered on top of data.</p>
+        <p><b>Why it matters:</b> perceptual research explains <i>why</i> the design principles from the previous concept work — they're not just taste, they match how human vision actually processes a scene.</p>
+        <p><b>Problem it solves:</b> without this grounding, "good visualization" looks like a matter of arbitrary opinion rather than a field with tested, reusable rules.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>4. How it works</summary>
+      <div class="body">
+        <ol>
+          <li><b>Minard (1812/1869):</b> mapped Napoleon's Russian campaign, encoding troop numbers, direction, temperature, and geography in a single chart — still called one of the best data graphics ever made.</li>
+          <li><b>Nightingale (1858):</b> invented the coxcomb (polar area) chart to show causes of military mortality, pioneering applied statistics and hospital sanitation reform.</li>
+          <li><b>Brinton (1914):</b> wrote the first business book on visualization, giving rules for presenting facts graphically.</li>
+          <li><b>Spear (1952/1969):</b> invented the box plot and produced practical charting guidance used by US government agencies.</li>
+          <li><b>Bertin (1967):</b> defined seven visual variables (position, size, shape, color, brightness, orientation, texture) and the principles of expressiveness ("say everything you have to say, no more, no less") and effectiveness.</li>
+          <li><b>Tufte (1983):</b> set disciplined, minimalist design principles — the Lie Factor and data-ink ratio from the previous concept.</li>
+          <li><b>Mackinlay (1986):</b> helped automate visual encoding in software, laying groundwork for tools like Tableau.</li>
+        </ol>
+        <p>Alongside this history, perceptual research on "when a chart hits our eyes" shows: visuals aren't read in a predictable linear way; we see what stands out first; we notice only a few visual elements at once; we seek meaning and connections; and we rely on visual conventions and metaphors we already know.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>5. Diagram</summary>
+      <div class="body">
+<pre class="ascii">1812/69 ──► 1858 ──► 1914 ──► 1952/69 ──► 1967 ──► 1983 ──► 1986
+ Minard    Nightingale  Brinton    Spear      Bertin    Tufte   Mackinlay
+ (multi-   (coxcomb,    (business  (box plot) (visual   (data-  (software
+ variable  persuasive   book)                 grammar)  ink,    automation)
+ map)      chart)                                        lie factor)</pre>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>6. Example</summary>
+      <div class="body">
+        <p>A modern dashboard's use of size and color to draw the eye to the most important number directly follows Bertin's visual variables and the perceptual rule "we see what stands out first." A box plot on any modern analytics dashboard descends directly from Spear's 1952 invention — decades before dashboards existed.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>7. Applications</summary>
+      <div class="body">
+        <ul>
+          <li><b>Modern BI tools:</b> Tableau and Power BI build on Mackinlay's automated visual-encoding research.</li>
+          <li><b>Journalism infographics:</b> still apply Nightingale-style persuasive, story-driven charts.</li>
+          <li><b>UX/dashboard design guidelines:</b> draw directly on Bertin's visual variables and perceptual research.</li>
+          <li><b>Statistical software:</b> box plots (Spear) remain a default chart type in nearly every analytics package.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>8. Advantages</summary>
+      <div class="body">
+        <ul>
+          <li><b>Evidence-based design:</b> designers can rely on tested conventions instead of guesswork.</li>
+          <li><b>Explains "why":</b> shows the specific problem each convention (box plot, coxcomb, visual variables) was built to solve.</li>
+          <li><b>Predicts what will and won't work</b> based on how human perception actually operates.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>9. Limitations</summary>
+      <div class="body">
+        <ul>
+          <li><b>Old conventions, new medium:</b> rules from the 1800s–1980s don't always map cleanly onto interactive, real-time digital dashboards.</li>
+          <li><b>Can stifle innovation:</b> over-reliance on "classic" rules may discourage new visual forms suited to big data's scale and velocity.</li>
+          <li><b>Perception research has limits:</b> individual differences in how people read charts mean no single convention works for every audience.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>10. Comparisons</summary>
+      <div class="body">
+        <table class="cmp">
+          <tr><th>Pioneer</th><th>Core contribution</th></tr>
+          <tr><td>Minard</td><td>Multivariate storytelling in a single map</td></tr>
+          <tr><td>Nightingale</td><td>Persuasive chart used to drive real policy change</td></tr>
+          <tr><td>Bertin</td><td>A formal grammar of visual variables</td></tr>
+          <tr><td>Tufte</td><td>Minimalist, integrity-focused design rules</td></tr>
+        </table>
+        <p><b>Common confusion:</b> Tufte's principles (Concept 5) and this history are often taught as if unrelated — in fact Tufte's rules are simply the most recent link in this same chain of visualization pioneers.</p>
+      </div>
+    </details>
+
+    <details class="block">
+      <summary>11. Mathematical / formula component</summary>
+      <div class="body">
+        <p>Mathematical component: Not applicable at this foundational level.</p>
+      </div>
+    </details>
+
+    <div class="anchor-box"><b>MEMORY ANCHOR</b>"Minard mapped it, Nightingale sold it, Bertin defined it, Tufte disciplined it, Mackinlay automated it." A one-line timeline of the whole field.</div>
+    <div class="must-remember">
+      <b>MUST REMEMBER</b>
+      <ol>
+        <li>Minard (1812/69) — multivariate map of Napoleon's Russian campaign.</li>
+        <li>Nightingale (1858) — coxcomb chart, applied statistics for hospital reform.</li>
+        <li>Spear (1952/69) — invented the box plot.</li>
+        <li>Bertin (1967) — seven visual variables; expressiveness and effectiveness principles.</li>
+        <li>Tufte (1983) — data-ink ratio, Lie Factor, minimalist design.</li>
+        <li>Perception: we see what stands out first, notice only a few elements at once, and rely on familiar visual conventions.</li>
+      </ol>
+    </div>
+    <div class="flashcards">
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What did Charles Joseph Minard's 1812/1869 map depict, and why is it famous?</div><div class="a">A: Napoleon's Russian campaign, encoding troop numbers, direction, temperature and geography in one graphic — considered one of the best data graphics ever made.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What chart type did Florence Nightingale invent, and why?</div><div class="a">A: The coxcomb (polar area) chart, to show causes of military mortality and drive hospital sanitation reform.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Who invented the box plot?</div><div class="a">A: Mary Eleanor Spear, in 1952 (refined 1969).</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: List Bertin's seven visual variables.</div><div class="a">A: Position, size, shape, color, brightness, orientation, texture.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What did Jock Mackinlay's 1986 work contribute?</div><div class="a">A: Research on automatically encoding data visually with software, laying groundwork for tools like Tableau.</div></div>
+      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Name two things perceptual research says about how we read a chart.</div><div class="a">A: Any two of: we see what stands out first; we notice only a few visual elements at once; we seek meaning and connections; we rely on familiar conventions/metaphors.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ MASTER MAP ============ -->
+  <section id="map">
+    <div class="concept-head"><span class="concept-num">◆</span><h2 style="font-family:var(--serif); font-size:1.55rem; margin:0;">Week 1 Master Map</h2></div>
+    <p class="builds-on">How all six concepts connect, on one page.</p>
+    <div class="mapcard">
+      <svg viewBox="0 0 900 430" width="100%" style="min-width:640px;">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 z" fill="#BEC7CF"/>
+          </marker>
+        </defs>
+
+        <path class="mapedge" d="M150,50 L150,110" marker-end="url(#arrow)"/>
+        <path class="mapedge" d="M150,150 L150,210" marker-end="url(#arrow)"/>
+        <path class="mapedge" d="M270,230 C 400,230 400,230 470,230" marker-end="url(#arrow)"/>
+        <path class="mapedge" d="M590,250 L590,310" marker-end="url(#arrow)"/>
+        <path class="mapedge" d="M590,350 C 590,390 700,405 790,370" marker-end="url(#arrow)"/>
+        <path class="mapedge" d="M790,330 L790,270" marker-end="url(#arrow)"/>
+
+        <g class="mapnode core">
+          <rect x="60" y="15" width="180" height="38" rx="8"/>
+          <text x="150" y="39" text-anchor="middle">Big Data</text>
+        </g>
+        <text x="150" y="72" text-anchor="middle" class="maplabel">definition, 5 V's</text>
+
+        <g class="mapnode">
+          <rect x="60" y="115" width="180" height="38" rx="8"/>
+          <text x="150" y="139" text-anchor="middle">Big Data Ecosystem</text>
+        </g>
+        <text x="150" y="172" text-anchor="middle" class="maplabel">sources, operational vs analytical</text>
+
+        <g class="mapnode core">
+          <rect x="470" y="210" width="240" height="38" rx="8"/>
+          <text x="590" y="234" text-anchor="middle">Analytics Types</text>
+        </g>
+        <text x="590" y="267" text-anchor="middle" class="maplabel">descriptive → predictive → prescriptive</text>
+
+        <g class="mapnode">
+          <rect x="470" y="310" width="240" height="38" rx="8"/>
+          <text x="590" y="334" text-anchor="middle">Data Viz Fundamentals</text>
+        </g>
+        <text x="590" y="367" text-anchor="middle" class="maplabel">turning insight into a visual</text>
+
+        <g class="mapnode">
+          <rect x="700" y="230" width="190" height="38" rx="8"/>
+          <text x="795" y="254" text-anchor="middle">Good Chart Design</text>
+        </g>
+        <text x="795" y="287" text-anchor="middle" class="maplabel">story, integrity, simplicity</text>
+
+        <g class="mapnode app">
+          <rect x="700" y="330" width="190" height="38" rx="8"/>
+          <text x="795" y="354" text-anchor="middle">History &amp; Perception</text>
+        </g>
+        <text x="795" y="387" text-anchor="middle" class="maplabel">where the rules came from</text>
+
+      </svg>
+    </div>
+    <div class="anchor-box" style="margin-top:1rem;">
+      <b>THE STORY IN ONE LINE</b>
+      Big Data defines the raw material and its 5 V's; the Big Data Ecosystem shows where that material comes from and how it's stored; the three analytics types turn it into decisions; and data visualization — guided by good chart design and grounded in a century of visualization history — is how those decisions actually get communicated to people.
+    </div>
+  </section>
+
+  <!-- ============ TEST ============ -->
+  <section id="test">
+    <div class="concept-head"><span class="concept-num">◆</span><h2 style="font-family:var(--serif); font-size:1.55rem; margin:0;">30-Question Foundation Test</h2></div>
+    <p class="builds-on">Active recall only — no answers here. Ask when you're ready to check yourself.</p>
+
+    <div class="testgroup">
+      <h4>Big Data</h4>
+      <ol>
+        <li>State Gartner's definition of Big Data.</li>
+        <li>Name the 5 V's of Big Data.</li>
+        <li>What are the five stages of the Information Continuum?</li>
+        <li>Distinguish quantitative from qualitative data.</li>
+        <li>Name three industries that use big data, from the lecture's list.</li>
+      </ol>
+    </div>
+
+    <div class="testgroup">
+      <h4>The Big Data Ecosystem</h4>
+      <ol start="6">
+        <li>Who first defined Big Data by Volume, Velocity, and Variety, and when?</li>
+        <li>Distinguish Operational Big Data from Analytical Big Data, with an example technology for each.</li>
+        <li>What does BASE stand for?</li>
+        <li>Explain "eventual consistency" in your own words.</li>
+        <li>List the seven barriers imposed on big data.</li>
+      </ol>
+    </div>
+
+    <div class="testgroup">
+      <h4>Descriptive, Predictive &amp; Prescriptive Analytics</h4>
+      <ol start="11">
+        <li>What question does each of the three analytics types answer?</li>
+        <li>What two techniques underlie descriptive analytics?</li>
+        <li>What does predictive analytics use to forecast future behavior?</li>
+        <li>Why must prescriptive analytics "begin with a problem"?</li>
+        <li>Give one advantage each of descriptive, predictive, and prescriptive analytics.</li>
+      </ol>
+    </div>
+
+    <div class="testgroup">
+      <h4>Data Visualization Fundamentals</h4>
+      <ol start="16">
+        <li>Define data visualization.</li>
+        <li>What question does data discovery answer?</li>
+        <li>Name the two axes that define the four types of data visualization.</li>
+        <li>Is data visualization a separate discipline from data science? Explain.</li>
+        <li>Why is Excel not considered a dedicated data visualization tool?</li>
+      </ol>
+    </div>
+
+    <div class="testgroup">
+      <h4>Principles of Good Chart Design</h4>
+      <ol start="21">
+        <li>Name Tufte's three basic principles of good chart design.</li>
+        <li>Give the formula for the Lie Factor.</li>
+        <li>Give the formula for the data-ink ratio.</li>
+        <li>What is chartjunk, and give two examples.</li>
+        <li>When might a table communicate better than a chart?</li>
+      </ol>
+    </div>
+
+    <div class="testgroup">
+      <h4>History &amp; Perception of Data Visualization</h4>
+      <ol start="26">
+        <li>What did Minard's 1812/1869 map depict, and why is it significant?</li>
+        <li>What chart type did Florence Nightingale invent, and for what purpose?</li>
+        <li>Who invented the box plot, and in what year?</li>
+        <li>List Bertin's seven visual variables.</li>
+        <li>Name two findings from perceptual research on how people read charts.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>Week 1 · Big Data Analytics foundation guide — tap any concept to expand only what you need.</footer>
+
+</main>
+</div>
+
+<script>
+const contentsToggle=document.getElementById('contentsToggle');
+const contentsPanel=document.getElementById('contentsPanel');
+const nav=document.getElementById('sidenav');
+if(contentsToggle&&contentsPanel&&nav){
+  contentsToggle.addEventListener('click',()=>{
+    const open=nav.classList.toggle('open');
+    contentsToggle.setAttribute('aria-expanded',String(open));
+    contentsPanel.hidden=!open;
+  });
+  contentsPanel.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    nav.classList.remove('open');
+    contentsToggle.setAttribute('aria-expanded','false');
+    contentsPanel.hidden=true;
+  }));
+}
+</script>
+
+</body>
+</html>

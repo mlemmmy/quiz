@@ -5,7 +5,7 @@ export default function Home() {
     <main className="shell">
       <header className="hero">
         <Link href="/" className="hubPill">STUDY HUB</Link>
-        <h1>Discrete Mathematics<br />Quiz Hub</h1>
+        <h1>Study Hub</h1>
         <p>Build your revision course-by-course, topic-by-topic.</p>
       </header>
 
@@ -17,6 +17,15 @@ export default function Home() {
             <small>SCS5102</small>
             <h3>Discrete Mathematics</h3>
             <p>Propositional logic, truth tables, applications and more.</p>
+          </div>
+          <span>→</span>
+        </Link>
+
+        <Link className="card" href="/course/sids5101">
+          <div>
+            <small>SIDS5101</small>
+            <h3>Big Data Analytics</h3>
+            <p>Big Data, analytics types, visualization and Week 1 foundations.</p>
           </div>
           <span>→</span>
         </Link>
