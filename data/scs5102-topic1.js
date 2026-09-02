@@ -1,281 +1,60 @@
 export const questions = [
-  {
-    id: 1,
-    concept: "Proposition",
-    question: "Which statement is a proposition?",
-    options: [
-      "What is your name?",
-      "Close the door.",
-      "10 is greater than 5.",
-      "Please study logic."
-    ],
-    answer: 2,
-    explanation: "A proposition is a declarative sentence that has exactly one truth value: true or false."
-  },
-  {
-    id: 2,
-    concept: "Open sentence",
-    question: "Why is n + 1 = 2 not a proposition when n is unspecified?",
-    options: [
-      "It is too short.",
-      "It is a question.",
-      "Its truth value depends on the value of n.",
-      "It contains a number."
-    ],
-    answer: 2,
-    explanation: "An open sentence contains an unspecified variable, so its truth value is not fixed."
-  },
-  {
-    id: 3,
-    concept: "Negation",
-    question: "If p is true, what is the truth value of ¬p?",
-    options: ["True", "False", "Both true and false", "Cannot be determined"],
-    answer: 1,
-    explanation: "Negation reverses the truth value: true becomes false and false becomes true."
-  },
-  {
-    id: 4,
-    concept: "Conjunction",
-    question: "When is p ∧ q true?",
-    options: [
-      "Only when p is true.",
-      "Only when q is true.",
-      "When both p and q are true.",
-      "When p and q have different truth values."
-    ],
-    answer: 2,
-    explanation: "Conjunction (AND) is true exactly when both propositions are true."
-  },
-  {
-    id: 5,
-    concept: "Disjunction",
-    question: "When is p ∨ q false?",
-    options: [
-      "When both are true.",
-      "When p is true and q is false.",
-      "When p is false and q is true.",
-      "When both are false."
-    ],
-    answer: 3,
-    explanation: "Inclusive OR is false only when both p and q are false."
-  },
-  {
-    id: 6,
-    concept: "XOR",
-    question: "What does p ⊕ q mean?",
-    options: [
-      "Both p and q are true.",
-      "At least one of p and q is true.",
-      "Exactly one of p and q is true.",
-      "Neither p nor q is true."
-    ],
-    answer: 2,
-    explanation: "Exclusive OR is true when exactly one input is true."
-  },
-  {
-    id: 7,
-    concept: "Conditional",
-    question: "When is p → q false?",
-    options: [
-      "p = T, q = T",
-      "p = T, q = F",
-      "p = F, q = T",
-      "p = F, q = F"
-    ],
-    answer: 1,
-    explanation: "A conditional is false only when the hypothesis is true and the conclusion is false."
-  },
-  {
-    id: 8,
-    concept: "Converse",
-    question: "What is the converse of p → q?",
-    options: ["¬p → ¬q", "¬q → ¬p", "q → p", "p ↔ q"],
-    answer: 2,
-    explanation: "The converse is formed by switching the hypothesis and conclusion: q → p."
-  },
-  {
-    id: 9,
-    concept: "Contrapositive",
-    question: "Which is the contrapositive of p → q?",
-    options: ["q → p", "¬p → ¬q", "¬q → ¬p", "p ↔ q"],
-    answer: 2,
-    explanation: "The contrapositive switches the propositions and negates both: ¬q → ¬p."
-  },
-  {
-    id: 10,
-    concept: "Biconditional",
-    question: "When is p ↔ q true?",
-    options: [
-      "Only when both are true.",
-      "Only when both are false.",
-      "When p and q have the same truth value.",
-      "When p and q have different truth values."
-    ],
-    answer: 2,
-    explanation: "A biconditional is true when both propositions have the same truth value."
-  },
-  {
-    id: 11,
-    concept: "Equivalence",
-    question: "Which expression is logically equivalent to p → q?",
-    options: ["p ∧ q", "¬p ∨ q", "p ∨ q", "¬p ∧ q"],
-    answer: 1,
-    explanation: "The conditional p → q is logically equivalent to ¬p ∨ q."
-  },
-  {
-    id: 12,
-    concept: "Equivalence",
-    question: "Which is logically equivalent to p → q?",
-    options: ["q → p", "¬p → ¬q", "¬q → ¬p", "p ↔ q"],
-    answer: 2,
-    explanation: "A conditional is logically equivalent to its contrapositive: p → q ≡ ¬q → ¬p."
-  },
-  {
-    id: 13,
-    concept: "Precedence",
-    question: "Using standard precedence, how should ¬p ∨ q → r be grouped?",
-    options: [
-      "¬(p ∨ (q → r))",
-      "((¬p) ∨ q) → r",
-      "(¬p) ∨ (q → r)",
-      "¬((p ∨ q) → r)"
-    ],
-    answer: 1,
-    explanation: "Negation has higher precedence than AND, OR, XOR, conditional and biconditional."
-  },
-  {
-    id: 14,
-    concept: "Tautology",
-    question: "Which expression is a tautology?",
-    options: ["p ∧ ¬p", "p ∨ ¬p", "p ∧ q", "p ⊕ p"],
-    answer: 1,
-    explanation: "p ∨ ¬p is always true, regardless of p."
-  },
-  {
-    id: 15,
-    concept: "Contradiction",
-    question: "Which expression is a contradiction?",
-    options: ["p ∨ ¬p", "p → q", "p ∧ ¬p", "p ↔ p"],
-    answer: 2,
-    explanation: "p ∧ ¬p can never be true because p cannot be both true and false."
-  },
-  {
-    id: 16,
-    concept: "Contingency",
-    question: "An expression that is true for some assignments and false for others is called a:",
-    options: ["Tautology", "Contradiction", "Contingency", "Biconditional"],
-    answer: 2,
-    explanation: "A contingency has a mixture of true and false values in its truth table."
-  },
-  {
-    id: 17,
-    concept: "Bitwise AND",
-    question: "If A = 1010 and B = 1100, what is A AND B?",
-    options: ["1110", "0110", "1000", "0100"],
-    answer: 2,
-    explanation: "Bitwise AND gives 1 only where both corresponding bits are 1."
-  },
-  {
-    id: 18,
-    concept: "Bitwise OR",
-    question: "If A = 1010 and B = 1100, what is A OR B?",
-    options: ["1000", "1110", "0110", "0010"],
-    answer: 1,
-    explanation: "Bitwise OR gives 1 where at least one corresponding bit is 1."
-  },
-  {
-    id: 19,
-    concept: "Bitwise XOR",
-    question: "If A = 1010 and B = 1100, what is A XOR B?",
-    options: ["1000", "1110", "0110", "0100"],
-    answer: 2,
-    explanation: "Bitwise XOR gives 1 where the corresponding bits are different."
-  },
-  {
-    id: 20,
-    concept: "Bit strings",
-    question: "What is the length of the bit string 101101?",
-    options: ["4", "5", "6", "8"],
-    answer: 2,
-    explanation: "The length of a bit string is the number of bits. 101101 contains six bits."
-  },
-  {
-    id: 21,
-    concept: "Translation",
-    question: "Let p = 'can access the internet', q = 'is a CS student', and r = 'is a first-year'. 'You can access the internet only if you are a CS student and are not a first-year' translates to:",
-    options: [
-      "p ∧ q ∧ ¬r",
-      "p → (q ∧ ¬r)",
-      "(q ∧ ¬r) → p",
-      "p ↔ (q ∧ ¬r)"
-    ],
-    answer: 1,
-    explanation: "'P only if Q' means P → Q. Here the required condition is q ∧ ¬r."
-  },
-  {
-    id: 22,
-    concept: "Translation",
-    question: "Let p = '16 or older', q = 'has 5 O levels', and r = 'can drive'. 'You cannot drive unless you are 16 or older and have 5 O levels' is best represented by:",
-    options: [
-      "(p ∧ q) → r",
-      "r → (p ∧ q)",
-      "r ↔ (p ∧ q)",
-      "¬r → (p ∧ q)"
-    ],
-    answer: 1,
-    explanation: "'R unless P' here means driving requires the conditions p and q, so r → (p ∧ q)."
-  },
-  {
-    id: 23,
-    concept: "Compound propositions",
-    question: "What is a compound proposition?",
-    options: [
-      "A proposition containing only numbers.",
-      "A proposition formed by combining propositions using logical connectives.",
-      "Any sentence with a variable.",
-      "A proposition that is always true."
-    ],
-    answer: 1,
-    explanation: "Compound propositions are constructed from one or more propositions using logical connectives."
-  },
-  {
-    id: 24,
-    concept: "History",
-    question: "Who is strongly associated with the development of graph theory through the Seven Bridges of Königsberg problem?",
-    options: ["George Boole", "Leonhard Euler", "Georg Cantor", "Kurt Gödel"],
-    answer: 1,
-    explanation: "Euler's analysis of the Seven Bridges of Königsberg is a landmark in graph theory."
-  },
-  {
-    id: 25,
-    concept: "History",
-    question: "Who is most closely associated with Boolean algebra?",
-    options: ["Blaise Pascal", "Augustus De Morgan", "George Boole", "Alan Turing"],
-    answer: 2,
-    explanation: "George Boole developed Boolean algebra, which became foundational to logic and digital computing."
-  },
-  {
-    id: 26,
-    concept: "History",
-    question: "Who is strongly associated with set theory and the mathematical study of infinity?",
-    options: ["Georg Cantor", "Euclid", "Bertrand Russell", "Giuseppe Peano"],
-    answer: 0,
-    explanation: "Georg Cantor developed modern set theory and introduced rigorous ways to compare infinite sets."
-  },
-  {
-    id: 27,
-    concept: "History",
-    question: "Who is associated with the incompleteness theorems?",
-    options: ["Alan Turing", "Kurt Gödel", "Leonhard Euler", "Pierre de Fermat"],
-    answer: 1,
-    explanation: "Gödel's incompleteness theorems are central results in mathematical logic and foundations."
-  },
-  {
-    id: 28,
-    concept: "History",
-    question: "Who is strongly associated with formal models of computation and the Turing machine?",
-    options: ["Alan Turing", "George Boole", "Euclid", "Pascal"],
-    answer: 0,
-    explanation: "Alan Turing developed the Turing machine model and made foundational contributions to computability."
-  }
+{id:1,concept:"Propositions",question:"Which is a proposition?",options:["What is your name?", "Close the door.", "10 is greater than 5.", "Please study."],answer:2,explanation:"A proposition is declarative and has one truth value."},
+{id:2,concept:"Propositions",question:"Why is n+1=2 with unspecified n an open sentence?",options:["It is a command.", "Its truth depends on n.", "It is always false.", "It has no symbols."],answer:1,explanation:"Its truth value depends on the variable."},
+{id:3,concept:"Negation",question:"If p is true, \u00acp is:",options:["True", "False", "Both", "Undefined"],answer:1,explanation:"Negation reverses truth."},
+{id:4,concept:"AND",question:"p \u2227 q is true when:",options:["p only is true", "q only is true", "both are true", "both are false"],answer:2,explanation:"AND requires both."},
+{id:5,concept:"OR",question:"p \u2228 q is false when:",options:["both true", "p true only", "q true only", "both false"],answer:3,explanation:"OR is false only when both are false."},
+{id:6,concept:"XOR",question:"p \u2295 q means:",options:["both true", "at least one true", "exactly one true", "neither true"],answer:2,explanation:"XOR means exactly one."},
+{id:7,concept:"Conditional",question:"p \u2192 q is false when:",options:["T,T", "T,F", "F,T", "F,F"],answer:1,explanation:"Only T,F makes a conditional false."},
+{id:8,concept:"Conditional",question:"In p \u2192 q, p is the:",options:["consequent", "antecedent", "biconditional", "inverse"],answer:1,explanation:"p is the hypothesis/antecedent."},
+{id:9,concept:"Converse",question:"Converse of p \u2192 q:",options:["\u00acp\u2192\u00acq", "\u00acq\u2192\u00acp", "q\u2192p", "p\u2194q"],answer:2,explanation:"Switch p and q."},
+{id:10,concept:"Inverse",question:"Inverse of p \u2192 q:",options:["q\u2192p", "\u00acp\u2192\u00acq", "\u00acq\u2192\u00acp", "p\u2194q"],answer:1,explanation:"Negate both without switching."},
+{id:11,concept:"Contrapositive",question:"Contrapositive of p \u2192 q:",options:["q\u2192p", "\u00acp\u2192\u00acq", "\u00acq\u2192\u00acp", "p\u2194q"],answer:2,explanation:"Switch and negate both."},
+{id:12,concept:"Equivalence",question:"p \u2192 q is equivalent to:",options:["p\u2227q", "\u00acp\u2228q", "p\u2228q", "\u00acp\u2227q"],answer:1,explanation:"Conditional equivalence."},
+{id:13,concept:"Biconditional",question:"p \u2194 q is true when:",options:["both true only", "both false only", "same truth value", "different values"],answer:2,explanation:"Biconditional means same truth value."},
+{id:14,concept:"Biconditional",question:"p \u2194 q is equivalent to:",options:["p\u2192q", "(p\u2192q)\u2227(q\u2192p)", "p\u2228q", "p\u2227q"],answer:1,explanation:"Both directions must hold."},
+{id:15,concept:"Precedence",question:"Which has highest precedence?",options:["\u2228", "\u2192", "\u00ac", "\u2194"],answer:2,explanation:"NOT has highest standard precedence."},
+{id:16,concept:"Precedence",question:"\u00acp \u2228 q \u2192 r groups as:",options:["\u00ac(p\u2228q\u2192r)", "((\u00acp)\u2228q)\u2192r", "\u00ac(p\u2228(q\u2192r))", "(\u00acp)\u2228(q\u2192r)"],answer:1,explanation:"NOT, then OR, then conditional."},
+{id:17,concept:"Compound",question:"A compound proposition is:",options:["a number", "propositions combined by connectives", "a command", "always true"],answer:1,explanation:"Connectives form compound propositions."},
+{id:18,concept:"Tautology",question:"Which is a tautology?",options:["p\u2227\u00acp", "p\u2228\u00acp", "p\u2227q", "p\u2295p"],answer:1,explanation:"Always true."},
+{id:19,concept:"Contradiction",question:"Which is a contradiction?",options:["p\u2228\u00acp", "p\u2192q", "p\u2227\u00acp", "p\u2194p"],answer:2,explanation:"Always false."},
+{id:20,concept:"Contingency",question:"True for some assignments and false for others:",options:["tautology", "contradiction", "contingency", "inverse"],answer:2,explanation:"That is the definition of contingency."},
+{id:21,concept:"Truth tables",question:"Rows for 3 variables:",options:["3", "6", "8", "9"],answer:2,explanation:"2^3 = 8."},
+{id:22,concept:"Truth tables",question:"Rows for 4 variables:",options:["8", "12", "16", "20"],answer:2,explanation:"2^4 = 16."},
+{id:23,concept:"Truth values",question:"p=T,q=F: p\u2227q =",options:["T", "F", "Both", "Undefined"],answer:1,explanation:"AND is false."},
+{id:24,concept:"Truth values",question:"p=T,q=F: p\u2228q =",options:["T", "F", "Both", "Undefined"],answer:0,explanation:"OR is true."},
+{id:25,concept:"Truth values",question:"p=T,q=F: p\u2295q =",options:["T", "F", "Both", "Undefined"],answer:0,explanation:"Exactly one is true."},
+{id:26,concept:"Truth values",question:"p=F,q=F: p\u2192q =",options:["T", "F", "Both", "Undefined"],answer:0,explanation:"A conditional with false hypothesis is true."},
+{id:27,concept:"Translation",question:"'If I study, then I pass' =",options:["p\u2227q", "p\u2192q", "q\u2192p", "p\u2194q"],answer:1,explanation:"If p then q is p\u2192q."},
+{id:28,concept:"Translation",question:"'I pass only if I study' =",options:["p\u2192q", "q\u2192p", "p\u2194q", "\u00acp\u2192q"],answer:1,explanation:"P only if Q means P\u2192Q."},
+{id:29,concept:"Translation",question:"'Both p and q' =",options:["p\u2228q", "p\u2227q", "p\u2295q", "p\u2192q"],answer:1,explanation:"Both means AND."},
+{id:30,concept:"Translation",question:"'Either p or q, but not both' =",options:["p\u2228q", "p\u2227q", "p\u2295q", "p\u2194q"],answer:2,explanation:"Exclusive OR means exactly one."},
+{id:31,concept:"Translation",question:"'p if q' means:",options:["p\u2192q", "q\u2192p", "p\u2194q", "\u00acp\u2192q"],answer:1,explanation:"'p if q' means if q then p."},
+{id:32,concept:"Application",question:"Access is granted only if credentials are valid. p=valid, q=access:",options:["p\u2192q", "q\u2192p", "p\u2194q", "p\u2228q"],answer:1,explanation:"Access requires valid credentials."},
+{id:33,concept:"Application",question:"Two-factor login requires password AND OTP. p,password; q,OTP; r,login:",options:["r\u2192(p\u2227q)", "(p\u2227q)\u2192r", "p\u2228q\u2192r", "r\u2192p\u2228q"],answer:0,explanation:"If login is allowed, both credentials are required."},
+{id:34,concept:"Application",question:"A warning appears if battery is low OR temperature is high:",options:["p\u2227q", "p\u2228q", "p\u2295q", "p\u2194q"],answer:1,explanation:"Either condition triggers it."},
+{id:35,concept:"Application",question:"A smart light turns on when motion is detected AND it is dark:",options:["r\u2192(p\u2227q)", "(p\u2227q)\u2192r", "p\u2228q\u2192r", "p\u2295q\u2192r"],answer:1,explanation:"Both conditions trigger the action."},
+{id:36,concept:"Application",question:"A backup runs if the main server fails:",options:["q\u2192p", "p\u2192q", "p\u2194q", "p\u2227q"],answer:1,explanation:"Failure implies backup."},
+{id:37,concept:"Application",question:"Registration is blocked when fees are unpaid:",options:["q\u2192p", "p\u2192q", "p\u2194q", "p\u2228q"],answer:1,explanation:"Unpaid fees imply blocked registration."},
+{id:38,concept:"Application",question:"Cars may move only if the traffic light is green:",options:["green\u2192move", "move\u2192green", "green\u2194move", "\u00acmove\u2192green"],answer:1,explanation:"Moving requires green."},
+{id:39,concept:"Application",question:"An online exam submits when timer reaches zero:",options:["submit\u2192zero", "zero\u2192submit", "zero\u2194submit", "zero\u2227submit"],answer:1,explanation:"Timer condition triggers submission."},
+{id:40,concept:"Application",question:"A bank sends an OTP when a suspicious login occurs:",options:["OTP\u2192suspicious", "suspicious\u2192OTP", "\u2194", "\u2227"],answer:1,explanation:"Suspicious login triggers OTP."},
+{id:41,concept:"Application",question:"A hospital alert activates if oxygen is low OR heart rate is abnormal:",options:["p\u2227q", "p\u2228q", "p\u2295q", "p\u2192q"],answer:1,explanation:"Either condition activates it."},
+{id:42,concept:"Application",question:"A security door opens only with valid ID and PIN:",options:["open\u2192(ID\u2227PIN)", "(ID\u2227PIN)\u2192open", "ID\u2228PIN\u2192open", "open\u2192ID\u2228PIN"],answer:0,explanation:"Opening requires both."},
+{id:43,concept:"Application",question:"A fraud detector flags high amount OR unusual location:",options:["p\u2227q", "p\u2228q", "p\u2295q", "p\u2194q"],answer:1,explanation:"Either trigger is sufficient in this rule."},
+{id:44,concept:"Application",question:"A device is safe when temperature is normal AND battery healthy:",options:["safe\u2192(temp\u2227battery)", "(temp\u2227battery)\u2192safe", "temp\u2228battery\u2192safe", "safe\u2192temp\u2228battery"],answer:1,explanation:"Both conditions imply safe."},
+{id:45,concept:"Application",question:"Why is logic useful in software?",options:["removes all bugs", "represents precise conditions", "replaces testing", "increases speed"],answer:1,explanation:"Logic gives precise decision rules."},
+{id:46,concept:"Application",question:"Why use truth tables in digital systems?",options:["store passwords", "test all logical combinations", "replace code", "increase bandwidth"],answer:1,explanation:"Truth tables systematically evaluate combinations."},
+{id:47,concept:"Bitwise",question:"1010 AND 1100 =",options:["1110", "0110", "1000", "0100"],answer:2,explanation:"Bitwise AND."},
+{id:48,concept:"Bitwise",question:"1010 OR 1100 =",options:["1000", "1110", "0110", "0010"],answer:1,explanation:"Bitwise OR."},
+{id:49,concept:"Bitwise",question:"1010 XOR 1100 =",options:["1000", "1110", "0110", "0100"],answer:2,explanation:"Bitwise XOR."},
+{id:50,concept:"Bitwise",question:"NOT(1010) =",options:["0101", "1010", "1111", "0000"],answer:0,explanation:"NOT flips each bit."},
+{id:51,concept:"Bit strings",question:"Length of 101101:",options:["4", "5", "6", "8"],answer:2,explanation:"There are six bits."},
+{id:52,concept:"Bit strings",question:"A bit string contains:",options:["only 0 and 1", "any decimal digits", "letters only", "negative numbers"],answer:0,explanation:"A bit string is a finite sequence of 0s and 1s."},
+{id:53,concept:"Application",question:"A payment is approved only if funds are sufficient. p=funds, q=approved:",options:["p\u2192q", "q\u2192p", "p\u2194q", "p\u2228q"],answer:1,explanation:"Approval requires sufficient funds."},
+{id:54,concept:"Application",question:"A system blocks entry if an ID is invalid. p=invalid ID, q=blocked:",options:["q\u2192p", "p\u2192q", "p\u2194q", "p\u2295q"],answer:1,explanation:"Invalid ID implies blocked entry."},
+{id:55,concept:"Application",question:"A database returns a result when a search query is valid:",options:["result\u2192valid", "valid\u2192result", "valid\u2194result", "\u00acvalid\u2192result"],answer:1,explanation:"Valid query triggers result."},
+{id:56,concept:"Application",question:"A printer prints only if it is online and has paper:",options:["print\u2192(online\u2227paper)", "(online\u2227paper)\u2192print", "online\u2228paper\u2192print", "print\u2192online\u2228paper"],answer:0,explanation:"Printing requires both."},
+{id:57,concept:"Application",question:"A website shows a maintenance message when the server is offline:",options:["offline\u2192message", "message\u2192offline", "offline\u2194message", "offline\u2227message"],answer:0,explanation:"Offline status triggers message."},
+{id:58,concept:"Application",question:"If an account is locked, login is denied. p=locked, q=denied:",options:["q\u2192p", "p\u2192q", "p\u2194q", "p\u2228q"],answer:1,explanation:"Locked implies denied."}
 ];
