@@ -1,10 +1,16 @@
-# SCS5102 Quiz Hub v2
+# SCS Study Hub — Vercel
 
-- 60 questions
-- History removed
-- Real-life mathematical logic applications added
-- Dedicated Topic 1 Notes section
-- Next.js 14.2.32
-- Fixed relative imports for Vercel
+Shared revision hub for SCS5102 and SCS5103.
 
-Replace your GitHub repository contents with this project and let Vercel redeploy.
+## Routes
+- `/` — Study Hub
+- `/course/scs5102` — Discrete Mathematics
+- `/course/scs5102/topic-1/notes` — SCS5102 Topic 1 Notes
+- `/course/scs5102/topic-1` — SCS5102 Topic 1 Quiz
+- `/course/scs5103` — Pattern Recognition
+- `/scs5103/week1.html` — Complete Pattern Recognition Week 1 content and Foundation Test
+
+## Design
+The Study Hub uses the same light, minimal visual language shown in the supplied Study Hub screenshot: warm off-white background, large black typography, rounded white cards, thin borders, generous whitespace, and simple arrow navigation.
+
+The Pattern Recognition Week 1 document keeps its original learning content, questions, diagrams, flashcards and scripts; only the presentation/navigation layer was rebuilt to match the Study Hub style.
