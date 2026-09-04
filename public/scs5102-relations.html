@@ -1,32 +1,393 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SCS5102 Relations & Rules of Inference</title><style>*{box-sizing:border-box}body{margin:0;background:#f5f5f2;color:#171717;font-family:Inter,system-ui,sans-serif}.wrap{max-width:1100px;margin:auto;padding:24px 20px 70px}nav{display:flex;justify-content:space-between;border-bottom:1px solid #ddd;padding-bottom:16px;color:#666}a{color:inherit;text-decoration:none}.pill{display:inline-block;background:#171717;color:#fff;border-radius:25px;padding:8px 13px;font-size:11px;font-weight:900;letter-spacing:.12em}.hero{padding:52px 0 30px}.hero h1{font-size:clamp(44px,7vw,76px);line-height:.95;letter-spacing:-.06em;margin:28px 0 18px}.hero p{color:#6c6c67;font-size:18px;line-height:1.55;max-width:800px}.layout{display:grid;grid-template-columns:285px 1fr;gap:18px}.panel,.stats,.learn,.question{background:#fff;border:1px solid #deded9;border-radius:20px}.panel{padding:14px;position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto}.panel h3{margin:7px}.gt{font-size:10px;font-weight:900;letter-spacing:.12em;color:#777;margin:16px 7px 7px}.concept{display:block;width:100%;border:1px solid #e0e0db;background:#fafaf8;border-radius:11px;padding:10px;text-align:left;margin:5px 0;font-weight:700;cursor:pointer}.concept.active{background:#171717;color:#fff}.stats{padding:16px 19px;display:flex;gap:18px;align-items:center;margin-bottom:14px}.stats strong{font-size:27px}.stats span{color:#6c6c67}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.controls button{border:1px solid #ddd;background:#fff;border-radius:10px;padding:10px 13px;font-weight:800;cursor:pointer}.learn{padding:20px;margin-bottom:14px}.learn h2{margin-top:0}.learn p{line-height:1.6;color:#5f5f5a}.formula{background:#f2f2ee;border-radius:10px;padding:12px;font-family:ui-monospace,monospace;white-space:pre-wrap}.question{padding:23px}.qtop{font-size:12px;color:#777;font-weight:800;display:flex;justify-content:space-between}.question h2{font-size:21px;line-height:1.45}.option{width:100%;display:flex;gap:12px;align-items:center;text-align:left;border:1px solid #ddd;background:#fff;border-radius:12px;padding:13px;margin:8px 0;cursor:pointer}.option:disabled{cursor:default}.letter{border:1px solid #ddd;border-radius:50%;min-width:29px;height:29px;display:grid;place-items:center;font-weight:900}.correct{background:#e7f4e9!important;border-color:#79a983!important}.wrong{background:#f8e7e7!important;border-color:#c68080!important}.feedback{display:none;padding:14px;border-radius:12px;margin-top:13px;line-height:1.55}.feedback.show{display:block}.good{background:#eef7ef}.bad{background:#fbefef}.next{display:none;background:#171717;color:#fff;border:0;border-radius:11px;padding:13px 16px;font-weight:800;margin-top:12px;cursor:pointer}.next.show{display:inline-block}.empty{text-align:center;padding:48px;background:#fff;border:1px dashed #ccc;border-radius:18px;color:#777}@media(max-width:820px){.layout{grid-template-columns:1fr}.panel{position:static;max-height:none}.hero{padding-top:35px}}
 </style></head><body><div class="wrap"><nav><a href="/">← Study Hub</a><span>SCS5102</span></nav><section class="hero"><span class="pill">INTERACTIVE PRACTICE</span><h1>Relations & Rules of Inference</h1><p>Choose exactly what you want to practise. Each concept has a question bank with immediate correction, explanations, score tracking, and a mixed exam mode.</p></section><div class="layout"><aside class="panel"><h3>Choose a concept</h3><div id="menu"></div></aside><main><div class="stats"><strong id="score">0 / 0</strong><span id="status">Select a concept to begin.</span></div><div class="controls"><button onclick="mixed()">🔥 Mixed Exam</button><button onclick="retry()">↻ Retry</button><button onclick="resetScore()">Reset score</button></div><div id="learn"></div><div id="quiz"></div></main></div></div><script>
 const defs={
-'Relations':[ ['Cartesian Product','A×B is the set of all ordered pairs with first component in A and second in B.','A × B = {(a,b) | a∈A, b∈B}'],['Binary Relations','A binary relation from A to B is a subset of A×B.','R ⊆ A × B'],['Relation from A to B','A relation from A to B selects ordered pairs from A×B; aRb means (a,b)∈R.','aRb ⇔ (a,b)∈R'],['Relation on A','A relation on A is a relation from A to itself.','R ⊆ A × A'],['Domain & Range','The domain contains first components that occur; the range contains second components that occur.','Dom(R)={a | ∃b,(a,b)∈R}; Ran(R)={b | ∃a,(a,b)∈R}']],
-'Relation Properties':[ ['Reflexive','Every element is related to itself.','∀a∈A, (a,a)∈R'],['Irreflexive','No element is related to itself.','∀a∈A, (a,a)∉R'],['Symmetric','Whenever aRb, bRa also holds.','aRb ⇒ bRa'],['Antisymmetric','If aRb and bRa, then a=b.','aRb ∧ bRa ⇒ a=b'],['Transitive','If aRb and bRc, then aRc.','aRb ∧ bRc ⇒ aRc'],['Antitransitive','If aRb and bRc, then aRc must not hold.','aRb ∧ bRc ⇒ ¬aRc'],['Inverse Relations','The inverse reverses every ordered pair in R.','R⁻¹={(b,a)|(a,b)∈R}'],['Composition of Relations','Composition follows a chain through a shared middle element.','S∘R={(a,c)|∃b,(a,b)∈R,(b,c)∈S}'],['Equivalence Relations','An equivalence relation is reflexive, symmetric, and transitive.','R + S + T']],
-'Partial Orders':[ ['Partial Orders','A partial order is reflexive, antisymmetric, and transitive.','R + A + T'],['Total / Linear Orders','A total order is a partial order where every pair is comparable.','Partial order + comparability'],['Strict Partial Orders','A strict partial order is irreflexive and transitive.','I + T'],['Well-Orders','A well-order is a total order where every nonempty subset has a least element.','Total order + least element property']],
-'Rules of Inference':[ ['Modus Ponens','From p and p→q, infer q.','p, p→q ⟹ q'],['Modus Tollens','From p→q and ¬q, infer ¬p.','p→q, ¬q ⟹ ¬p'],['Hypothetical Syllogism','Chain two conditionals.','p→q, q→r ⟹ p→r'],['Disjunctive Syllogism','From p∨q and ¬p, infer q.','p∨q, ¬p ⟹ q'],['Addition','From p, infer p∨q.','p ⟹ p∨q'],['Simplification','From p∧q, infer p or q.','p∧q ⟹ p (or q)'],['Conjunction','From p and q, infer p∧q.','p,q ⟹ p∧q'],['Resolution','Resolve complementary literals in two disjunctions.','p∨q, ¬p∨r ⟹ q∨r'],['Valid vs Invalid Arguments','Valid arguments preserve truth from premises to conclusion; affirming the consequent and denying the antecedent are invalid.','p→q,q ⟹ p  INVALID\np→q,¬p ⟹ ¬q  INVALID']]
+'Relations':[
+ ['Cartesian Product','A×B is the set of all ordered pairs with first component in A and second component in B.','A × B = {(a,b) | a∈A, b∈B}'],
+ ['Binary Relations','A binary relation from A to B is a subset of A×B.','R ⊆ A × B'],
+ ['Relation from A to B','A relation from A to B selects ordered pairs from A×B; aRb means (a,b)∈R.','aRb ⇔ (a,b)∈R'],
+ ['Relation on A','A relation on A is a relation from A to itself.','R ⊆ A × A'],
+ ['Domain & Range','The domain contains first components that occur; the range contains second components that occur.','Dom(R)={a | ∃b,(a,b)∈R}; Ran(R)={b | ∃a,(a,b)∈R}']],
+'Relation Properties':[
+ ['Reflexive','Every element is related to itself.','∀a∈A, (a,a)∈R'],
+ ['Irreflexive','No element is related to itself.','∀a∈A, (a,a)∉R'],
+ ['Symmetric','Whenever aRb, bRa also holds.','aRb ⇒ bRa'],
+ ['Antisymmetric','If aRb and bRa, then a=b.','aRb ∧ bRa ⇒ a=b'],
+ ['Transitive','If aRb and bRc, then aRc.','aRb ∧ bRc ⇒ aRc'],
+ ['Antitransitive','If aRb and bRc, then aRc must not hold.','aRb ∧ bRc ⇒ ¬aRc'],
+ ['Inverse Relations','The inverse reverses every ordered pair in R.','R⁻¹={(b,a)|(a,b)∈R}'],
+ ['Composition of Relations','Composition follows a chain through a shared middle element.','S∘R={(a,c)|∃b,(a,b)∈R,(b,c)∈S}'],
+ ['Equivalence Relations','An equivalence relation is reflexive, symmetric, and transitive.','Reflexive + Symmetric + Transitive']],
+'Partial Orders':[
+ ['Partial Orders','A partial order is reflexive, antisymmetric, and transitive.','Reflexive + Antisymmetric + Transitive'],
+ ['Total / Linear Orders','A total order is a partial order where every pair is comparable.','Partial order + every pair comparable'],
+ ['Strict Partial Orders','A strict partial order is irreflexive and transitive.','Irreflexive + Transitive'],
+ ['Well-Orders','A well-order is a total order where every nonempty subset has a least element.','Total order + least-element property']],
+'Rules of Inference':[
+ ['Modus Ponens','From p and p→q, infer q.','p, p→q ⟹ q'],
+ ['Modus Tollens','From p→q and ¬q, infer ¬p.','p→q, ¬q ⟹ ¬p'],
+ ['Hypothetical Syllogism','Chain two conditionals.','p→q, q→r ⟹ p→r'],
+ ['Disjunctive Syllogism','From p∨q and ¬p, infer q.','p∨q, ¬p ⟹ q'],
+ ['Addition','From p, infer p∨q.','p ⟹ p∨q'],
+ ['Simplification','From p∧q, infer p or q.','p∧q ⟹ p (or q)'],
+ ['Conjunction','From p and q, infer p∧q.','p,q ⟹ p∧q'],
+ ['Resolution','From p∨q and ¬p∨r, infer q∨r.','p∨q, ¬p∨r ⟹ q∨r'],
+ ['Valid vs Invalid Arguments','Valid arguments preserve truth from premises to conclusion; affirming the consequent and denying the antecedent are invalid.','p→q,q ⟹ p  INVALID\np→q,¬p ⟹ ¬q  INVALID']]
 };
-const all=[];Object.entries(defs).forEach(([group,items])=>items.forEach(([name,desc,formula])=>{for(let i=0;i<10;i++)all.push(makeQ(group,name,desc,formula,i))}));
-function makeQ(group,name,desc,formula,i){const qs=[
-[`Which statement best defines ${name}?`,[desc,formula,'It is always symmetric.','It applies only to functions.'],0,desc],
-[`Which formula is associated with ${name}?`,[formula,'A×B=∅','p↔q','R=A∪B'],0,formula],
-[`In an exam, the safest first step for ${name} is to use its defining condition. Which is the defining idea?`,[desc,'Ignore the relation pairs','Assume every relation is a function','Check only the set size'],0,desc],
-[`Which option is NOT the defining condition of ${name}?`,['The defining condition shown in the notes',formula,'A random unrelated condition','The formal definition'],2,'The unrelated condition is not part of the definition.'],
-[`True or false: the formula shown for ${name} identifies its formal condition.`,['True','False','Only sometimes','Only for finite sets'],0,`The formal condition is ${formula}.`],
-[`If a question asks you to recognise ${name}, what should you compare first?`,['The relation against its defining properties','The colour of the diagram','The number of letters in R','Nothing'],0,`Compare the given relation with: ${formula}.`],
-[`Which mathematical symbol/pattern appears in the definition of ${name}?`,[formula,'A−B','A∩B only','x+y=z'],0,formula],
-[`A student says “${name} has a different definition for every set.” Is that correct?`,['No—the defining rule stays the same','Yes','Only for infinite sets','Only for numbers'],0,`The definition is fixed; the relation/set changes.`],
-[`Which description would help you identify ${name} quickly?`,[desc,'Every pair must be present','No ordered pairs are allowed','It is automatically a function'],0,desc],
-[`Exam check: if the given relation satisfies ${name}'s defining rule, what can you say?`,['It has the property','It must be an empty relation','It cannot be a relation','It must be symmetric'],0,`It satisfies the defining condition for ${name}.`]
-];return {...qs[i],group,name}}
+
+const all=[];
+const Q=(concept,question,options,answer,explanation)=>({name:concept,0:question,1:options,2:answer,3:explanation});
+const qs={};
+function add(c,arr){qs[c]=arr.map(x=>Q(c,...x));}
+
+add('Cartesian Product',[
+ ['Let A={1,2} and B={a,b}. Which is A×B?',['{(1,a),(1,b),(2,a),(2,b)}','{(a,1),(b,1),(a,2),(b,2)}','{1,2,a,b}','{(1,2),(a,b)}'],0,'The first component must come from A and the second from B.'],
+ ['If |A|=3 and |B|=4, what is |A×B|?',['7','12','16','81'],1,'For finite sets, |A×B|=|A||B|=3×4=12.'],
+ ['Let A={0,1} and B={2,3}. Which ordered pair belongs to A×B?',['(2,1)','(1,3)','(3,0)','(2,0)'],1,'The first entry must be in A and the second in B.'],
+ ['If A={x,y} and B={1,2,3}, how many ordered pairs are in A×B?',['5','6','8','9'],1,'There are 2 choices for the first component and 3 for the second: 2×3=6.'],
+ ['Which ordered pair is NOT in A×B when A={1,2} and B={3,4}?',['(1,3)','(2,4)','(2,3)','(3,1)'],3,'(3,1) has first component 3, which is not in A.'],
+ ['If (a,b)∈A×B, what must be true?',['a∈B and b∈A','a∈A and b∈B','a=b','a,b∈A∩B'],1,'This is exactly how the Cartesian product is defined.'],
+ ['Let A={1,2,3} and B={2}. Which is A×B?',['{(2,1),(2,2),(2,3)}','{(1,2),(2,2),(3,2)}','{(1,2),(2,3)}','{(1,1),(2,2),(3,3)}'],1,'Each element of A is paired with the only element of B.'],
+ ['If A is empty and B={1,2}, what is A×B?',['∅','{(∅,1),(∅,2)}','{1,2}','A'],0,'There is no first component available from A, so no ordered pairs can be formed.'],
+ ['Let A={1} and B={2,3}. Which statement is true?',['A×B has 1 pair','A×B has 2 pairs','A×B has 3 pairs','A×B is empty'],1,'The pairs are (1,2) and (1,3).'],
+ ['If (5,7)∈A×B and A={1,5,9}, which must be true?',['7∈A','5∈A','5∈B','7=5'],1,'Membership in A×B forces the first component into A.']
+]);
+add('Binary Relations',[
+ ['Let A={1,2} and B={a,b}. Which set is a relation from A to B?',['{(1,a),(2,b)}','{(a,1)}','{(1,3)}','{(a,b)}'],0,'A relation from A to B must be a subset of A×B.'],
+ ['If A={1,2,3}, which set can be a relation on A?',['{(1,2),(2,3)}','{(1,4)}','{(a,1)}','{(4,4)}'],0,'A relation on A is a subset of A×A.'],
+ ['If R={(1,a),(2,b)} from A to B, which statement is true?',['1Ra','aR1','(a,2)∈R','(1,2)∈R'],0,'The notation 1Ra means (1,a)∈R.'],
+ ['If (2,5)∈R, then which statement is equivalent?',['2R5','5R2','2=5','R={2,5}'],0,'By definition, aRb iff (a,b)∈R.'],
+ ['Which set is NOT a relation from A={1,2} to B={3,4}?',['∅','{(1,3)}','{(1,4),(2,3)}','{(3,1)}'],3,'(3,1) is not in A×B because 3∉A and 1∉B.'],
+ ['If R⊆A×B, what does that tell you about R?',['R is a relation from A to B','R must be a function','R must be symmetric','R must be transitive'],0,'Any subset of A×B is a relation from A to B.'],
+ ['Can a relation from A to B contain every pair in A×B?',['Yes','No','Only if A=B','Only if A is empty'],0,'A relation is any subset, including the whole Cartesian product.'],
+ ['Can the empty set be a relation from A to B?',['Yes','No','Only when A=B','Only when B is empty'],0,'∅ is a subset of every set, so ∅⊆A×B.'],
+ ['If R={(1,2),(2,3)} on A={1,2,3}, which statement is true?',['1R2 and 2R3','2R1 and 3R2','1R3','3R1'],0,'The ordered pairs listed are exactly the related pairs.'],
+ ['A relation from A to B is formed by selecting pairs from which set?',['A∪B','A×B','A∩B','B×B'],1,'Relations are subsets of the Cartesian product.']
+]);
+add('Relation from A to B',[
+ ['If R={(1,a),(2,b)} and (1,a)∈R, which notation is correct?',['1Ra','aR1','R1a','1=Ra'],0,'aRb is shorthand for (a,b)∈R.'],
+ ['If 2R5, what ordered pair must be in R?',['(5,2)','(2,5)','(2,2)','(5,5)'],1,'2R5 means (2,5)∈R.'],
+ ['Let A={1,2}, B={3,4}, R={(1,3)}. Is 1R3 true?',['Yes','No','Only if 3R1','Cannot tell'],0,'(1,3) is explicitly in R.'],
+ ['For R={(1,3),(2,4)}, which statement is false?',['1R3','2R4','3R1','(2,4)∈R'],2,'(3,1) is not listed, so 3R1 is not true.'],
+ ['If aRb is false, what does that mean?',['(a,b)∈R','(a,b)∉R','a=b','R=∅'],1,'The notation aRb is defined by membership of (a,b) in R.'],
+ ['Let R={(x,1),(y,2)} from A={x,y} to B={1,2}. Which is true?',['xR1','1Rx','yR1','2Ry'],0,'(x,1) is in R, so xR1.'],
+ ['If R⊆A×B and (a,b)∈R, which must hold?',['a∈A and b∈B','a∈B and b∈A','a=b','a,b∉A∪B'],0,'Because R is a subset of A×B.'],
+ ['If (2,7)∉R, which statement is true?',['2R7','7R2','2 is not related to 7 by R','R is empty'],2,'Not being in R means the relation does not relate 2 to 7.'],
+ ['Which expression means exactly the same as aRb?',['(a,b)∈R','(b,a)∈R','a∈R','b∈R'],0,'This is the standard notation for relation membership.'],
+ ['If R={(1,1),(1,2),(2,2)}, which statement is true?',['1R2','2R1','2R1 and 1R2','3R3'],0,'Only (1,2) among those choices is in R.']
+]);
+add('Relation on A',[
+ ['Let A={1,2,3}. Which set is a relation on A?',['{(1,2),(2,3)}','{(1,4)}','{(a,1)}','{(4,4)}'],0,'Every ordered pair must have both components in A.'],
+ ['For a relation on A, where do both components of every pair come from?',['A','A×B','B','The real numbers only'],0,'R⊆A×A.'],
+ ['If A={1,2}, which set is a relation on A?',['{(1,2),(2,1)}','{(1,3)}','{(3,1)}','{(a,b)}'],0,'Both 1 and 2 belong to A.'],
+ ['If R is a relation on A={a,b,c}, which pair cannot occur in R?',['(a,b)','(c,a)','(b,b)','(a,d)'],3,'d is not an element of A.'],
+ ['If R⊆A×A, what kind of relation is R?',['A relation on A','A relation from B to A','A function only','An empty set necessarily'],0,'That is the definition of a relation on A.'],
+ ['Can a relation on A contain (a,a)?',['Yes','No','Only if A is empty','Only if a∉A'],0,'Self-pairs are allowed; whether they occur determines properties such as reflexivity.'],
+ ['For A={1,2,3}, how many possible ordered pairs are in A×A?',['3','6','9','12'],2,'There are 3×3=9 possible pairs.'],
+ ['If R={(1,2),(2,3)} on A={1,2,3}, which pair is in A×A but not R?',['(1,2)','(2,3)','(3,1)','Both first two'],2,'(3,1) is possible in A×A but is not selected into R.'],
+ ['If R is a relation on A, can R relate an element of A to an element outside A?',['No','Yes, always','Only if symmetric','Only if transitive'],0,'All pairs in R must lie in A×A.'],
+ ['Which statement distinguishes a relation on A from a relation from A to B?',['A relation on A has both components from A','A relation on A must be reflexive','A relation on A must be symmetric','A relation on A must be transitive'],0,'The defining difference is R⊆A×A.']
+]);
+add('Domain & Range',[
+ ['Let R={(1,a),(2,b),(3,b)}. What is Dom(R)?',['{1,2,3}','{a,b}','{1,2}','{1,2,3,a,b}'],0,'The domain contains first components appearing in R.'],
+ ['For R={(1,a),(2,b),(3,b)}, what is Ran(R)?',['{1,2,3}','{a,b}','{a,b,b}','{1,2,3,a,b}'],1,'The range contains distinct second components appearing in R.'],
+ ['If R={(2,5),(4,7)}, which element is in the domain?',['5','7','2','9'],2,'2 is a first component.'],
+ ['If R={(2,5),(4,7)}, which element is in the range?',['2','4','5','6'],2,'5 is a second component.'],
+ ['Let R={(1,4),(2,4),(3,5)}. What is the range?',['{1,2,3}','{4,5}','{1,2,3,4,5}','{4,4,5}'],1,'Range is the set of distinct second components.'],
+ ['If Dom(R)={1,2,3} and Ran(R)={4,5}, which pair could belong to R?',['(4,1)','(2,5)','(5,3)','(4,2)'],1,'A first component must be in the domain and second in the range.'],
+ ['If R=∅, what are its domain and range?',['Both are empty','Both contain 0','Domain={0}, range=∅','Domain=∅, range={0}'],0,'No ordered pairs means no first or second components occur.'],
+ ['For R={(a,1),(a,2),(b,2)}, which is true?',['Dom(R)={1,2}','Dom(R)={a,b}','Ran(R)={a,b}','Ran(R)={a,b,1,2}'],1,'The first components are a and b.'],
+ ['A relation contains (x,y). Which statement follows immediately?',['x is in the domain and y is in the range','y is in the domain and x is in the range','x=y','The relation is symmetric'],0,'Every first component contributes to the domain and every second component to the range.'],
+ ['If Dom(R)={1,2} but 3 is not in the domain, which cannot be in R?',['(1,4)','(2,5)','(3,6)','(2,7)'],2,'If (3,6) were in R, 3 would be in the domain.']
+]);
+
+const relationExamples={
+'Reflexive':[
+ ['R={(1,1),(2,2),(3,3)} on {1,2,3}. Is R reflexive?',['Yes','No','Only symmetric','Cannot tell'],0,'All three self-pairs are present.'],
+ ['R={(1,1),(1,2),(2,1)} on {1,2}. Is R reflexive?',['Yes','No','Only if transitive','Only if symmetric'],1,'(2,2) is missing.'],
+ ['Which relation on {1,2,3} is reflexive?',['{(1,1),(2,2),(3,3)}','{(1,2),(2,3)}','{(1,1),(2,2)}','∅'],0,'Every element must be related to itself.'],
+ ['If R is reflexive on A and 4∈A, what must be in R?',['(4,4)','(4,5)','(5,4)','Nothing'],0,'Reflexivity requires (a,a) for every a∈A.'],
+ ['R={(1,1),(2,2),(3,3),(1,2)}. Which property is guaranteed by these pairs?',['Reflexive on {1,2,3}','Irreflexive','No self-pairs','Not a relation'],0,'All diagonal pairs are present.'],
+ ['A relation on {a,b,c} omits (c,c). Can it be reflexive?',['No','Yes','Only if symmetric','Only if transitive'],0,'Reflexivity requires every self-pair, including (c,c).'],
+ ['Which test checks reflexivity?',['Check every (a,a)','Check every reverse pair','Check every three-step chain','Check whether a=b for reverse pairs'],0,'Reflexivity is exactly the self-pair condition.'],
+ ['If R is reflexive on a set with 5 elements, at least how many ordered pairs must R contain?',['0','1','5','10'],2,'One self-pair for each of the 5 elements is required.'],
+ ['Is ≤ on the integers reflexive?',['Yes','No','Only for positive integers','Only for 0'],0,'For every integer a, a≤a.'],
+ ['Is < on the integers reflexive?',['Yes','No','Only for positive integers','Only for 0'],1,'No integer satisfies a<a, so < is irreflexive rather than reflexive.']
+],
+'Irreflexive':[
+ ['R={(1,2),(2,3)} on {1,2,3}. Is R irreflexive?',['Yes','No','Only symmetric','Cannot tell'],0,'No pair of the form (a,a) occurs.'],
+ ['R={(1,1),(1,2)} on {1,2}. Is R irreflexive?',['Yes','No','Only transitive','Only symmetric'],1,'(1,1) is a self-pair.'],
+ ['Which relation on {1,2,3} is irreflexive?',['{(1,2),(2,3)}','{(1,1),(2,3)}','{(2,2)}','{(1,1),(2,2),(3,3)}'],0,'No self-pair appears.'],
+ ['If R is irreflexive and 4∈A, what must be true?',['(4,4)∉R','(4,4)∈R','(4,5)∉R','4∉A'],0,'Irreflexivity forbids every self-pair.'],
+ ['Is < on the integers irreflexive?',['Yes','No','Only for positive integers','Only for 0'],0,'a<a is false for every integer.'],
+ ['Is ≤ on the integers irreflexive?',['Yes','No','Only for positive integers','Only for 0'],1,'a≤a is true, so ≤ is not irreflexive.'],
+ ['What is the key test for irreflexivity?',['No (a,a) may occur','Every (a,b) needs (b,a)','Every chain must continue','Every pair must occur'],0,'Irreflexive means no element is related to itself.'],
+ ['Can an irreflexive relation contain (1,2)?',['Yes','No','Only if symmetric','Only if transitive'],0,'Irreflexivity restricts self-pairs, not all non-self pairs.'],
+ ['A relation on {1,2,3} has no diagonal pairs. What property does that establish?',['Irreflexive','Reflexive','Antisymmetric only','Equivalence'],0,'No (a,a) pairs means irreflexive.'],
+ ['If an element a has (a,a)∈R, which property definitely fails?',['Irreflexivity','Symmetry','Transitivity','Antisymmetry'],0,'One self-pair is enough to violate irreflexivity.']
+],
+'Symmetric':[
+ ['R={(1,2),(2,1),(1,1)}. Is R symmetric?',['Yes','No','Only transitive','Only reflexive'],0,'Every listed pair has its reverse.'],
+ ['R={(1,2),(2,3)}. Is R symmetric?',['Yes','No','Only reflexive','Cannot tell'],1,'(2,1) is missing for (1,2).'],
+ ['If 3R5 in a symmetric relation, what must also hold?',['5R3','3R3','5R5','3∉R'],0,'Symmetry requires reversing every relation pair.'],
+ ['Which relation is symmetric?',['{(1,2),(2,1)}','{(1,2)}','{(1,2),(2,3)}','{(1,3),(2,3)}'],0,'The reverse of every pair is present.'],
+ ['Is equality (=) on numbers symmetric?',['Yes','No','Only for positive numbers','Only for integers'],0,'If a=b, then b=a.'],
+ ['Is ≤ on integers symmetric?',['Yes','No','Only when a=b','Always'],1,'For example, 2≤3 but 3≤2 is false.'],
+ ['What is the direct test for symmetry?',['aRb ⇒ bRa','aRb ⇒ aRc','aRa for all a','aRb and bRa ⇒ a=b'],0,'That is the definition of symmetry.'],
+ ['If R contains (a,b) but not (b,a), what property fails?',['Symmetry','Reflexivity','Transitivity','Irreflexivity'],0,'A missing reverse pair violates symmetry.'],
+ ['Can a symmetric relation contain (a,a)?',['Yes','No','Only if transitive','Only if irreflexive'],0,'The reverse of (a,a) is itself, so it causes no problem.'],
+ ['R={(1,1),(2,2),(1,2),(2,1)}. Which is true?',['R is symmetric','R is not symmetric','R is irreflexive','R cannot be a relation'],0,'Both directions are present for the non-diagonal pair.']
+],
+'Antisymmetric':[
+ ['R={(1,1),(2,2),(1,2)}. Is R antisymmetric?',['Yes','No','Only symmetric','Cannot tell'],0,'There is no pair of distinct elements related in both directions.'],
+ ['R={(1,2),(2,1)} on {1,2}. Is R antisymmetric?',['Yes','No','Only reflexive','Only transitive'],1,'Both directions occur but 1≠2, violating antisymmetry.'],
+ ['If aRb and bRa in an antisymmetric relation, what follows?',['a=b','a≠b','aRb is false','bRa is false'],0,'Antisymmetry allows both directions only when the elements are equal.'],
+ ['Which familiar relation is antisymmetric?',['≤ on integers','≠ on integers','“is a sibling of”','< as a relation with both directions'],0,'If a≤b and b≤a, then a=b.'],
+ ['Does antisymmetric mean “never both directions”?',['No','Yes','Only for finite sets','Only for integers'],0,'Both directions are allowed when a=b.'],
+ ['Which relation is NOT antisymmetric?',['{(1,2),(2,1)}','{(1,1),(2,2)}','≤','divides on positive integers'],0,'The first relation relates distinct elements both ways.'],
+ ['For antisymmetry, what must happen if 2R5 and 5R2?',['It cannot happen because 2≠5','It proves 2=5','It proves reflexivity','Nothing'],0,'Antisymmetry forbids two-way relations between distinct elements.'],
+ ['Can (3,3) occur in an antisymmetric relation?',['Yes','No','Only if irreflexive','Only if symmetric'],0,'Self-pairs do not violate antisymmetry.'],
+ ['Is equality symmetric and antisymmetric?',['Yes','No','Only symmetric','Only antisymmetric'],0,'Equality satisfies both properties.'],
+ ['R={(1,1),(2,2),(1,2),(2,1)}. Is R antisymmetric?',['Yes','No','Only if transitive','Only if reflexive'],1,'The distinct elements 1 and 2 are related in both directions.']
+],
+'Transitive':[
+ ['R={(1,2),(2,3),(1,3)}. Is R transitive?',['Yes','No','Only symmetric','Only reflexive'],0,'The required pair (1,3) is present.'],
+ ['R={(1,2),(2,3)}. Is R transitive?',['Yes','No','Only if symmetric','Cannot tell'],1,'Transitivity would require (1,3), which is missing.'],
+ ['If aRb and bRc in a transitive relation, what must hold?',['aRc','cRa','a=b','aRc must be false'],0,'That is the defining implication.'],
+ ['Which relation is transitive on the integers?',['≤','“is not equal to”','“is a sibling of”','“differs by exactly 1”'],0,'If a≤b and b≤c, then a≤c.'],
+ ['Is equality transitive?',['Yes','No','Only for positive numbers','Only for distinct numbers'],0,'If a=b and b=c, then a=c.'],
+ ['R={(1,1),(1,2),(2,2)}. Is R transitive?',['Yes','No','Only antisymmetric','Only irreflexive'],0,'All chains among the listed pairs lead to pairs already in R.'],
+ ['If aRb and bRc but (a,c) is missing, what property fails?',['Transitivity','Reflexivity','Symmetry','Antisymmetry'],0,'The required shortcut pair is absent.'],
+ ['For R={(1,2),(2,1)}, which additional pair would be required for transitivity from 1R2 and 2R1?',['(1,1)','(2,2)','Both (1,1) and (2,2)','(1,2) only'],2,'Both chains require their corresponding self-pairs.'],
+ ['Is < on integers transitive?',['Yes','No','Only for positive integers','Only for 0'],0,'If a<b and b<c, then a<c.'],
+ ['Which relation on {1,2,3} is transitive?',['{(1,2),(2,3),(1,3)}','{(1,2),(2,3)}','{(1,2),(3,2)}','{(1,2),(2,1)}'],0,'The required pair for the 1→2→3 chain is present.']
+],
+'Antitransitive':[
+ ['If aRb and bRc in an antitransitive relation, what must be true?',['aRc is false','aRc is true','a=b','b=c'],0,'Antitransitivity forbids the shortcut aRc.'],
+ ['R={(1,2),(2,3)}. Is R antitransitive?',['Yes','No','Only reflexive','Cannot tell'],0,'The chain exists but (1,3) is absent.'],
+ ['R={(1,2),(2,3),(1,3)}. Is R antitransitive?',['Yes','No','Only symmetric','Only antisymmetric'],1,'The chain 1R2 and 2R3 has the shortcut 1R3, so antitransitivity fails.'],
+ ['Which statement describes antitransitivity?',['aRb∧bRc ⇒ ¬aRc','aRb∧bRc ⇒ aRc','aRb ⇒ bRa','aRb∧bRa ⇒ a=b'],0,'This is the defining condition.'],
+ ['For R={< on integers}, is R antitransitive?',['No','Yes','Only for positive integers','Only for 0'],0,'If 1<2 and 2<3, then 1<3, so the shortcut exists.'],
+ ['For R={(1,2),(2,3)}, what would make R fail to be antitransitive?',['Adding (1,3)','Adding (3,1)','Adding (2,1)','Adding (3,2)'],0,'The forbidden shortcut would then be present.'],
+ ['Can an antitransitive relation contain a pair (a,a)?',['It can, unless aRa creates a forbidden chain','Never, by definition','Only if symmetric','Always'],0,'Antitransitivity is about chains; a self-pair is not automatically forbidden.'],
+ ['If R has 1R2 and 2R4 but not 1R4, what property does this example satisfy?',['The required local condition for antitransitivity','Reflexivity','Symmetry','Biconditionality'],0,'The chain has no shortcut 1R4.'],
+ ['What is the main contrast between transitive and antitransitive?',['Transitive requires aRc; antitransitive forbids aRc when aRb and bRc hold','They are identical','Both require symmetry','Both require reflexivity'],0,'They impose opposite requirements on the shortcut in a chain.'],
+ ['If aRb and bRc and also aRc, which property is impossible for R?',['Antitransitivity','Reflexivity','Symmetry','Antisymmetry'],0,'Antitransitivity requires ¬aRc in this situation.']
+],
+'Inverse Relations':[
+ ['If R={(1,2),(2,3)}, what is R⁻¹?',['{(2,1),(3,2)}','{(1,2),(2,3)}','{(3,2),(2,1),(1,3)}','{(1,3)}'],0,'The inverse reverses every ordered pair.'],
+ ['If (a,b)∈R, which pair is in R⁻¹?',['(b,a)','(a,b)','(a,a)','(b,b)'],0,'R⁻¹={(b,a)|(a,b)∈R}.'],
+ ['If 3R5, what does the inverse relation contain?',['5R3','3R5','3R3','5R5'],0,'Reversing the pair gives 5R3.'],
+ ['If R={(1,1),(1,2)}, what is R⁻¹?',['{(1,1),(2,1)}','{(1,1),(1,2)}','{(2,1),(2,1)}','∅'],0,'(1,1) stays the same; (1,2) becomes (2,1).'],
+ ['What is (R⁻¹)⁻¹?',['R','∅','R∪R⁻¹','A×A'],0,'Reversing every pair twice returns the original relation.'],
+ ['If R is symmetric, how are R and R⁻¹ related?',['R=R⁻¹','R⊂R⁻¹ always','R∩R⁻¹=∅','R has no pairs'],0,'Symmetry means every pair already has its reverse.'],
+ ['If R={(a,b),(c,d)}, which pair belongs to R⁻¹?',['(b,a)','(a,b)','(c,a)','(b,d)'],0,'Each pair is reversed.'],
+ ['The inverse of a relation from A to B is a relation from…',['B to A','A to B','A to A only','B to B only'],0,'Reversing the ordered pairs swaps the source and target sets.'],
+ ['If R={(1,2),(2,1)}, what is R⁻¹?',['R','∅','{(1,1),(2,2)}','{(2,2)}'],0,'R is symmetric, so it equals its inverse.'],
+ ['Which operation produces R⁻¹?',['Reverse the order of every ordered pair','Remove all pairs','Add every possible pair','Swap the sets but keep pairs unchanged'],0,'The inverse is obtained by reversing each ordered pair.']
+],
+'Composition of Relations':[
+ ['Let R={(1,2),(2,3)} and S={(2,4),(3,5)}. Which pair is in S∘R?',['(1,4)','(1,5)','(2,4)','(3,5)'],0,'1R2 and 2S4, so 1(S∘R)4.'],
+ ['If aRb and bSc, what pair is produced by S∘R?',['(a,c)','(c,a)','(a,b)','(b,c)'],0,'Composition follows the chain through the shared middle element b.'],
+ ['R={(1,2)} and S={(2,3)}. What is S∘R?',['{(1,3)}','{(2,1)}','{(2,3)}','∅'],0,'The middle value 2 matches, producing (1,3).'],
+ ['R={(1,2),(2,4)} and S={(2,5),(4,6)}. Which pair is in S∘R?',['(2,6)','(1,5)','(1,6)','(4,2)'],0,'2R4 and 4S6, so (2,6) is in S∘R.'],
+ ['Using R={(1,2),(2,4)} and S={(2,5),(4,6)}, which pair is also in S∘R?',['(1,5)','(5,1)','(4,6)','(2,4)'],0,'1R2 and 2S5, so (1,5) is in the composition.'],
+ ['If no second relation starts with a value that appears as a second component of R, what is the composition?',['∅','A×C','R','S'],0,'Without a matching middle element, no chain can be completed.'],
+ ['If R={(a,b)} and S={(b,c)}, which relation contains (a,c)?',['S∘R','R∘S','R⁻¹','S⁻¹'],0,'The composition first follows R, then S.'],
+ ['For S∘R, which component is shared in the middle?',['The second component of R and first of S','First of R and second of S','Both first components','Both second components'],0,'That matching middle component connects the two relations.'],
+ ['If R is a relation from A to B and S from B to C, S∘R is a relation from…',['A to C','B to B','C to A','A to B'],0,'The composition maps through B from A to C.'],
+ ['R={(1,2)} and S={(3,4)}. What is S∘R?',['∅','{(1,4)}','{(2,3)}','{(3,2)}'],0,'There is no matching middle element: 2≠3.']
+],
+'Equivalence Relations':[
+ ['A relation is an equivalence relation if it is…',['Reflexive, symmetric, and transitive','Reflexive, antisymmetric, and transitive','Irreflexive and transitive','Symmetric only'],0,'These three properties define equivalence relations.'],
+ ['Equality (=) on integers is an equivalence relation?',['Yes','No','Only symmetric','Only transitive'],0,'Equality is reflexive, symmetric, and transitive.'],
+ ['R={(1,1),(2,2),(3,3),(1,2),(2,1)} on {1,2,3}. Is R an equivalence relation?',['Yes','No, it is not reflexive','No, it is not symmetric','No, it is not transitive'],0,'All self-pairs are present; 1 and 2 are related both ways; the needed chains remain inside R.'],
+ ['If R is an equivalence relation and 2R5, what must also be true?',['5R2','2R2','5R5','All of these'],3,'Symmetry gives 5R2; reflexivity gives 2R2 and 5R5.'],
+ ['If R is reflexive and symmetric but not transitive, can it be an equivalence relation?',['No','Yes','Only on finite sets','Only on integers'],0,'All three properties are required.'],
+ ['Which property is NOT required for an equivalence relation?',['Antisymmetry','Reflexivity','Symmetry','Transitivity'],0,'Antisymmetry is not part of the definition.'],
+ ['If aRb in an equivalence relation, which pair must also be present?',['(b,a)','(a,c) for every c','(a,b) only if a=b','None'],0,'Symmetry requires the reverse pair.'],
+ ['If aRb and bRc in an equivalence relation, what follows?',['aRc','cRa only','a=b','aRc is forbidden'],0,'Transitivity supplies the shortcut relation.'],
+ ['Why is an equivalence relation useful for grouping elements?',['It identifies elements that behave as equivalent under the relation','It forces all elements to be different','It orders every pair','It removes all pairs'],0,'Equivalence relations partition a set into groups of related elements.'],
+ ['Modulo equality “a≡b (mod 3)” is an equivalence relation because it is…',['Reflexive, symmetric, and transitive','Only antisymmetric','Only irreflexive','Not a relation'],0,'Congruence modulo 3 has all three required properties.']
+]
+};
+Object.entries(relationExamples).forEach(([c,a])=>add(c,a));
+
+add('Partial Orders',[]);
+add('Partial Orders',[]); // placeholder replaced below
+add('Total / Linear Orders',[]);
+add('Strict Partial Orders',[]);
+add('Well-Orders',[]);
+
+// The four order concepts use concrete number-set examples.
+add('Partial Orders',[
+ ['Which relation is a partial order on {1,2,3}?',['≤','< only','≠','“is different from”'],0,'≤ is reflexive, antisymmetric, and transitive.'],
+ ['Why is ≤ antisymmetric?',['If a≤b and b≤a, then a=b','If a≤b then b≤a','No element satisfies a≤a','Every pair is incomparable'],0,'Both inequalities can hold only when the two numbers are equal.'],
+ ['Which property fails for < if we try to use it as a reflexive partial order?',['Reflexivity','Antisymmetry','Transitivity','None'],0,'No number satisfies a<a, so < is not reflexive.'],
+ ['Is divisibility on positive integers a partial order?',['Yes','No, because it is not transitive','No, because it is not antisymmetric','No, because it is not reflexive'],0,'Divisibility is reflexive, antisymmetric, and transitive on positive integers.'],
+ ['For the relation “a divides b” on {1,2,3,6}, which pair is required by reflexivity?',['(2,2)','(2,3)','(3,2)','(6,2)'],0,'Every element divides itself.'],
+ ['If aRb and bRa under a partial order, what can you conclude?',['a=b','a≠b','R is symmetric','R is empty'],0,'Antisymmetry gives equality.'],
+ ['A relation is reflexive and transitive but has 1R2 and 2R1 with 1≠2. Is it a partial order?',['No','Yes','Only a total order','Only a well-order'],0,'Antisymmetry fails.'],
+ ['Which three properties define a partial order?',['Reflexive, antisymmetric, transitive','Reflexive, symmetric, transitive','Irreflexive, symmetric, transitive','Symmetric, antisymmetric, irreflexive'],0,'That is the definition of a partial order.'],
+ ['Is equality (=) on any set a partial order?',['Yes','No','Only on integers','Only on finite sets'],0,'Equality is reflexive, antisymmetric, and transitive.'],
+ ['If R is a partial order on A, what must every element a∈A satisfy?',['aRa','a is related to every different element','aRa is false','a has no related elements'],0,'Reflexivity requires aRa for every a.']
+]);
+add('Total / Linear Orders',[
+ ['Which relation is a total order on the integers?',['≤','divisibility','“has the same parity as”','≠'],0,'Every pair of integers is comparable under ≤.'],
+ ['What extra condition turns a partial order into a total order?',['Every pair of elements is comparable','Every pair is related both ways','No self-pairs exist','The relation becomes symmetric'],0,'Totality requires a≤b or b≤a for every pair.'],
+ ['Are 2 and 5 comparable under ≤?',['Yes, because 2≤5','No','Only if equal','Only in a finite set'],0,'For a total order, one direction must hold; here 2≤5.'],
+ ['Are 5 and 2 comparable under ≤?',['Yes, because 2≤5','No','Only if 5≤2','Only if the set is empty'],0,'Comparability is about either x≤y or y≤x.'],
+ ['Is divisibility on positive integers a total order?',['No','Yes','Only on {1,2}','Only on primes'],0,'For example, 2 and 3 divide neither each other, so they are incomparable.'],
+ ['A partial order has elements a and b with neither aRb nor bRa. Can it be a total order?',['No','Yes','Only if symmetric','Only if transitive'],0,'A total order requires every pair to be comparable.'],
+ ['Which statement is true for a total order?',['For every a,b, aRb or bRa','For every a,b, both aRb and bRa','No aRa can occur','It must be symmetric'],0,'Comparability is the defining extra property.'],
+ ['The usual ≤ relation on real numbers is…',['A total order','Only a partial order, not total','An equivalence relation','Irreflexive'],0,'Any two real numbers are comparable.'],
+ ['If a≤b and b≤a in a total order, what follows?',['a=b','a≠b','They are incomparable','Nothing'],0,'A total order is still antisymmetric.'],
+ ['Which set with the usual ≤ is totally ordered?',['{3,1,7,2}','A set where some pairs are incomparable','Any set of real numbers','Both A and C'],3,'Every subset of the real numbers is totally ordered by ≤.']
+]);
+add('Strict Partial Orders',[
+ ['Which relation is a strict partial order on the integers?',['<','≤','=','= or ≤'],0,'< is irreflexive and transitive.'],
+ ['Why is < irreflexive?',['No integer is less than itself','Every integer is less than itself','It is symmetric','It is not transitive'],0,'a<a is false for every integer.'],
+ ['Why is < transitive?',['If a<b and b<c, then a<c','If a<b then b<a','If a<b then a=b','No chains exist'],0,'This is the transitive property of strict inequality.'],
+ ['Can a strict partial order contain (a,a)?',['No','Yes','Only if finite','Only if symmetric'],0,'Irreflexivity forbids self-pairs.'],
+ ['Is ≤ a strict partial order?',['No','Yes','Only on positive integers','Only on finite sets'],0,'≤ is reflexive, while a strict partial order must be irreflexive.'],
+ ['If a<b and b<c, what must be true under a strict partial order?',['a<c','c<a','a=b','a=c always'],0,'Transitivity requires a<c.'],
+ ['Which pair of properties defines a strict partial order?',['Irreflexive and transitive','Reflexive and antisymmetric','Symmetric and reflexive','Antisymmetric and symmetric'],0,'Those are the two defining properties.'],
+ ['For < on {1,2,3}, which pair is in the relation?',['(1,3)','(3,1)','(2,2)','(3,3)'],0,'1<3 is true; self-pairs are not included.'],
+ ['For <, if 2<5, what is true about 5<2?',['False','True','Both','Cannot tell'],0,'Strict order is asymmetric in this sense.'],
+ ['Which statement is impossible in a strict partial order?',['aRa','aRb and bRa for distinct a,b','aRb and bRc','aRc'],0,'Irreflexivity alone rules out aRa.']
+]);
+add('Well-Orders',[
+ ['Which relation is a well-order on the natural numbers?',['≤','<','divisibility','≠'],0,'≤ is a total order and every nonempty subset of N has a least element.'],
+ ['What extra property distinguishes a well-order from a total order?',['Every nonempty subset has a least element','Every pair is incomparable','No self-pairs exist','The relation is symmetric'],0,'That is the well-ordering property.'],
+ ['Under ≤ on N, what is the least element of {4,7,10}?',['4','7','10','0'],0,'The least element is the smallest member of the subset.'],
+ ['Under ≤ on Z, does every nonempty subset have a least element?',['No','Yes','Only finite subsets','Only positive subsets'],0,'For example, the nonempty set of all negative integers has no least element.'],
+ ['Why is ≤ on N a well-order?',['It is a total order and every nonempty subset of N has a least element','It is symmetric','It is irreflexive','Every pair is related both ways'],0,'Both requirements are satisfied.'],
+ ['Is < on N itself a well-order under the definition requiring a total order?',['No','Yes','Only for finite N','Only for positive integers'],0,'The well-order definition here uses a total (reflexive) order; < is a strict order.'],
+ ['Which nonempty subset of N has least element 3?',['{3,8,12}','{4,5,6}','{7,9}','∅'],0,'3 is the smallest member of the first set.'],
+ ['A total order fails the well-order property if it has a nonempty subset with…',['No least element','Exactly one element','A greatest element','Finite size'],0,'A well-order requires a least element in every nonempty subset.'],
+ ['Under ≤ on N, what is the least element of N itself?',['0','1','There is none','N'],0,'With N={0,1,2,...}, 0 is the least element.'],
+ ['Under the usual ≤, which set is well-ordered?',['N','Z','Q','R'],0,'N has the well-ordering property under ≤; the others contain nonempty subsets without least elements.']
+]);
+
+// Rules of inference: use concrete premises and conclusions, not definition-recognition questions.
+add('Modus Ponens',[
+ ['It is raining. If it is raining, then the ground is wet. What follows?',['The ground is wet.','It is not raining.','The ground is dry.','Nothing follows.'],0,'Modus Ponens: p and p→q allow us to conclude q.'],
+ ['The server is down. If the server is down, the backup system starts. What follows?',['The backup system starts.','The server is running.','The backup system stops.','Nothing follows.'],0,'The premise p is true and p→q is given, so q follows.'],
+ ['Ama studied. If Ama studies, then she passes the test. What can we conclude?',['Ama passes the test.','Ama did not study.','She fails the test.','We cannot conclude anything.'],0,'This is p, p→q, therefore q.'],
+ ['The battery is low. If the battery is low, the warning light turns on. Therefore…',['The warning light turns on.','The battery is full.','The warning light stays off.','The device must shut down.'],0,'The given fact satisfies the antecedent of the conditional.'],
+ ['The door is locked. If the door is locked, the alarm is armed. What follows?',['The alarm is armed.','The door is unlocked.','The alarm is disarmed.','Nothing.'],0,'Modus Ponens applies directly.'],
+ ['It is Saturday. If it is Saturday, the library is closed. What follows?',['The library is closed.','The library is open.','It is Sunday.','Nothing.'],0,'The antecedent is true, so the consequent follows.'],
+ ['A student has an ID. If a student has an ID, the student may enter the lab. What follows?',['The student may enter the lab.','The student cannot enter the lab.','The student has no ID.','Nothing follows.'],0,'Again, p and p→q imply q.'],
+ ['The temperature is below 0°C. If the temperature is below 0°C, water may freeze. What can be inferred?',['Water may freeze.','The temperature is above 0°C.','Water must boil.','Nothing.'],0,'The stated conditional and antecedent support the consequent.'],
+ ['The network is connected. If the network is connected, the client can reach the server. What follows?',['The client can reach the server.','The network is disconnected.','The server is offline.','Nothing follows.'],0,'This is a direct application of Modus Ponens.'],
+ ['A card is valid. If a card is valid, the transaction can proceed. What follows?',['The transaction can proceed.','The card is invalid.','The transaction is rejected.','Nothing follows.'],0,'Valid card = p; can proceed = q; p and p→q imply q.']
+]);
+add('Modus Tollens',[
+ ['If it is raining, the ground is wet. The ground is not wet. What follows?',['It is not raining.','It is raining.','The ground is wet.','Nothing follows.'],0,'Modus Tollens: p→q and ¬q imply ¬p.'],
+ ['If the server is down, the alarm sounds. The alarm did not sound. What follows?',['The server is not down.','The server is down.','The alarm is broken for certain.','Nothing.'],0,'Since q is false, p must be false under the conditional.'],
+ ['If a student passes, then the student receives a certificate. The student did not receive a certificate. What follows?',['The student did not pass.','The student passed.','The student received a certificate.','Nothing.'],0,'This is p→q, ¬q, therefore ¬p.'],
+ ['If the battery is low, the warning light turns on. The warning light is off. What follows?',['The battery is not low.','The battery is low.','The battery is full.','Nothing follows.'],0,'Modus Tollens gives ¬p from ¬q.'],
+ ['If the door is locked, the alarm is armed. The alarm is not armed. Therefore…',['The door is not locked.','The door is locked.','The alarm is armed.','Nothing.'],0,'The consequent is false, so the antecedent must be false.'],
+ ['If a file is encrypted, unauthorized users cannot read it. Unauthorized users can read it. What follows?',['The file is not encrypted.','The file is encrypted.','The file is deleted.','Nothing.'],0,'This follows the pattern p→q, ¬q, so ¬p.'],
+ ['If the machine is powered, the display is on. The display is off. What follows?',['The machine is not powered.','The machine is powered.','The display is on.','Nothing.'],0,'Modus Tollens applies.'],
+ ['If a number is divisible by 4, it is even. 14 is not even. What follows?',['14 is not divisible by 4.','14 is divisible by 4.','14 is prime.','Nothing.'],0,'p→q and ¬q imply ¬p.'],
+ ['If a package is delivered, the customer receives a notification. The customer did not receive a notification. What follows?',['The package was not delivered.','The package was delivered.','The notification was read.','Nothing.'],0,'Under the stated conditional, ¬q implies ¬p.'],
+ ['If the light is on, the switch is up. The switch is not up. Therefore…',['The light is not on.','The light is on.','The switch is up.','Nothing.'],0,'This is a direct Modus Tollens argument.']
+]);
+add('Hypothetical Syllogism',[
+ ['If it rains, the ground gets wet. If the ground gets wet, the grass grows. What follows?',['If it rains, the grass grows.','If the grass grows, it rains.','It never rains.','Nothing follows.'],0,'Chain p→q and q→r to obtain p→r.'],
+ ['If the server fails, the backup starts. If the backup starts, an alert is sent. What follows?',['If the server fails, an alert is sent.','If an alert is sent, the server fails.','The backup never starts.','Nothing.'],0,'The middle statement links the two conditionals.'],
+ ['If a student studies, the student learns. If the student learns, the student performs better. Therefore…',['If the student studies, the student performs better.','If performance improves, the student studies.','The student does not learn.','Nothing follows.'],0,'Hypothetical Syllogism chains the implications.'],
+ ['If the battery is low, the warning appears. If the warning appears, the user is notified. Therefore…',['If the battery is low, the user is notified.','If the user is notified, the battery is low.','The warning cannot appear.','Nothing.'],0,'p→q and q→r imply p→r.'],
+ ['If a number is divisible by 6, it is divisible by 3. If it is divisible by 3, its digit sum is divisible by 3. What follows?',['If it is divisible by 6, its digit sum is divisible by 3.','If its digit sum is divisible by 3, it is divisible by 6.','Nothing.','It is not divisible by 3.'],0,'The two conditionals form a chain.'],
+ ['If a file is backed up, it is recoverable. If a file is recoverable, it can be restored. What follows?',['If a file is backed up, it can be restored.','If a file can be restored, it was backed up.','A file cannot be restored.','Nothing.'],0,'Chain the two implications.'],
+ ['If the sensor detects smoke, the alarm activates. If the alarm activates, the building is evacuated. Therefore…',['If the sensor detects smoke, the building is evacuated.','If the building is evacuated, smoke was detected.','The alarm never activates.','Nothing follows.'],0,'Hypothetical Syllogism gives the first-to-last implication.'],
+ ['If the exam starts, the doors close. If the doors close, late entry is prohibited. What follows?',['If the exam starts, late entry is prohibited.','If late entry is prohibited, the exam starts.','The doors remain open.','Nothing.'],0,'The consequent of the first conditional is the antecedent of the second.'],
+ ['If a device is online, it can receive updates. If it can receive updates, its software can be refreshed. Therefore…',['If the device is online, its software can be refreshed.','If software is refreshed, the device must be online.','The device is offline.','Nothing.'],0,'The two conditionals chain.'],
+ ['If p→q and q→r, which conclusion is valid?',['p→r','r→p','q→p','p↔r'],0,'This is the symbolic form of Hypothetical Syllogism.']
+]);
+add('Disjunctive Syllogism',[
+ ['Either it is raining or the sprinkler is running. The sprinkler is not running. What follows?',['It is raining.','It is not raining.','Both are true.','Nothing follows.'],0,'p∨q and ¬q imply p.'],
+ ['Either the server is online or it is in maintenance. The server is not online. What follows?',['It is in maintenance.','It is online.','Both are false.','Nothing.'],0,'One alternative is eliminated, leaving the other.'],
+ ['Either Maria takes the bus or she walks. Maria does not walk. Therefore…',['Maria takes the bus.','Maria walks.','She does both.','Nothing.'],0,'Disjunctive Syllogism eliminates the false alternative.'],
+ ['Either the package is at the depot or it is with the courier. It is not at the depot. What follows?',['It is with the courier.','It is at the depot.','It was delivered yesterday.','Nothing.'],0,'p∨q and ¬p imply q.'],
+ ['Either the light is on or the switch is faulty. The light is not on. What follows?',['The switch is faulty.','The light is on.','The switch is working.','Nothing.'],0,'The remaining disjunct follows.'],
+ ['Either A or B is selected. A is not selected. Therefore…',['B is selected.','A is selected.','Neither can be selected.','Both are selected.'],0,'Under the stated disjunction, ¬A leaves B.'],
+ ['Either the file is in Folder A or Folder B. It is not in Folder B. What follows?',['It is in Folder A.','It is in both folders.','It is in neither folder.','Nothing.'],0,'Disjunctive Syllogism applies.'],
+ ['p∨q is true and ¬p is true. What follows?',['q','¬q','p','p∧q'],0,'This is the symbolic form p∨q, ¬p ⟹ q.'],
+ ['Either the machine is idle or it is processing. It is not idle. Therefore…',['It is processing.','It is idle.','It is powered off.','Nothing.'],0,'The false alternative is eliminated.'],
+ ['Either the student submitted online or submitted on paper. The student did not submit on paper. Therefore…',['The student submitted online.','The student submitted on paper.','The student submitted both ways.','Nothing.'],0,'Disjunctive Syllogism gives the remaining option.']
+]);
+add('Addition',[
+ ['It is raining. What can you validly conclude using Addition?',['It is raining or the ground is wet.','The ground is wet.','It is not raining.','It is raining and the ground is wet.'],0,'Addition allows p to become p∨q.'],
+ ['The server is online. Which conclusion is valid by Addition?',['The server is online or the backup is active.','The backup is active.','The server is offline.','The server is online and the backup is active.'],0,'From p, infer p∨q.'],
+ ['Ama passed the test. What may be inferred?',['Ama passed the test or she received a prize.','Ama received a prize.','Ama failed the test.','Ama passed and received a prize.'],0,'The second disjunct does not need to be known true.'],
+ ['The battery is charged. Which statement follows by Addition?',['The battery is charged or the device is plugged in.','The device is plugged in.','The battery is empty.','The battery is charged and plugged in.'],0,'Addition introduces a disjunction.'],
+ ['p is true. Which conclusion is always valid?',['p∨q','p∧q','¬p','q'],0,'A true proposition implies a disjunction containing it.'],
+ ['The light is on. Which is a valid Addition conclusion?',['The light is on or the door is open.','The door is open.','The light is off.','The light is on and the door is open.'],0,'p ⟹ p∨q.'],
+ ['The network is connected. What follows?',['The network is connected or the server is busy.','The server is busy.','The network is disconnected.','The server is not busy.'],0,'Addition does not assert q by itself.'],
+ ['A student is registered. Which is valid?',['The student is registered or the student is late.','The student is late.','The student is unregistered.','Both are true.'],0,'The disjunction is true because the first part is true.'],
+ ['If q is any proposition and p is true, which form is guaranteed true?',['p∨q','p∧q','p→q','q'],0,'OR is true whenever at least one disjunct is true.'],
+ ['Which rule has the form p ⟹ p∨q?',['Addition','Conjunction','Simplification','Modus Ponens'],0,'That is the Addition rule.']
+]);
+add('Simplification',[
+ ['The weather is rainy and windy. What follows by Simplification?',['The weather is rainy.','The weather is sunny.','The weather is not windy.','Nothing.'],0,'From p∧q, either component may be inferred.'],
+ ['The server is online and the backup is active. What can be concluded?',['The server is online.','The server is offline.','The backup is inactive.','Nothing.'],0,'Simplification extracts a conjunct.'],
+ ['A student is registered and paid the fee. What follows?',['The student paid the fee.','The student did not register.','The student failed.','Nothing.'],0,'Either conjunct follows from the conjunction.'],
+ ['The battery is charged and the device is connected. What can be inferred?',['The battery is charged.','The battery is empty.','The device is disconnected.','Nothing.'],0,'p∧q implies p and also q.'],
+ ['If p∧q is true, which conclusion is valid?',['q','¬q','p∨¬q only','Neither p nor q'],0,'Simplification allows either conjunct to be taken separately.'],
+ ['The light is on and the door is closed. Therefore…',['The door is closed.','The door is open.','The light is off.','Nothing.'],0,'The second conjunct is directly available.'],
+ ['The file is encrypted and compressed. What follows?',['The file is encrypted.','The file is unencrypted.','The file is not compressed.','Nothing.'],0,'Simplification gives the first conjunct.'],
+ ['A machine is powered and operational. What follows?',['The machine is operational.','The machine is broken.','The machine is unpowered.','Nothing.'],0,'The second conjunct can be inferred.'],
+ ['Which symbolic rule is Simplification?',['p∧q ⟹ p','p ⟹ p∨q','p,p→q ⟹ q','p,q ⟹ p∧q'],0,'Simplification extracts one part of a conjunction.'],
+ ['If p∧q is true, what can you infer about p and q?',['Both p and q are true','Only p is true','Only q is true','Both are false'],0,'A conjunction is true only when both components are true.']
+]);
+add('Conjunction',[
+ ['It is raining. The ground is wet. What can be concluded by Conjunction?',['It is raining and the ground is wet.','It is raining or the ground is wet.','The ground is dry.','Nothing.'],0,'From p and q, infer p∧q.'],
+ ['The server is online. The backup is active. Therefore…',['The server is online and the backup is active.','The server is offline.','The backup is inactive.','Nothing.'],0,'Two true premises can be combined with AND.'],
+ ['Ama studied. Ama attended class. What follows?',['Ama studied and attended class.','Ama did neither.','Ama studied or did not attend.','Nothing.'],0,'Conjunction combines two known propositions.'],
+ ['The battery is charged. The device is connected. Which is valid?',['The battery is charged and the device is connected.','The battery is empty.','The device is disconnected.','Nothing.'],0,'p,q ⟹ p∧q.'],
+ ['p is true and q is true. Which conclusion follows?',['p∧q','p∨¬q only','¬p','¬q'],0,'Conjunction joins the two premises.'],
+ ['The student is registered. The student paid the fee. Therefore…',['The student is registered and paid the fee.','The student is not registered.','The fee is unpaid.','Nothing.'],0,'Both statements are premises, so they can be conjoined.'],
+ ['The traffic light is green. The road is clear. What follows?',['The traffic light is green and the road is clear.','The traffic light is red.','The road is blocked.','Nothing.'],0,'Conjunction forms a compound proposition from two facts.'],
+ ['The file exists. The file is readable. What follows?',['The file exists and is readable.','The file is deleted.','The file is unreadable.','Nothing.'],0,'Both premises are true, so their conjunction is true.'],
+ ['Which symbolic rule is Conjunction?',['p,q ⟹ p∧q','p∧q ⟹ p','p ⟹ p∨q','p,p→q ⟹ q'],0,'That is the Conjunction rule.'],
+ ['If p and q are both true, what is p∧q?',['True','False','Undefined','Both true and false'],0,'AND is true when both inputs are true.']
+]);
+add('Resolution',[
+ ['Either it is raining or the sprinkler is on. Either it is not raining or the lawn is wet. What follows?',['The sprinkler is on or the lawn is wet.','It is raining and the sprinkler is off.','The lawn is dry.','Nothing.'],0,'Resolve the complementary literals raining and not raining.'],
+ ['p∨q and ¬p∨r are true. What conclusion follows by Resolution?',['q∨r','p∨r','¬q∨r','p∧q'],0,'Resolution removes the complementary p and ¬p.'],
+ ['Either the server is online or the backup is active. Either the server is not online or an alert is sent. Therefore…',['The backup is active or an alert is sent.','The server is offline.','The alert is not sent.','Nothing.'],0,'The complementary server-online literals resolve.'],
+ ['Either Maria takes the bus or she walks. Either Maria does not take the bus or she calls a taxi. What follows?',['Maria walks or she calls a taxi.','Maria takes the bus.','Maria does not walk.','Nothing.'],0,'Resolve bus and not-bus.'],
+ ['p∨q and ¬p∨r. If q is false, what must be true from the resolved clause?',['r','p','¬r','q'],0,'The resolved clause is q∨r; with q false, r must be true.'],
+ ['Either the battery is low or the temperature is high. Either the battery is not low or the warning is shown. What follows?',['The temperature is high or the warning is shown.','The battery is low.','The warning is off.','Nothing.'],0,'Resolution eliminates battery-low and not-battery-low.'],
+ ['Which rule combines two disjunctions with complementary literals?',['Resolution','Modus Ponens','Simplification','Conjunction'],0,'That is the defining pattern of Resolution.'],
+ ['p∨q and ¬p∨r have which complementary pair?',['p and ¬p','q and r','p and q','¬p and r'],0,'The p literals are complementary and can be resolved away.'],
+ ['Either the file is in A or B. Either it is not in A or it is encrypted. What follows?',['It is in B or it is encrypted.','It is in A.','It is not encrypted.','Nothing.'],0,'Resolve A and not-A.'],
+ ['Which conclusion follows from p∨q and ¬p∨r?',['q∨r','p∨q∨r','¬q∨¬r','p∧r'],0,'This is the standard Resolution inference.']
+]);
+add('Valid vs Invalid Arguments',[
+ ['If it rains, the ground is wet. It is raining. Therefore the ground is wet. Is the argument valid?',['Yes','No','Only if it is sunny','Cannot tell'],0,'This is Modus Ponens, a valid inference form.'],
+ ['If it rains, the ground is wet. The ground is wet. Therefore it rained. Is this valid?',['No','Yes','Only in winter','Only if the ground is outside'],0,'This is affirming the consequent: p→q, q ⟹ p, which is invalid.'],
+ ['If it rains, the ground is wet. It is not raining. Therefore the ground is not wet. Is this valid?',['No','Yes','Only in winter','Always'],0,'This is denying the antecedent: p→q, ¬p ⟹ ¬q, which is invalid.'],
+ ['If the server fails, the alarm sounds. The alarm does not sound. Therefore the server did not fail. Is this valid?',['Yes','No','Only if the server is online','Cannot tell'],0,'This is Modus Tollens: p→q, ¬q ⟹ ¬p.'],
+ ['Either the file is in A or B. It is not in A. Therefore it is in B. Is this valid?',['Yes','No','Only if A is larger','Cannot tell'],0,'This is Disjunctive Syllogism.'],
+ ['If a student studies, the student passes. The student did not study. Therefore the student did not pass. Is this valid?',['No','Yes','Only if the exam is hard','Cannot tell'],0,'This is denying the antecedent, an invalid argument form.'],
+ ['If a card is valid, the payment succeeds. The payment succeeds. Therefore the card is valid. Is this valid?',['No','Yes','Always','Only for debit cards'],0,'This affirms the consequent and is invalid.'],
+ ['If p→q and ¬q are premises, concluding ¬p is…',['Valid','Invalid','Only sometimes valid','A contradiction'],0,'This is Modus Tollens.'],
+ ['If p→q and q are premises, concluding p is…',['Invalid','Valid','Modus Tollens','Conjunction'],0,'This is affirming the consequent, which is invalid.'],
+ ['If p→q and ¬p are premises, concluding ¬q is…',['Invalid','Valid','Modus Ponens','Resolution'],0,'This is denying the antecedent, which is invalid.']
+]);
+
+// Replace the placeholder empty entries with the generated banks.
+Object.entries(qs).forEach(([c,a])=>{all.push(...a)});
 let selected=null,mode='concept',pool=[],pos=0,score=0,attempted=0;
 function build(){document.getElementById('menu').innerHTML=Object.entries(defs).map(([g,items])=>`<div class="gt">${g}</div>`+items.map(x=>`<button class="concept" data-name="${x[0]}" onclick="choose('${x[0].replaceAll("'","\\'")}')">${x[0]}</button>`).join('')).join('')}
-function choose(n){selected=n;mode='concept';pos=0;score=0;attempted=0;pool=all.filter(q=>q.name===n);shuffle(pool);document.querySelectorAll('.concept').forEach(b=>b.classList.toggle('active',b.dataset.name===n));showLearn();showQ();stats()}
-function mixed(){selected=null;mode='mixed';pos=0;score=0;attempted=0;pool=[...all];shuffle(pool);document.querySelectorAll('.concept').forEach(b=>b.classList.remove('active'));document.getElementById('learn').innerHTML='<div class="learn"><h2>🔥 Mixed Exam</h2><p>Questions are drawn from every Relations, Partial Orders, and Rules of Inference concept.</p></div>';showQ();stats()}
+function choose(n){selected=n;mode='concept';pos=0;score=0;attempted=0;pool=[...all.filter(q=>q.name===n)];shuffle(pool);document.querySelectorAll('.concept').forEach(b=>b.classList.toggle('active',b.dataset.name===n));showLearn();showQ();stats()}
+function mixed(){selected=null;mode='mixed';pos=0;score=0;attempted=0;pool=[...all];shuffle(pool);document.querySelectorAll('.concept').forEach(b=>b.classList.remove('active'));document.getElementById('learn').innerHTML='<div class="learn"><h2>🔥 Mixed Exam</h2><p>Questions are drawn from all Relations, Relation Properties, Partial Orders, and Rules of Inference topics. Expect worked examples, concrete relations, symbolic reasoning, and real-world inference scenarios.</p></div>';showQ();stats()}
 function retry(){if(selected)choose(selected);else mixed()}
 function resetScore(){score=0;attempted=0;stats()}
 function showLearn(){if(!selected)return;const x=Object.values(defs).flat().find(a=>a[0]===selected);document.getElementById('learn').innerHTML=`<div class="learn"><h2>${selected}</h2><p>${x[1]}</p><div class="formula">${x[2]}</div></div>`}
-function showQ(){const el=document.getElementById('quiz');if(!pool.length){el.innerHTML='<div class="empty">Choose a concept.</div>';return}if(pos>=pool.length){el.innerHTML=`<div class="question"><h2>🎉 Complete!</h2><p>Score: <strong>${score}/${attempted}</strong></p><button class="next show" onclick="retry()">Try again →</button></div>`;return}const q=pool[pos];el.innerHTML=`<div class="question"><div class="qtop"><span>${mode==='mixed'?q.name+' · ':''}Question ${pos+1} of ${pool.length}</span><span>Immediate feedback</span></div><h2>${q[0]}</h2>${q[1].map((o,i)=>`<button class="option" onclick="answer(${i})"><span class="letter">${String.fromCharCode(65+i)}</span><span>${o}</span></button>`).join('')}<div id="fb" class="feedback"></div><button id="nx" class="next" onclick="next()">Next question →</button></div>`}
+function showQ(){const el=document.getElementById('quiz');if(!pool.length){el.innerHTML='<div class="empty">Choose a concept.</div>';return}if(pos>=pool.length){el.innerHTML=`<div class="question"><h2>🎉 Complete!</h2><p>Score: <strong>${score}/${attempted}</strong></p><p>Review any missed questions and retry the concept when ready.</p><button class="next show" onclick="retry()">Try again →</button></div>`;return}const q=pool[pos];el.innerHTML=`<div class="question"><div class="qtop"><span>${mode==='mixed'?q.name+' · ':''}Question ${pos+1} of ${pool.length}</span><span>Immediate feedback</span></div><h2>${q[0]}</h2>${q[1].map((o,i)=>`<button class="option" onclick="answer(${i})"><span class="letter">${String.fromCharCode(65+i)}</span><span>${o}</span></button>`).join('')}<div id="fb" class="feedback"></div><button id="nx" class="next" onclick="next()">Next question →</button></div>`}
 function answer(i){const q=pool[pos],opts=document.querySelectorAll('.option');opts.forEach(o=>o.disabled=true);attempted++;let good=i===q[2];if(good){score++;opts[i].classList.add('correct')}else{opts[i].classList.add('wrong');opts[q[2]].classList.add('correct')}const fb=document.getElementById('fb');fb.className='feedback show '+(good?'good':'bad');fb.innerHTML=(good?'🟢 <b>Correct!</b> ':'🔴 <b>Incorrect.</b> ')+q[3];document.getElementById('nx').classList.add('show');stats()}
 function next(){pos++;showQ();stats()}
 function stats(){document.getElementById('score').textContent=`${score} / ${attempted}`;document.getElementById('status').textContent=mode==='mixed'?'Mixed Exam':selected?`${selected} · ${Math.min(pos+1,pool.length)} / ${pool.length}`:'Select a concept to begin.'}
