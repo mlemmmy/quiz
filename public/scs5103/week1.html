@@ -1178,78 +1178,9 @@ Trait ──► Feature ──► Template   Trait ──► Feature ──► Q
   </section>
 
   <!-- ============ TEST ============ -->
-  <section id="test">
-    <div class="concept-head"><span class="concept-num">◆</span><h2 style="font-family:var(--serif); font-size:1.55rem; margin:0;">30-Question Foundation Test</h2></div>
-    <p class="builds-on">Active recall only — no answers here. Ask when you're ready to check yourself.</p>
+  <section id="test" class="interactive-test"><div class="concept-head"><span class="concept-num">◆</span><h2 style="font-family:var(--serif); font-size:1.55rem; margin:0;">30-Question Interactive Foundation Test</h2></div><p class="builds-on">Pattern Recognition Week 1 — 30 questions covering measured patterns, classes, classification, the classification pipeline and biometrics. Click an answer for immediate correction and explanation. Your final score is shown at the end.</p><div id="foundationQuiz"></div><div id="foundationScore" class="anchor-box" style="margin-top:1rem;display:none;"></div><script>window.__FOUNDATION_QUESTIONS__=[{"concept": "Pattern Recognition", "question": "A pattern is best described as…", "options": ["A measurable set of characteristics used to describe an object/event", "Only a picture", "A database table", "A random guess"], "answer": 0, "explanation": "Patterns are represented through measurable characteristics so they can be analyzed and classified."}, {"concept": "Pattern Recognition", "question": "Which is a typical pattern-recognition pipeline?", "options": ["Sensing → preprocessing → feature extraction → classification → decision/output", "Printing → scanning → deleting → saving", "Database → password → printer → monitor", "Sorting → formatting → emailing → archiving"], "answer": 0, "explanation": "The lecture presents sensing, preprocessing, feature extraction, classification and decision/output as the core pipeline."}, {"concept": "Measured Patterns", "question": "A measured pattern is…", "options": ["Raw measurements obtained from an object through sensing", "A final class label", "A decision boundary", "A visualization legend"], "answer": 0, "explanation": "Measured patterns are the quantitative or qualitative measurements taken from an object before further processing."}, {"concept": "Measured Patterns", "question": "Which scale has categories with no inherent order?", "options": ["Nominal", "Ordinal", "Interval", "Ratio"], "answer": 0, "explanation": "Nominal data identify categories without a meaningful ranking."}, {"concept": "Measured Patterns", "question": "A transducer primarily…", "options": ["Converts a physical quantity into an electrical signal", "Assigns a class label", "Draws a histogram", "Removes all noise mathematically"], "answer": 0, "explanation": "A transducer converts quantities such as light, pressure or sound into signals that can be measured."}, {"concept": "Classes", "question": "In supervised pattern recognition, a class is…", "options": ["A predefined category used as a target label", "A random group found without labels", "A sensor reading", "A feature-extraction algorithm"], "answer": 0, "explanation": "Classes are predefined categories that the classifier learns to distinguish."}, {"concept": "Classes", "question": "Within-class variability means…", "options": ["Differences among members of the same class", "Differences between two classes only", "Measurement noise only", "The number of classes"], "answer": 0, "explanation": "Within-class variability describes how members of one class can differ from each other."}, {"concept": "Classification", "question": "Classification means…", "options": ["Assigning a pattern to one of several predefined classes", "Compressing an image", "Collecting raw sensor data", "Drawing a chart"], "answer": 0, "explanation": "Classification uses a decision rule to assign a feature vector to a predefined class."}, {"concept": "Classification", "question": "A decision boundary separates…", "options": ["Regions associated with different classes in feature space", "Training from testing files only", "Pixels from sensors", "Tables from charts"], "answer": 0, "explanation": "A decision boundary is the surface separating class regions in feature space."}, {"concept": "Classification", "question": "A discriminant function gᵢ(x) is used to…", "options": ["Score how strongly x belongs to class i", "Store an image", "Measure internet speed", "Define a database schema"], "answer": 0, "explanation": "The class with the highest discriminant score is selected by the simple decision rule described in the lecture."}, {"concept": "Steps of Classification", "question": "Which stage isolates the object of interest from its background?", "options": ["Segmentation", "Feature selection", "Testing", "Evaluation"], "answer": 0, "explanation": "Segmentation isolates the object of interest before useful features are extracted."}, {"concept": "Steps of Classification", "question": "Feature extraction differs from feature selection because extraction…", "options": ["Computes new informative measurements, while selection chooses features to keep", "Deletes all features", "Only labels classes", "Always happens after evaluation"], "answer": 0, "explanation": "Extraction creates/derives features; selection chooses which available features are retained."}, {"concept": "Steps of Classification", "question": "Why can an early pipeline error affect later stages?", "options": ["Each stage feeds its output into the next stage", "Later stages ignore earlier outputs", "Only the final stage uses data", "Errors disappear automatically"], "answer": 0, "explanation": "Because stages are connected, poor preprocessing or segmentation can corrupt downstream results."}, {"concept": "Biometrics", "question": "Biometrics recognizes people using…", "options": ["Physiological or behavioral traits", "Only passwords", "Only usernames", "Only geographic location"], "answer": 0, "explanation": "Biometrics uses physiological or behavioral characteristics for automated recognition."}, {"concept": "Biometrics", "question": "Verification is a…", "options": ["1:1 comparison against a claimed identity", "1:N search across every enrolled identity", "Random comparison", "Comparison with no stored template"], "answer": 0, "explanation": "Verification asks whether you are who you claim to be and is a one-to-one check."}, {"concept": "Biometrics", "question": "Identification is a…", "options": ["1:N search across enrolled identities", "1:1 check only", "Password reset", "Feature-selection step"], "answer": 0, "explanation": "Identification asks who you are among enrolled identities, requiring a search across many templates."}, {"concept": "Biometrics", "question": "FAR measures…", "options": ["Impostor attempts wrongly accepted", "Genuine users wrongly rejected", "All successful logins", "The number of enrolled users"], "answer": 0, "explanation": "False Acceptance Rate is the rate at which impostors are incorrectly accepted."}, {"concept": "Biometrics", "question": "FRR measures…", "options": ["Genuine attempts wrongly rejected", "Impostors wrongly accepted", "Number of sensors", "Number of classes"], "answer": 0, "explanation": "False Rejection Rate is the rate at which genuine users are incorrectly rejected."}, {"concept": "Biometrics", "question": "EER occurs when…", "options": ["FAR equals FRR", "FAR is zero in every case", "FRR equals 100%", "There are no enrolled users"], "answer": 0, "explanation": "Equal Error Rate is the point at which false acceptance and false rejection rates are equal."}, {"concept": "Pattern Recognition", "question": "Which is an example of pattern-recognition application?", "options": ["Fraud detection", "Typing a document manually", "Turning on a monitor", "Charging a battery"], "answer": 0, "explanation": "The lecture lists fraud detection among real-world applications of pattern recognition."}, {"concept": "Pattern Recognition", "question": "A feature vector is best represented as…", "options": ["An ordered list of numerical feature values", "A class name only", "A paragraph of text only", "A password"], "answer": 0, "explanation": "A feature vector such as [x₁,…,x_d] represents measurable properties of one pattern."}, {"concept": "Classification", "question": "Why are points near a decision boundary risky?", "options": ["Small noise can change the class decision", "They always belong to both classes", "They contain no features", "They cannot be tested"], "answer": 0, "explanation": "Points close to the boundary can switch class under small measurement or modeling changes."}, {"concept": "Measured Patterns", "question": "Calibration matters because poor calibration can introduce…", "options": ["Systematic measurement error", "New class labels", "More storage capacity", "A decision boundary automatically"], "answer": 0, "explanation": "Systematic sensor error can limit the accuracy of every downstream stage."}, {"concept": "Classes", "question": "Class imbalance can bias a classifier toward…", "options": ["The majority class", "The minority class only", "No class", "Every class equally"], "answer": 0, "explanation": "With far more examples in one class, a classifier may favor that majority class."}, {"concept": "Pattern Recognition", "question": "A cluster differs from a class because a cluster is…", "options": ["Discovered without predefined labels", "Always manually labeled", "A sensor signal", "A decision boundary"], "answer": 0, "explanation": "Classes are predefined labels; clusters are groups discovered without labels in unsupervised learning."}, {"concept": "Biometrics", "question": "Which is a behavioral biometric?", "options": ["Typing rhythm", "Fingerprint ridge pattern", "Iris pattern", "DNA"], "answer": 0, "explanation": "Typing rhythm is behavioral; fingerprints, iris and DNA are physiological examples."}, {"concept": "Biometrics", "question": "A good biometric trait should generally be…", "options": ["Universal, unique, permanent and collectable", "Secret, temporary and random", "Only cheap", "Only visible"], "answer": 0, "explanation": "The lecture highlights universality, uniqueness, permanence and collectability as desirable properties."}, {"concept": "Pattern Recognition", "question": "Classification differs from regression because classification outputs…", "options": ["A discrete class label", "A continuous numeric value", "Only an image", "Only raw measurements"], "answer": 0, "explanation": "Classification produces discrete labels, whereas regression predicts continuous numeric values."}, {"concept": "Steps of Classification", "question": "The purpose of evaluation is to…", "options": ["Measure classifier performance and guide refinement", "Collect the first sensor reading", "Create a class from nothing", "Replace feature extraction"], "answer": 0, "explanation": "Evaluation measures performance, for example with a confusion matrix, and helps guide improvement."}, {"concept": "Pattern Recognition", "question": "Overfitting occurs when a model…", "options": ["Fits training data too closely and generalizes poorly", "Never learns training data", "Uses no features", "Always predicts perfectly on new data"], "answer": 0, "explanation": "Overfitting means the model captures training-specific detail and performs poorly on unseen data."}];</script></section>
 
-    <div class="testgroup">
-      <h4>Pattern Recognition</h4>
-      <ol>
-        <li>Define pattern recognition in your own words.</li>
-        <li>List the five basic stages of a pattern recognition pipeline.</li>
-        <li>What is a feature vector?</li>
-        <li>Name three real-world applications of pattern recognition.</li>
-        <li>How does pattern recognition differ from image processing?</li>
-      </ol>
-    </div>
-
-    <div class="testgroup">
-      <h4>Measured Patterns</h4>
-      <ol start="6">
-        <li>What is a measured pattern?</li>
-        <li>Name the four measurement scales.</li>
-        <li>What does a transducer do?</li>
-        <li>How does a measurement differ from a feature?</li>
-        <li>Why does sensor calibration matter for system accuracy?</li>
-      </ol>
-    </div>
-
-    <div class="testgroup">
-      <h4>Classes</h4>
-      <ol start="11">
-        <li>Define a class in the context of pattern recognition.</li>
-        <li>What is the difference between within-class and between-class variability?</li>
-        <li>What is a prior probability, P(ωi)?</li>
-        <li>How does class imbalance affect a classifier?</li>
-        <li>Explain the difference between a class and a cluster.</li>
-      </ol>
-    </div>
-
-    <div class="testgroup">
-      <h4>Classification</h4>
-      <ol start="16">
-        <li>Define classification.</li>
-        <li>What is a decision boundary?</li>
-        <li>Explain how a discriminant function gᵢ(x) is used to make a decision.</li>
-        <li>What is the key difference between classification and regression?</li>
-        <li>Why are points near a decision boundary more likely to be misclassified?</li>
-      </ol>
-    </div>
-
-    <div class="testgroup">
-      <h4>Steps Associated with Classification</h4>
-      <ol start="21">
-        <li>List the eight steps of a classification pipeline in order.</li>
-        <li>What happens during the segmentation stage?</li>
-        <li>Distinguish feature extraction from feature selection.</li>
-        <li>Why does an error in an early pipeline stage matter for later stages?</li>
-        <li>What is the purpose of the evaluation stage, and name one tool used there.</li>
-      </ol>
-    </div>
-
-    <div class="testgroup">
-      <h4>Biometrics</h4>
-      <ol start="26">
-        <li>Define biometrics.</li>
-        <li>Distinguish verification (1:1) from identification (1:N).</li>
-        <li>Give two examples each of physiological and behavioral biometric traits.</li>
-        <li>Define FAR and FRR, and explain what the Equal Error Rate represents.</li>
-        <li>Name two limitations of biometric systems.</li>
-      </ol>
-    </div>
-  </section>
-
-  <footer>Week 1 · Pattern Recognition foundation guide — tap any concept to expand only what you need.</footer>
+<footer>Week 1 · Pattern Recognition foundation guide — tap any concept to expand only what you need.</footer>
 
 </main>
 </div>
@@ -1274,5 +1205,42 @@ Trait ──► Feature ──► Template   Trait ──► Feature ──► Q
   });
 </script>
 
+<script>
+(function(){
+  const root=document.getElementById('foundationQuiz');
+  const scoreBox=document.getElementById('foundationScore');
+  const qs=window.__FOUNDATION_QUESTIONS__||[];
+  if(!root||!qs.length)return;
+  const state={};
+  function render(){
+    root.innerHTML='';
+    qs.forEach((q,i)=>{
+      const card=document.createElement('article'); card.className='testgroup';
+      const h=document.createElement('h4'); h.textContent=`Question ${String(i+1).padStart(2,'0')} · ${q.concept}`; card.appendChild(h);
+      const p=document.createElement('p'); p.innerHTML='<b>'+q.question+'</b>'; card.appendChild(p);
+      q.options.forEach((opt,j)=>{
+        const b=document.createElement('button'); b.type='button'; b.className='test-option'; b.innerHTML='<b>'+String.fromCharCode(65+j)+'</b> '+opt;
+        if(state[i]!==undefined){
+          if(j===q.answer)b.classList.add('correct');
+          if(j===state[i]&&j!==q.answer)b.classList.add('wrong');
+          b.disabled=true;
+        }
+        b.onclick=()=>{state[i]=j; render();}; card.appendChild(b);
+      });
+      if(state[i]!==undefined){
+        const f=document.createElement('div'); f.className='test-feedback '+(state[i]===q.answer?'good':'bad');
+        f.innerHTML='<b>'+(state[i]===q.answer?'✓ Correct':'✗ Incorrect — correct answer highlighted in green')+'</b><br>'+q.explanation; card.appendChild(f);
+      }
+      root.appendChild(card);
+    });
+    const n=Object.keys(state).length, sc=Object.keys(state).filter(i=>state[i]===qs[i].answer).length;
+    if(n===qs.length){scoreBox.style.display='block'; scoreBox.innerHTML='<b>FINAL SCORE</b><div style="font-size:2rem;font-weight:800;margin:.3rem 0">'+sc+'/'+qs.length+'</div>'+(sc>=27?'Excellent work.':sc>=21?'Good work — review the questions you missed.':'Keep practising and revisit the relevant Week 1 sections.')+' <button type="button" class="reset-test" onclick="location.reload()">Reset test →</button>';} else scoreBox.style.display='none';
+  }
+  render();
+})();
+</script>
+<style>
+.test-option{display:block;width:100%;text-align:left;background:#fff;border:1px solid #ddd;border-radius:12px;padding:12px 14px;margin:8px 0;cursor:pointer;font:inherit}.test-option b{display:inline-grid;place-items:center;width:28px;height:28px;border:1px solid #ddd;border-radius:50%;margin-right:8px}.test-option.correct{background:#e8f4ea;border-color:#8bb692}.test-option.wrong{background:#f8e9e9;border-color:#c68b8b}.test-feedback{padding:12px 14px;border-radius:10px;margin-top:10px;line-height:1.5}.test-feedback.good{background:#e8f4ea}.test-feedback.bad{background:#f8e9e9}.reset-test{margin-top:10px;border:1px solid #222;border-radius:999px;background:#111;color:#fff;padding:9px 14px;cursor:pointer}
+</style>
 </body>
 </html>
