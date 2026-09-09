@@ -1,19 +1,21 @@
-# SCS Study Hub — Updated Vercel Project
+# Study Hub
 
-Deploy this folder as a Next.js project.
+Next.js study hub for the user's courses.
 
-## Included
-- Shared Study Hub homepage
-- SCS5102 Discrete Mathematics
-  - Topic 1 Notes
-  - Topic 1 interactive MCQ quiz with instant feedback
-  - Relations + Rules of Inference interactive practice
-- SCS5103 Pattern Recognition Week 1
-  - Full original Week 1 content preserved
-  - 30-question interactive Foundation Test with instant feedback
-- SIDS5101 Big Data Analytics Week 1
-  - Full original Week 1 content preserved
-  - 30-question interactive Foundation Test with instant feedback
+## 45-Day Study Plan
+The index page includes a 45-day calendar starting 4 September 2026. It assumes 5 modules with 9 topics each and schedules one new topic per day. The modules rotate every 5 days, so each module returns regularly while a 15-minute daily review provides spaced repetition.
 
-## Vercel
-Upload the project to GitHub and import the repository into Vercel. Framework: Next.js. Build command: `next build`.
+### Daily 3-hour structure
+- 2 hours: learn the new topic
+- 45 minutes: active practice / interactive questions
+- 15 minutes: review an older topic
+
+Modules 4 and 5 are placeholders until their names/codes are supplied. The first three are linked to their course pages.
+
+## Deploy
+```bash
+npm install
+npm run build
+npm start
+```
+Import the repository into Vercel as a Next.js project.
