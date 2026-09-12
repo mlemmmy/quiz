@@ -11,14 +11,14 @@ export default function Course() {
       <header className="courseHead">
         <small>COURSE</small>
         <h1>SIDS5101 — Big Data Analytics</h1>
-        <p>Choose a revision resource.</p>
+        <p>Study the lectures, then test whether you can actually apply the concepts.</p>
       </header>
 
       <Link className="card" href="/sids5101/week1.html">
         <div>
           <small>WEEK 1</small>
           <h2>Foundation Notes</h2>
-          <p>Big Data, the Big Data ecosystem, analytics types, data visualization fundamentals, chart design, history and perception.</p>
+          <p>Big Data, the Big Data ecosystem, analytics types, visualization fundamentals, chart design, history and perception.</p>
         </div>
         <span>→</span>
       </Link>
@@ -27,18 +27,46 @@ export default function Course() {
         <div>
           <small>30 QUESTIONS</small>
           <h2>Week 1 Foundation Test</h2>
-          <p>Test the Week 1 concepts with active recall and review.</p>
+          <p>Immediate right/wrong feedback with explanations.</p>
         </div>
         <span>→</span>
       </Link>
 
-      <div className="card muted">
+      <Link className="card" href="/sids5101/lecture2.html">
         <div>
-          <small>COMING SOON</small>
-          <h2>Next topic</h2>
-          <p>New Big Data Analytics material will be added as you study it.</p>
+          <small>LECTURE 2 · NEW</small>
+          <h2>Data Gathering &amp; Preparation</h2>
+          <p>Full lecture content: data life cycle, CRISP-DM, analytics methodology, cognitive ability, data formats, transformation and scalability.</p>
         </div>
-      </div>
+        <span>→</span>
+      </Link>
+
+      <Link className="card" href="/sids5101/lecture2.html#quiz">
+        <div>
+          <small>36 QUESTIONS · NEW</small>
+          <h2>Lecture 2 Application Quiz</h2>
+          <p>Scenario-based questions on CRISP-DM, data types, transformation strategies and scalability.</p>
+        </div>
+        <span>→</span>
+      </Link>
+
+      <Link className="card" href="/sids5101/lecture3.html">
+        <div>
+          <small>LECTURE 3 · NEW</small>
+          <h2>Data Analytics &amp; Visualisation</h2>
+          <p>Full lecture content: data mining, mining tasks, classification, clustering, association and regression.</p>
+        </div>
+        <span>→</span>
+      </Link>
+
+      <Link className="card" href="/sids5101/lecture3.html#quiz">
+        <div>
+          <small>32 QUESTIONS · NEW</small>
+          <h2>Lecture 3 Application Quiz</h2>
+          <p>Apply the differences between description, estimation, prediction, classification, clustering, association and regression.</p>
+        </div>
+        <span>→</span>
+      </Link>
     </main>
   );
 }

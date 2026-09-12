@@ -1,21 +1,28 @@
-# Study Hub
+# SCS Study Hub — BDA Lectures 2 & 3 Update
 
-Next.js study hub for the user's courses.
+Latest deployable Next.js Study Hub.
 
-## 45-Day Study Plan
-The index page includes a 45-day calendar starting 4 September 2026. It assumes 5 modules with 9 topics each and schedules one new topic per day. The modules rotate every 5 days, so each module returns regularly while a 15-minute daily review provides spaced repetition.
+## New Big Data Analytics content
+- Lecture 2: Data Gathering & Preparation
+  - Full uploaded lecture text preserved slide-by-slide
+  - 36 application-focused questions
+  - Concept filter
+  - Shuffle
+  - Immediate green/red correction and explanation
+  - Final score
+- Lecture 3: Data Analytics & Visualisation
+  - Full uploaded lecture text preserved slide-by-slide
+  - 32 application-focused questions
+  - Concept filter
+  - Shuffle
+  - Immediate green/red correction and explanation
+  - Final score
 
-### Daily 3-hour structure
-- 2 hours: learn the new topic
-- 45 minutes: active practice / interactive questions
-- 15 minutes: review an older topic
-
-Modules 4 and 5 are placeholders until their names/codes are supplied. The first three are linked to their course pages.
+## Existing content preserved
+- SCS5102 Discrete Mathematics, including Rosen-style Relations/Rules of Inference practice
+- SCS5103 Pattern Recognition Week 1
+- SIDS5101 Big Data Analytics Week 1
+- Existing Study Hub styling and routes
 
 ## Deploy
-```bash
-npm install
-npm run build
-npm start
-```
-Import the repository into Vercel as a Next.js project.
+Push the project contents to GitHub and import the repository into Vercel as a Next.js project.

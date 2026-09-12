@@ -1,28 +1,29 @@
 import Link from "next/link";
 
-const modules = [
-  { code: "SCS5102", name: "Discrete Mathematics", href: "/course/scs5102", short: "DM" },
-  { code: "SCS5103", name: "Pattern Recognition", href: "/course/scs5103", short: "PR" },
-  { code: "SIDS5101", name: "Big Data Analytics", href: "/course/sids5101", short: "BD" },
-  { code: "MODULE 4", name: "Module 4 — add name", href: null, short: "M4" },
-  { code: "MODULE 5", name: "Module 5 — add name", href: null, short: "M5" },
-];
-
-const startDate = new Date("2026-09-04T12:00:00");
-const plan = Array.from({ length: 45 }, (_, i) => {
-  const date = new Date(startDate);
-  date.setDate(startDate.getDate() + i);
-  const module = modules[i % modules.length];
+const days = Array.from({ length: 45 }, (_, i) => {
+  const d = new Date(2026, 8, 4 + i);
+  const module = (i % 5) + 1;
   return {
     day: i + 1,
-    date,
+    date: d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" }),
     module,
-    topic: (Math.floor(i / modules.length) % 9) + 1,
+    topic: Math.floor(i / 5) + 1,
   };
 });
 
-const formatDate = (date) =>
-  date.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
+const moduleNames = {
+  1: "Module 1",
+  2: "Module 2",
+  3: "Module 3",
+  4: "Module 4",
+  5: "Module 5",
+};
+
+const moduleLinks = {
+  1: "/course/scs5102",
+  2: "/course/sids5101",
+  3: "/course/scs5103",
+};
 
 export default function Home() {
   return (
@@ -33,59 +34,49 @@ export default function Home() {
         <p>Build your revision course-by-course, topic-by-topic.</p>
       </header>
 
-      <section className="studyPlan">
-        <div className="sectionIntro">
-          <div>
-            <small>45-DAY STUDY PLAN</small>
-            <h2>One topic a day.</h2>
-            <p>3 hours daily, rotating through all 5 modules so every module comes back every 5 days.</p>
-          </div>
-          <div className="planBadge"><strong>3h</strong><span>per day</span></div>
-        </div>
-
-        <div className="studyMethod">
-          <div><strong>2h</strong><span>Learn the new topic</span></div>
-          <div><strong>45m</strong><span>Questions + active practice</span></div>
-          <div><strong>15m</strong><span>Review an older topic</span></div>
-        </div>
-
-        <div className="planLegend">
-          {modules.map((m) => <span key={m.short}><b>{m.short}</b>{m.name}</span>)}
-        </div>
-
-        <div className="calendarGrid">
-          {plan.map((item) => (
-            <div className="calendarDay" key={item.day}>
-              <div className="dayTop"><span>DAY {item.day}</span><time>{formatDate(item.date)}</time></div>
-              <div className="dayTopic"><b>Topic {item.topic}</b><span>{item.module.name}</span></div>
-              {item.module.href ? <Link href={item.module.href}>Open module →</Link> : <span className="coming">Module name pending</span>}
-            </div>
-          ))}
-        </div>
-      </section>
-
       <section>
         <h2>Courses</h2>
-
-        <Link className="card" href="/course/scs5102">
-          <div><small>SCS5102</small><h3>Discrete Mathematics</h3><p>Propositional logic, truth tables, relations, inference and more.</p></div>
-          <span>→</span>
-        </Link>
-
-        <Link className="card" href="/course/sids5101">
-          <div><small>SIDS5101</small><h3>Big Data Analytics</h3><p>Big Data, analytics types, visualization and Week 1 foundations.</p></div>
-          <span>→</span>
-        </Link>
-
-        <Link className="card" href="/course/scs5103">
-          <div><small>SCS5103</small><h3>Pattern Recognition</h3><p>Measured patterns, classification, biometrics and Week 1 foundations.</p></div>
-          <span>→</span>
-        </Link>
-
-        <div className="card muted">
-          <div><h3>More courses coming</h3><p>Add your other modules here later.</p></div>
-        </div>
+        <Link className="card" href="/course/scs5102"><div><small>SCS5102</small><h3>Discrete Mathematics</h3><p>Propositional logic, truth tables, applications and more.</p></div><span>→</span></Link>
+        <Link className="card" href="/course/sids5101"><div><small>SIDS5101</small><h3>Big Data Analytics</h3><p>Big Data, analytics, data preparation, data mining, visualization and interactive lecture quizzes.</p></div><span>→</span></Link>
+        <Link className="card" href="/course/scs5103"><div><small>SCS5103</small><h3>Pattern Recognition</h3><p>Measured patterns, classification, biometrics and Week 1 foundations.</p></div><span>→</span></Link>
+        <div className="card muted"><div><h3>More courses coming</h3><p>Add your other modules here later.</p></div></div>
       </section>
     </main>
   );
 }
+
+      <section className="studyPlan">
+        <div className="planTop">
+          <div>
+            <small>45-DAY PLAN</small>
+            <h2>3 hours a day · 1 topic a day</h2>
+            <p>Each module returns every 5 days for spaced repetition.</p>
+          </div>
+          <span className="planDays">45 topics</span>
+        </div>
+        <div className="weekStrip">
+          {days.slice(0, 5).map((x) => (
+            <div className="dayChip" key={x.day}>
+              <b>DAY {x.day}</b><span>{x.date}</span><strong>M{x.module} · T{x.topic}</strong>
+            </div>
+          ))}
+        </div>
+        <details className="fullPlan">
+          <summary>View full 45-day calendar</summary>
+          <div className="calendarGrid">
+            {days.map((x) => {
+              const href = moduleLinks[x.module];
+              return href ? (
+                <Link className="calendarDay" href={href} key={x.day}>
+                  <b>DAY {x.day}</b><span>{x.date}</span><strong>M{x.module} · Topic {x.topic}</strong>
+                </Link>
+              ) : (
+                <div className="calendarDay" key={x.day}>
+                  <b>DAY {x.day}</b><span>{x.date}</span><strong>M{x.module} · Topic {x.topic}</strong>
+                </div>
+              );
+            })}
+          </div>
+        </details>
+      </section>
+
