@@ -26,3 +26,6 @@ Latest deployable Next.js Study Hub.
 
 ## Deploy
 Push the project contents to GitHub and import the repository into Vercel as a Next.js project.
+
+## SCS5107 — Enterprise Programming
+The Study Hub now includes Enterprise Programming Modules 01–13, based on the two supplied GitHub course repositories. Module 14–15 are intentionally not included yet.
