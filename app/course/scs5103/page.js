@@ -27,7 +27,7 @@ export default function Course() {
         
       </Link>
 
-      <Link className="card" href="/scs5103/week1.html#foundation-test">
+      <Link className="card" href="/scs5103/week1.html#test">
         <div>
           <small>30 QUESTIONS</small>
           <h2>Week 1 Foundation Test</h2>

@@ -3,1244 +3,286 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SCS5103 Pattern Recognition — Week 1 Foundation</title>
+<title>SCS5103 &mdash; Pattern Recognition &middot; Week 1 Slides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,420;9..144,540;9..144,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f5f5f2;--surface:#fff;--surface-2:#f0f0eb;--text:#171717;
-  --muted:#70706c;--line:#deded9;--accent:#171717;--accent-2:#70706c;
-  --success:#2f7d4a;--warning:#8a6500;--shadow:none;
-  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
-  --serif:Georgia,"Times New Roman",serif;
-  --sans:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --paper:#eef1ee;--paper-raised:#fbfbf9;--ink:#16211d;--ink-soft:#57655f;--ink-faint:#8d9891;
+  --rule:#d4dbd4;--rule-strong:#aebab2;--mark:#bd3d27;
+  --good:#1f7a52;--good-soft:#e2efe6;--bad:#b23a2b;--bad-soft:#f6e2dd;
+  --accent:#a8721f;--accent-soft:#f3e8d4;
+  --display:"Fraunces",Georgia,serif;--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65}
-a{color:inherit}
-.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:.85rem;min-height:66px;padding:.7rem 1.25rem;background:rgba(245,245,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.burger{display:none}
-.topbar-title{font-size:1rem;font-weight:800;letter-spacing:-.01em}
-.topbar-title small{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.wrap{display:block;max-width:1000px;margin:0 auto;min-height:calc(100vh - 66px)}
-nav#sidenav{position:sticky;top:66px;z-index:90;width:100%;height:auto;overflow-x:auto;display:flex;gap:.35rem;padding:.75rem 0;border-right:0;border-bottom:1px solid var(--line);background:rgba(245,245,242,.96)}
-nav#sidenav h4{display:none}
-nav#sidenav a{display:block;white-space:nowrap;padding:.45rem .7rem;margin:0;border-radius:999px;color:var(--muted);font-size:.82rem;text-decoration:none}
-nav#sidenav a:hover{color:var(--text);background:var(--surface);text-decoration:none}
-.content{width:100%;padding:2.5rem 0 5rem}
-main{max-width:1000px;margin:0 auto}
-.hero{padding:55px 0 60px}
-.hero .eyebrow,.eyebrow{display:inline-block;background:#171717;color:#fff;padding:9px 13px;border-radius:24px;font-size:11px;font-weight:900;letter-spacing:.12em}
-.hero h1{font-size:clamp(48px,7vw,78px);line-height:.96;letter-spacing:-.065em;margin:34px 0 24px}
-.hero p{color:var(--muted);font-size:19px;max-width:760px}
-section{margin:42px 0}
-section>h2{font-size:27px;letter-spacing:-.03em;margin:0 0 18px}
-.card,.panel,.info-card,.memory-card,.flashcard,.test-card,.formula-card,.callout,.definition,.comparison{background:var(--surface)!important;border:1px solid var(--line)!important;border-radius:22px!important;box-shadow:none!important}
-.card,.panel,.info-card,.memory-card,.flashcard,.test-card,.formula-card,.callout,.definition,.comparison{padding:25px!important}
-table{background:#fff;border-collapse:separate;border-spacing:0;width:100%;overflow:hidden;border:1px solid var(--line);border-radius:16px}
-th,td{padding:.75rem;border-bottom:1px solid var(--line);text-align:left}
-th{background:var(--surface-2)}
-code,.formula,.math{font-family:var(--mono)}
-.mega,.big-number{font-size:clamp(42px,6vw,70px)}
-.badge,.tag{background:#171717!important;color:#fff!important;border-radius:999px;padding:.25rem .55rem}
-footer{color:var(--muted);border-top:1px solid var(--line);padding-top:20px}
+body{
+  margin:0;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--rule) 1px,transparent 1px),linear-gradient(90deg,var(--rule) 1px,transparent 1px);
+  background-size:38px 38px;background-position:-1px -1px;
+  height:100vh;overflow:hidden;display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--display);font-weight:650;letter-spacing:-.01em;color:var(--ink);margin:0}
 
-#sidenav{
-  display:block!important;
-  position:relative!important;
-  top:auto!important;
-  width:100%!important;
-  height:auto!important;
-  overflow:visible!important;
-  padding:0!important;
-  margin:0 0 22px!important;
-  border:1px solid var(--line)!important;
-  border-radius:18px!important;
-  background:var(--surface)!important;
-}
-.contents-toggle{
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border:0;
-  background:transparent;
-  color:var(--text);
-  padding:18px 20px;
-  border-radius:18px;
-  cursor:pointer;
-  font:inherit;
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:.12em;
-  text-align:left;
-}
-.contents-toggle:hover{background:var(--surface-2)}
-.toggle-icon{
-  width:28px;height:28px;border:1px solid var(--line);border-radius:50%;
-  display:grid;place-items:center;font-size:18px;font-weight:400;line-height:1;
-  transition:transform .18s ease;
-}
-#sidenav.open .toggle-icon{transform:rotate(45deg)}
-.contents-panel{
-  border-top:1px solid var(--line);
-  padding:15px 20px 20px;
-}
-.contents-panel[hidden]{display:none}
-.nav-group{display:inline-block;vertical-align:top;width:48%;padding-right:20px}
-.nav-group h4{
-  display:block!important;
-  margin:8px 0 7px;
-  font-size:10px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-.nav-group ol,.nav-group ul{margin:0;padding-left:20px}
-.nav-group li{margin:3px 0}
-.nav-group a{
-  display:inline-block!important;
-  padding:2px 0!important;
-  margin:0!important;
-  border-radius:0!important;
-  color:var(--muted)!important;
-  font-size:.85rem!important;
-  text-decoration:none!important;
-}
-.nav-group a:hover{color:var(--text)!important;background:none!important;text-decoration:underline!important}
+/* topbar */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 22px;border-bottom:1px solid var(--rule-strong);background:rgba(238,241,238,.9);backdrop-filter:blur(6px);flex:0 0 auto}
+.topbar nav{display:flex;align-items:center;gap:16px;font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
+.topbar nav a:hover{color:var(--accent)}
+.topbar .title{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--accent);font-weight:600}
+
+/* concept jump strip */
+.jumpstrip{display:flex;gap:6px;overflow-x:auto;padding:10px 22px;border-bottom:1px solid var(--rule);flex:0 0 auto;background:var(--paper)}
+.jumpstrip::-webkit-scrollbar{height:5px}
+.jumppill{flex:0 0 auto;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-soft);background:var(--paper-raised);border:1px solid var(--rule);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap;transition:all .15s ease}
+.jumppill:hover{border-color:var(--rule-strong);color:var(--ink)}
+.jumppill.active{background:var(--ink);border-color:var(--ink);color:#f3f1ea}
+
+/* stage */
+.stage{flex:1 1 auto;display:flex;align-items:center;justify-content:center;min-height:0;position:relative;padding:0 70px}
+.arrowbtn{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:1px solid var(--rule-strong);background:var(--paper-raised);display:grid;place-items:center;cursor:pointer;color:var(--ink);font-size:18px;transition:all .15s ease;z-index:5}
+.arrowbtn:hover:not(:disabled){background:var(--ink);color:#f3f1ea;border-color:var(--ink)}
+.arrowbtn:disabled{opacity:.25;cursor:default}
+.arrowbtn.prev{left:12px}.arrowbtn.next{right:12px}
+
+.slidewrap{width:100%;max-width:900px;height:calc(100% - 28px);max-height:none;margin:14px 0;background:var(--paper-raised);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:6px;padding:28px 34px;overflow:hidden;display:flex;align-items:flex-start;justify-content:center}
+.slidecontent{width:100%;transform-origin:top center;will-change:transform}
+.slide-eyebrow{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.slide-eyebrow .cnum{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600}
+.slide-eyebrow .ctitle{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--ink-faint);text-transform:uppercase}
+.slide-btitle{font-size:26px;margin:2px 0 6px}
+.slide-builds{font-family:var(--sans);font-size:13.5px;color:var(--ink-soft);margin:0 0 20px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
+.slide-body{font-size:15.5px;line-height:1.65;color:var(--ink)}
+.slide-body p{margin:0 0 12px}
+.slide-body b{color:var(--ink);font-weight:600}
+.slide-body ul,.slide-body ol{padding-left:20px;margin:0 0 12px}
+.slide-body li{margin:5px 0}
+
+.kw-grid{display:flex;flex-wrap:wrap;gap:8px}
+.kw{background:var(--accent-soft);border:1px solid var(--rule);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--ink)}
+.kw b{color:var(--accent)}
+
+pre.ascii{background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:14px 16px;font-family:var(--mono);font-size:12.5px;line-height:1.6;overflow-x:auto;color:var(--ink)}
+
+table.cmp{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:14px}
+table.cmp th,table.cmp td{border:1px solid var(--rule);padding:9px 11px;text-align:left}
+table.cmp th{background:var(--paper);font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-soft);text-transform:uppercase}
+
+.anchor-box{background:var(--accent-soft);border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:4px;padding:14px 16px;margin:14px 0;font-size:14.5px;line-height:1.55}
+.anchor-box b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--accent);margin-bottom:6px}
+.must-remember{background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:14px 16px;margin:14px 0}
+.must-remember b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-soft);margin-bottom:8px}
+.must-remember ol{margin:0;padding-left:18px}
+.must-remember li{margin:5px 0;font-size:14.5px}
+
+.flashcards{display:grid;gap:10px}
+.fc{background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:14px 16px;cursor:pointer;position:relative}
+.fc .hint{position:absolute;top:12px;right:14px;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--ink-faint);text-transform:uppercase}
+.fc .q{font-weight:600;font-size:14.5px}
+.fc .a{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--rule-strong);font-size:14px;color:var(--ink-soft)}
+.fc.revealed .a{display:block}
+.fc.revealed{border-color:var(--accent)}
+
+.mapcard{overflow-x:auto}
+.mapcard svg text{font-family:var(--sans);fill:var(--ink)}
+.mapedge{fill:none;stroke:var(--rule-strong);stroke-width:1.6}
+.mapnode rect{fill:var(--paper-raised);stroke:var(--rule-strong);stroke-width:1.2}
+.mapnode.core rect{fill:var(--accent-soft);stroke:var(--accent)}
+.mapnode.app rect{fill:var(--paper);stroke:var(--accent);stroke-dasharray:3 2}
+.mapnode text{font-size:13px;font-weight:600}
+.maplabel{font-size:10.5px;fill:var(--ink-soft)}
+
+.testgroup{border:1px solid var(--rule);border-radius:4px;padding:16px 18px;margin:0 0 12px;background:var(--paper)}
+.testgroup h4{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--accent);margin:0 0 8px;text-transform:none;font-weight:600}
+.testgroup>p{font-size:15px;margin:0 0 10px}
+.test-option{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:var(--paper-raised);border:1px solid var(--rule);border-radius:4px;padding:10px 12px;margin:6px 0;cursor:pointer;font:inherit;color:var(--ink)}
+.test-option b{font-family:var(--mono);border:1px solid var(--rule-strong);border-radius:3px;min-width:24px;height:24px;display:grid;place-items:center;font-size:11px;color:var(--ink-soft)}
+.test-option.correct{background:var(--good-soft);border-color:var(--good)}
+.test-option.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.test-feedback{padding:10px 12px;border-radius:4px;margin-top:8px;line-height:1.5;font-size:14px}
+.test-feedback.good{background:var(--good-soft)}
+.test-feedback.bad{background:var(--bad-soft)}
+.reset-test{margin-top:10px;border:0;border-radius:4px;background:var(--ink);color:#f3f1ea;padding:9px 14px;cursor:pointer;font:inherit}
+
+/* footer / progress */
+.footbar{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:14px;padding:12px 22px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
+.dots{display:flex;gap:4px}
+.dots span{width:5px;height:5px;border-radius:50%;background:var(--rule-strong)}
+.dots span.on{background:var(--accent);width:14px;border-radius:3px}
+
 @media(max-width:700px){
-  .nav-group{display:block;width:100%;padding-right:0;margin-bottom:8px}
-  .wrap{padding:0 16px}.content{padding-top:1rem}.hero{padding:42px 0}
-  .hero h1{font-size:clamp(44px,13vw,62px)}
-  nav#sidenav{margin:0 -16px;padding-left:16px;padding-right:16px}
+  .stage{padding:0 8px}
+  .arrowbtn{width:38px;height:38px}
+  .arrowbtn.prev{left:2px}.arrowbtn.next{right:2px}
+  .slidewrap{padding:22px 18px;height:calc(100% - 16px);margin:8px 0}
+.slidecontent{transform-origin:top center}
+  .slide-btitle{font-size:21px}
 }
 </style>
 </head>
 <body>
-<a href="/" style="position:fixed;right:22px;top:18px;z-index:200;background:#171717;color:#fff;padding:9px 13px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.12em;text-decoration:none">STUDY HUB</a>
 
 <div class="topbar">
-  <div class="burger" id="burgerBtn" role="button" aria-label="Open navigation"><span></span></div>
-  <div class="topbar-title">Pattern Recognition<small>Week 1 · Foundation Build</small></div>
-</div>
-<div class="navmask" id="navMask"></div>
-
-<div class="wrap">
-
-<nav id="sidenav" aria-label="Week 1 contents">
-  <button class="contents-toggle" id="contentsToggle" type="button"
-          aria-expanded="false" aria-controls="contentsPanel">
-    <span>WEEK 1 CONTENTS</span><span class="toggle-icon">+</span>
-  </button>
-  <div class="contents-panel" id="contentsPanel" hidden>
-    <div class="nav-group">
-      <h4>Concepts</h4>
-      <ol>
-        <li><a href="#c1">Pattern Recognition</a></li>
-        <li><a href="#c2">Measured Patterns</a></li>
-        <li><a href="#c3">Classes</a></li>
-        <li><a href="#c4">Classification</a></li>
-        <li><a href="#c5">Steps in Classification</a></li>
-        <li><a href="#c6">Biometrics</a></li>
-      </ol>
-    </div>
-    <div class="nav-group">
-      <h4>Review</h4>
-      <ul>
-        <li><a href="#map">Week 1 master map</a></li>
-        <li><a href="#test">30-question foundation test</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<main>
-
-  <section class="hero">
-    <div class="kicker">WEEK 1 · FOUNDATION</div>
-    <h1>Building the conceptual base of Pattern Recognition</h1>
-    <p>Six ideas, in the order they build on each other. Tap a concept in the menu to jump straight to it — each one opens into definition, keywords, mechanics, examples, and flashcards you can expand only when you need them.</p>
-    <div class="hero-flow">
-      <div class="flow">
-        <div class="node">Pattern Recognition</div><div class="arrow">→</div>
-        <div class="node">Measured Patterns</div><div class="arrow">→</div>
-        <div class="node">Classes</div><div class="arrow">→</div>
-        <div class="node">Classification</div><div class="arrow">→</div>
-        <div class="node">Steps of Classification</div><div class="arrow">→</div>
-        <div class="node">Biometrics</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ CONCEPT 1 ============ -->
-  <section class="concept" id="c1">
-    <div class="concept-head"><span class="concept-num">01</span><h2>Pattern Recognition</h2></div>
-    <p class="builds-on">The umbrella discipline — everything else this week is a piece inside it.</p>
-
-    <details class="block" open>
-      <summary>1. Definition</summary>
-      <div class="body">
-        <p><b>Academic:</b> Pattern recognition is the scientific discipline concerned with the automatic discovery of regularities in data through algorithms, and the use of these regularities to take actions such as assigning the data to one of several categories.</p>
-        <p><b>Plain English:</b> It's teaching a machine to notice a repeating shape, sound, or rule in data, and then use that noticing to make a decision — like sorting mail by handwritten zip code, or deciding a photo shows a cat and not a dog.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>2. Keywords</summary>
-      <div class="body">
-        <div class="kw-grid">
-          <span class="kw"><b>Pattern</b> — a regularity or structure in data</span>
-          <span class="kw"><b>Feature</b> — a measurable property used to describe a pattern</span>
-          <span class="kw"><b>Feature vector</b> — an ordered list of features for one item</span>
-          <span class="kw"><b>Class / category</b> — the group a pattern is assigned to</span>
-          <span class="kw"><b>Classifier</b> — the algorithm that assigns classes</span>
-          <span class="kw">Training data</span>
-          <span class="kw">Test data</span>
-          <span class="kw"><b>Supervised learning</b> — learns from labeled examples</span>
-          <span class="kw"><b>Unsupervised learning</b> — finds structure without labels</span>
-          <span class="kw"><b>Decision boundary</b> — the line/surface separating classes</span>
-          <span class="kw">Feature space</span>
-          <span class="kw"><b>Dimensionality</b> — number of features</span>
-          <span class="kw"><b>Generalization</b> — performing well on unseen data</span>
-          <span class="kw"><b>Overfitting</b> — memorizing training data instead of learning the rule</span>
-          <span class="kw">Noise</span>
-          <span class="kw">Ground truth</span>
-          <span class="kw">Preprocessing</span>
-        </div>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>3. Core explanation</summary>
-      <div class="body">
-        <p><b>What is it?</b> A field that sits between statistics, computer science, and signal processing, all aimed at one question: given raw measurements, which category do they belong to?</p>
-        <p><b>What does it mean?</b> Real-world objects — a face, a signature, a tumor on a scan — rarely repeat identically. Pattern recognition assumes that despite variation, members of the same class share statistical regularities that can be measured and learned.</p>
-        <p><b>Purpose:</b> to automate decisions that would otherwise need a human expert looking at each item one by one.</p>
-        <p><b>Why it matters:</b> almost every modern "smart" system — unlocking a phone by face, a spam filter, a doctor's diagnostic aid — is a pattern recognition system underneath.</p>
-        <p><b>Problem it solves:</b> humans are slow, inconsistent, and don't scale. A trained system can process millions of items with a repeatable, tunable decision rule.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>4. How it works</summary>
-      <div class="body">
-        <ol>
-          <li><b>Sensing:</b> a sensor captures raw data (camera, microphone, scanner).</li>
-          <li><b>Preprocessing:</b> noise is reduced, signal is normalized.</li>
-          <li><b>Feature extraction:</b> the raw data is turned into a compact, informative set of numbers.</li>
-          <li><b>Classification:</b> a decision rule maps the feature vector to a class.</li>
-          <li><b>Output:</b> the system reports a decision (and often a confidence score).</li>
-        </ol>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>5. Diagram</summary>
-      <div class="body">
-<pre class="ascii">Raw Object / Signal
-        │
-        ▼
-   Preprocessing
-        │
-        ▼
- Feature Extraction  ──►  Feature Vector [x1, x2, ..., xd]
-        │
-        ▼
-    Classification
-        │
-        ▼
-   Class / Decision</pre>
-        <p>Each stage narrows raw, noisy input down to a single decision — the whole point is compression: from a huge signal to one label.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>6. Example</summary>
-      <div class="body">
-        <p>A postal sorting machine photographs a handwritten zip code, extracts the shape of each digit, and classifies each one as 0–9 — no human reads it.</p>
-        <p>A phone camera detects a face in the frame and recognizes whose face it is, comparing it against stored templates.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>7. Applications</summary>
-      <div class="body">
-        <ul>
-          <li><b>Biometrics:</b> fingerprint, face, and iris recognition for identity.</li>
-          <li><b>Medicine:</b> classifying tumors as benign/malignant from scans.</li>
-          <li><b>OCR:</b> reading printed or handwritten text.</li>
-          <li><b>Speech:</b> recognizing spoken words or a speaker's identity.</li>
-          <li><b>Industry:</b> detecting defective parts on a production line.</li>
-          <li><b>Finance:</b> flagging fraudulent transactions.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>8. Advantages</summary>
-      <div class="body">
-        <ul>
-          <li><b>Speed:</b> decisions in milliseconds at scale.</li>
-          <li><b>Consistency:</b> the same input always gets the same treatment, unlike a tired human.</li>
-          <li><b>Handles large data:</b> can sift through volumes no human team could review.</li>
-          <li><b>Finds subtle regularities:</b> can pick up patterns too faint or high-dimensional for a person to notice.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>9. Limitations</summary>
-      <div class="body">
-        <ul>
-          <li><b>Data-dependent:</b> poor or biased data produces poor or biased decisions.</li>
-          <li><b>Sensitive to noise:</b> corrupted measurements can mislead the classifier.</li>
-          <li><b>Generalization risk:</b> a system tuned too closely to training data can fail on new data (overfitting).</li>
-          <li><b>Opacity:</b> some classifiers (e.g. neural networks) are hard to interpret.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>10. Comparisons</summary>
-      <div class="body">
-        <table class="cmp">
-          <tr><th></th><th>Pattern Recognition</th><th>Image Processing</th><th>Machine Learning</th></tr>
-          <tr><td>Goal</td><td>Assign a category to input</td><td>Transform/enhance an image</td><td>Learn a function from data generally</td></tr>
-          <tr><td>Output</td><td>A class label</td><td>A modified image</td><td>Predictions of any kind</td></tr>
-          <tr><td>Relationship</td><td colspan="2">Often uses image processing as its preprocessing step</td><td>Provides many of the algorithms pattern recognition uses</td></tr>
-        </table>
-        <p><b>Common confusion:</b> Pattern recognition is often treated as a synonym for machine learning — in reality, pattern recognition is the older, application-focused field (specifically about classification/description of patterns); machine learning is the broader set of learning algorithms it draws on.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>11. Mathematical / formula component</summary>
-      <div class="body">
-        <p>A pattern is represented as a feature vector <b>x</b> = [x₁, x₂, …, x<sub>d</sub>], a point in a <i>d</i>-dimensional feature space. No further formal mathematics is needed yet — this notation is simply the language every later concept will build on.</p>
-      </div>
-    </details>
-
-    <div class="anchor-box"><b>MEMORY ANCHOR</b>"Measure it, describe it, decide it." Every pattern recognition system does exactly those three things, in that order.</div>
-    <div class="must-remember">
-      <b>MUST REMEMBER</b>
-      <ol>
-        <li>Pattern recognition = automatically discovering regularities in data and using them to classify.</li>
-        <li>Pipeline: sensing → preprocessing → feature extraction → classification → decision.</li>
-        <li>A feature vector is the numeric description of one pattern.</li>
-        <li>It underlies biometrics, medical diagnosis, OCR, speech recognition, and fraud detection.</li>
-        <li>Machine learning supplies the algorithms; pattern recognition is the applied discipline that uses them for classification/description.</li>
-      </ol>
-    </div>
-    <div class="flashcards">
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is pattern recognition, in one sentence?</div><div class="a">A: The automatic discovery of regularities in data, used to assign data to categories.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Name the five stages of a basic pattern recognition pipeline.</div><div class="a">A: Sensing, preprocessing, feature extraction, classification, decision/output.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is a feature vector?</div><div class="a">A: An ordered numeric list [x1,...,xd] describing one pattern's measurable properties.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is overfitting?</div><div class="a">A: When a classifier fits the training data too closely and fails to generalize to new data.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Give two real-world applications of pattern recognition.</div><div class="a">A: Any two of: biometrics, OCR, medical diagnosis, speech recognition, fraud detection, defect inspection.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: How does pattern recognition differ from image processing?</div><div class="a">A: Image processing transforms/enhances images; pattern recognition assigns a class label — image processing is often just a preprocessing step for it.</div></div>
-    </div>
-  </section>
-
-  <!-- ============ CONCEPT 2 ============ -->
-  <section class="concept" id="c2">
-    <div class="concept-head"><span class="concept-num">02</span><h2>Measured Patterns</h2></div>
-    <p class="builds-on">Builds on <a href="#c1">Pattern Recognition</a> — before you can classify anything, you need actual measurements to work with.</p>
-
-    <details class="block" open>
-      <summary>1. Definition</summary>
-      <div class="body">
-        <p><b>Academic:</b> A measured pattern is the set of quantitative or qualitative measurements taken from a real-world object or phenomenon through sensing and transduction, forming the raw input to a pattern recognition system.</p>
-        <p><b>Plain English:</b> It's the actual numbers you get by measuring something — a fingerprint's ridge spacing, a photo's pixel brightness values, a patient's temperature — before any pattern-finding has happened.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>2. Keywords</summary>
-      <div class="body">
-        <div class="kw-grid">
-          <span class="kw">Measurement</span><span class="kw">Sensor</span><span class="kw">Transducer</span>
-          <span class="kw">Raw data / signal</span><span class="kw">Attribute / variable</span>
-          <span class="kw"><b>Nominal scale</b> — labels, no order (e.g. blood type)</span>
-          <span class="kw"><b>Ordinal scale</b> — ordered categories (e.g. mild/moderate/severe)</span>
-          <span class="kw"><b>Interval scale</b> — ordered, equal spacing, no true zero</span>
-          <span class="kw"><b>Ratio scale</b> — ordered, equal spacing, true zero</span>
-          <span class="kw">Continuous variable</span><span class="kw">Discrete variable</span>
-          <span class="kw">Sampling</span><span class="kw">Resolution</span><span class="kw">Calibration</span>
-          <span class="kw">Digitization</span><span class="kw">Noise</span>
-        </div>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>3. Core explanation</summary>
-      <div class="body">
-        <p><b>What is it?</b> The measurement stage is where the physical world gets converted into numbers a computer can process.</p>
-        <p><b>What does it mean?</b> Every pattern recognition system starts from something physical — light, sound, pressure, temperature — that a sensor converts into a signal.</p>
-        <p><b>Purpose:</b> to give the system a faithful, numeric description it can compare across many examples.</p>
-        <p><b>Why it matters:</b> the whole system is only as good as its measurements — poor sensors or poor calibration put a ceiling on accuracy no algorithm can fix later.</p>
-        <p><b>Problem it solves:</b> raw physical phenomena aren't directly computable; measurement bridges the physical world and the digital pipeline.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>4. How it works</summary>
-      <div class="body">
-        <ol>
-          <li><b>Phenomenon:</b> the real-world object or event (e.g. a finger touching a scanner).</li>
-          <li><b>Transduction:</b> a sensor converts a physical quantity into an electrical signal.</li>
-          <li><b>Sampling/digitization:</b> the continuous signal is sampled at discrete points and converted to digital values.</li>
-          <li><b>Measurement vector:</b> the digitized readings are organized into a structured record.</li>
-        </ol>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>5. Diagram</summary>
-      <div class="body">
-<pre class="ascii">Physical Phenomenon (light, sound, pressure...)
-        │
-        ▼
-    Sensor / Transducer
-        │
-        ▼
-   Analog Signal
-        │
-        ▼
- Sampling + Digitization
-        │
-        ▼
-  Measured Pattern  [reading1, reading2, ...]</pre>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>6. Example</summary>
-      <div class="body">
-        <p>A fingerprint scanner measures ridge positions and pressure at thousands of points on a finger. A digital camera measures light intensity at every pixel. A hospital monitor measures heart rate, blood pressure, and oxygen saturation.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>7. Applications</summary>
-      <div class="body">
-        <ul>
-          <li><b>Medical devices:</b> vitals monitoring feeding diagnostic systems.</li>
-          <li><b>Biometric scanners:</b> capturing fingerprint, iris, or voice signals.</li>
-          <li><b>Remote sensing:</b> satellites measuring reflected light for land classification.</li>
-          <li><b>Industrial sensors:</b> measuring vibration or temperature to detect faults.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>8. Advantages</summary>
-      <div class="body">
-        <ul>
-          <li><b>Objectivity:</b> numeric measurement removes subjective judgment.</li>
-          <li><b>Reproducibility:</b> the same phenomenon can be re-measured and compared over time.</li>
-          <li><b>Foundation for automation:</b> once digitized, data can be processed at any scale.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>9. Limitations</summary>
-      <div class="body">
-        <ul>
-          <li><b>Sensor noise:</b> imperfect sensors introduce error.</li>
-          <li><b>Calibration drift:</b> sensors can lose accuracy over time.</li>
-          <li><b>Limited resolution:</b> some measurements can't capture fine detail.</li>
-          <li><b>Cost:</b> precise sensing equipment can be expensive.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>10. Comparisons</summary>
-      <div class="body">
-        <table class="cmp">
-          <tr><th></th><th>Measured Pattern (raw)</th><th>Feature</th></tr>
-          <tr><td>Stage</td><td>Straight from the sensor</td><td>After processing/selection</td></tr>
-          <tr><td>Volume</td><td>Often large, redundant</td><td>Compact, informative</td></tr>
-          <tr><td>Example</td><td>Every pixel value in an image</td><td>Edge count, average intensity</td></tr>
-        </table>
-        <p><b>Common confusion:</b> students often use "measurement" and "feature" interchangeably. A measurement is raw; a feature is a deliberately chosen or computed property that is useful for distinguishing classes.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>11. Mathematical / formula component</summary>
-      <div class="body">
-        <p>A measured pattern is represented as a vector of raw readings: <b>x</b> = [x₁, x₂, …, x<sub>n</sub>], where each x<sub>i</sub> is one sensor reading. Example: a blood pressure reading might be x = [120, 80] (systolic, diastolic) — two raw measurements, no interpretation yet.</p>
-      </div>
-    </details>
-
-    <div class="anchor-box"><b>MEMORY ANCHOR</b>"Measurement is the world becoming numbers." Nothing else in the pipeline can happen until this step exists.</div>
-    <div class="must-remember">
-      <b>MUST REMEMBER</b>
-      <ol>
-        <li>A measured pattern is raw, sensor-derived data — before feature extraction.</li>
-        <li>Sensors/transducers convert physical phenomena into signals; sampling digitizes them.</li>
-        <li>Measurement scales: nominal, ordinal, interval, ratio.</li>
-        <li>Measurement quality (noise, calibration, resolution) puts a ceiling on system accuracy.</li>
-        <li>Measured pattern ≠ feature: features are derived from measurements.</li>
-      </ol>
-    </div>
-    <div class="flashcards">
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is a measured pattern?</div><div class="a">A: The raw quantitative/qualitative measurements taken from an object via sensing, before further processing.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Name the four measurement scales.</div><div class="a">A: Nominal, ordinal, interval, ratio.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What role does a transducer play?</div><div class="a">A: Converts a physical quantity (light, pressure, sound) into an electrical signal.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: How does a measurement differ from a feature?</div><div class="a">A: A measurement is raw sensor output; a feature is a derived, informative property computed from measurements.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Why does sensor calibration matter?</div><div class="a">A: Poor calibration introduces systematic error that limits the accuracy of everything downstream.</div></div>
-    </div>
-  </section>
-
-  <!-- ============ CONCEPT 3 ============ -->
-  <section class="concept" id="c3">
-    <div class="concept-head"><span class="concept-num">03</span><h2>Classes</h2></div>
-    <p class="builds-on">Builds on <a href="#c2">Measured Patterns</a> — once you can measure a pattern, you need buckets to sort it into.</p>
-
-    <details class="block" open>
-      <summary>1. Definition</summary>
-      <div class="body">
-        <p><b>Academic:</b> A class (or category) is a set of patterns that share common statistical or structural characteristics, defined so that a classification system can assign new patterns to it based on a decision rule.</p>
-        <p><b>Plain English:</b> A class is a labeled bucket — "cat," "dog," "spam," "benign tumor" — that things get sorted into once you know their measurements.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>2. Keywords</summary>
-      <div class="body">
-        <div class="kw-grid">
-          <span class="kw">Class / category</span><span class="kw">Label</span><span class="kw">Class boundary</span>
-          <span class="kw"><b>Within-class variability</b> — differences among members of the same class</span>
-          <span class="kw"><b>Between-class variability</b> — differences that separate classes</span>
-          <span class="kw">Binary (two-class)</span><span class="kw">Multi-class</span>
-          <span class="kw"><b>Prior probability</b> — how likely a class is before seeing any data</span>
-          <span class="kw"><b>Class-conditional density</b> — distribution of features given a class</span>
-          <span class="kw">Discriminant function</span><span class="kw">Ground truth label</span>
-          <span class="kw">Class imbalance</span><span class="kw">Cluster (unsupervised analog)</span>
-        </div>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>3. Core explanation</summary>
-      <div class="body">
-        <p><b>What is it?</b> The set of possible answers a classifier can give.</p>
-        <p><b>What does it mean?</b> Defining classes is a design decision — a system must be told in advance what categories exist (in supervised settings) before it can learn to tell them apart.</p>
-        <p><b>Purpose:</b> to give structure to the problem; without defined classes, "classification" has no target.</p>
-        <p><b>Why it matters:</b> the quality of class definitions directly affects how learnable the problem is — poorly defined, overlapping classes make even a perfect algorithm struggle.</p>
-        <p><b>Problem it solves:</b> converts an open-ended recognition problem into a closed decision among a known set of outcomes.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>4. How it works</summary>
-      <div class="body">
-        <ol>
-          <li><b>Define classes:</b> decide, from domain knowledge, what categories exist (e.g. digits 0–9).</li>
-          <li><b>Collect labeled examples:</b> gather patterns whose true class is known.</li>
-          <li><b>Characterize each class:</b> examine how its feature values are distributed.</li>
-          <li><b>Locate class regions:</b> in feature space, each class ideally occupies its own region.</li>
-        </ol>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>5. Diagram</summary>
-      <div class="body">
-<pre class="ascii">Feature 2
-   │        o o
-   │      o  o  o     Class A (o)
-   │        o o
-   │
-   │                x x
-   │              x  x  x   Class B (x)
-   │                x x
-   └──────────────────────── Feature 1</pre>
-        <p>Each class occupies a region of feature space. Classification later works by figuring out which region a new point falls into.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>6. Example</summary>
-      <div class="body">
-        <p>In handwritten digit recognition, the classes are "0" through "9." In medical diagnosis, the classes might be "benign" and "malignant." In animal recognition, classes could be "cat," "dog," "bird."</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>7. Applications</summary>
-      <div class="body">
-        <ul>
-          <li><b>Spam filtering:</b> classes are "spam" and "not spam."</li>
-          <li><b>Medical screening:</b> classes such as disease-present / disease-absent.</li>
-          <li><b>Species identification:</b> classes correspond to species.</li>
-          <li><b>Biometric identification:</b> each enrolled person is effectively their own class.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>8. Advantages</summary>
-      <div class="body">
-        <ul>
-          <li><b>Clarity of goal:</b> well-defined classes give the whole system a clear target.</li>
-          <li><b>Enables evaluation:</b> known classes let you measure accuracy against ground truth.</li>
-          <li><b>Domain alignment:</b> classes can be chosen to match real decisions people need (e.g. treat/don't treat).</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>9. Limitations</summary>
-      <div class="body">
-        <ul>
-          <li><b>Overlapping classes:</b> real classes often share feature space, causing ambiguous cases.</li>
-          <li><b>Class imbalance:</b> some classes may have far fewer examples, biasing the classifier.</li>
-          <li><b>Subjectivity in definition:</b> where to draw class boundaries isn't always obvious (e.g. "mild" vs "moderate" disease).</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>10. Comparisons</summary>
-      <div class="body">
-        <table class="cmp">
-          <tr><th></th><th>Class</th><th>Cluster</th></tr>
-          <tr><td>Origin</td><td>Predefined by a human/domain expert</td><td>Discovered automatically from data</td></tr>
-          <tr><td>Learning type</td><td>Supervised</td><td>Unsupervised</td></tr>
-          <tr><td>Label available?</td><td>Yes, during training</td><td>No — labels are not given</td></tr>
-        </table>
-        <p><b>Common confusion:</b> "class" and "cluster" are often used loosely as synonyms; a class is known and labeled in advance, a cluster is a group the algorithm finds on its own.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>11. Mathematical / formula component</summary>
-      <div class="body">
-        <p>Each class ω<sub>i</sub> has a <b>prior probability</b> P(ω<sub>i</sub>) — how common that class is overall. Example: if 1 in 100 scans shows a tumor, P(malignant) = 0.01 and P(benign) = 0.99. This single number becomes important later when weighing decisions under uncertainty.</p>
-      </div>
-    </details>
-
-    <div class="anchor-box"><b>MEMORY ANCHOR</b>"A class is a bucket someone already labeled; a cluster is a bucket the machine found by itself."</div>
-    <div class="must-remember">
-      <b>MUST REMEMBER</b>
-      <ol>
-        <li>A class is a predefined category patterns can be assigned to.</li>
-        <li>Classes ideally occupy distinct regions of feature space.</li>
-        <li>Within-class variability vs between-class variability determines how separable classes are.</li>
-        <li>Prior probability P(ω<sub>i</sub>) reflects how common a class is.</li>
-        <li>Classes (supervised, labeled) differ from clusters (unsupervised, discovered).</li>
-      </ol>
-    </div>
-    <div class="flashcards">
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Define a class in pattern recognition.</div><div class="a">A: A predefined category of patterns sharing common characteristics, used as a target label.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is the difference between within-class and between-class variability?</div><div class="a">A: Within-class = differences among members of one class; between-class = differences that separate classes from each other.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is a prior probability?</div><div class="a">A: The probability of a class occurring before any measurement is considered, P(ωi).</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: How does class imbalance cause problems?</div><div class="a">A: It biases classifiers toward the majority class since there is far less evidence for the minority class.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Class vs cluster — what's the key difference?</div><div class="a">A: A class is predefined and labeled (supervised); a cluster is discovered automatically without labels (unsupervised).</div></div>
-    </div>
-  </section>
-
-  <!-- ============ CONCEPT 4 ============ -->
-  <section class="concept" id="c4">
-    <div class="concept-head"><span class="concept-num">04</span><h2>Classification</h2></div>
-    <p class="builds-on">Builds on <a href="#c3">Classes</a> — now that buckets exist, this is the act of putting a pattern into the right one.</p>
-
-    <details class="block" open>
-      <summary>1. Definition</summary>
-      <div class="body">
-        <p><b>Academic:</b> Classification is the process of assigning a pattern, represented by its feature vector, to one of several predefined classes based on a decision rule learned or derived from data.</p>
-        <p><b>Plain English:</b> It's deciding which labeled bucket a new item belongs to, based on its measured features.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>2. Keywords</summary>
-      <div class="body">
-        <div class="kw-grid">
-          <span class="kw">Classifier</span><span class="kw">Decision rule</span><span class="kw">Decision boundary</span>
-          <span class="kw">Discriminant function</span><span class="kw">Supervised learning</span>
-          <span class="kw">Training set</span><span class="kw">Test set</span><span class="kw">Feature space</span>
-          <span class="kw"><b>Linear classifier</b> — separates classes with a straight line/plane</span>
-          <span class="kw"><b>Nonlinear classifier</b> — separates classes with a curved boundary</span>
-          <span class="kw">Bayes classifier</span><span class="kw">Nearest neighbor</span>
-          <span class="kw">Decision tree</span><span class="kw">Confusion matrix</span>
-          <span class="kw">Accuracy / error rate</span><span class="kw">Generalization</span>
-        </div>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>3. Core explanation</summary>
-      <div class="body">
-        <p><b>What is it?</b> The decision-making core of a pattern recognition system.</p>
-        <p><b>What does it mean?</b> A classifier is a function that takes a feature vector as input and outputs a class label.</p>
-        <p><b>Purpose:</b> to automate the "which bucket does this belong in" decision, consistently and at scale.</p>
-        <p><b>Why it matters:</b> this is the step that actually produces the useful output — everything before it (measuring, extracting features) exists to make this step possible.</p>
-        <p><b>Problem it solves:</b> lets a system make a repeatable decision under uncertainty, rather than requiring exact matches to known examples.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>4. How it works</summary>
-      <div class="body">
-        <ol>
-          <li><b>Training:</b> the classifier learns a decision rule from labeled feature vectors.</li>
-          <li><b>Decision boundary formation:</b> the rule effectively draws a boundary separating classes in feature space.</li>
-          <li><b>Inference:</b> a new, unlabeled feature vector is compared against the learned rule.</li>
-          <li><b>Output:</b> the class on whichever side of the boundary the new point falls is returned as the decision.</li>
-        </ol>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>5. Diagram</summary>
-      <div class="body">
-<pre class="ascii">Feature 2
-   │      o o
-   │    o  o  o   │
-   │      o o     │  ← decision boundary
-   │               │
-   │               │   x x
-   │               │ x  x  x
-   │               │   x x
-   └──────────────────────────── Feature 1
-
-  New point ●  → falls left of boundary → classified as "o"</pre>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>6. Example</summary>
-      <div class="body">
-        <p>A handwriting recognizer takes the stroke shape of a digit and classifies it as "7" rather than "1." A medical classifier takes a tumor's size, shape, and texture and classifies it as "benign" or "malignant."</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>7. Applications</summary>
-      <div class="body">
-        <ul>
-          <li><b>Email filtering:</b> classifying messages as spam or not.</li>
-          <li><b>Diagnostics:</b> classifying scans or lab results as normal/abnormal.</li>
-          <li><b>Speech:</b> classifying audio segments as specific words.</li>
-          <li><b>Quality control:</b> classifying manufactured parts as pass/fail.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>8. Advantages</summary>
-      <div class="body">
-        <ul>
-          <li><b>Automates expert judgment:</b> replicates decisions a human expert would make, at scale.</li>
-          <li><b>Quantifiable performance:</b> accuracy, error rate, and confusion matrices let you measure and improve it.</li>
-          <li><b>Adaptable:</b> retraining on new data lets the classifier improve over time.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>9. Limitations</summary>
-      <div class="body">
-        <ul>
-          <li><b>Boundary errors:</b> points near the decision boundary are prone to misclassification.</li>
-          <li><b>Depends on feature quality:</b> a classifier can't separate classes on features that don't actually differ between them.</li>
-          <li><b>Overfitting risk:</b> an overly complex boundary may fit training noise rather than the true pattern.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>10. Comparisons</summary>
-      <div class="body">
-        <table class="cmp">
-          <tr><th></th><th>Classification</th><th>Regression</th><th>Clustering</th></tr>
-          <tr><td>Output</td><td>A discrete class label</td><td>A continuous number</td><td>Groupings (no predefined labels)</td></tr>
-          <tr><td>Learning type</td><td>Supervised</td><td>Supervised</td><td>Unsupervised</td></tr>
-          <tr><td>Example</td><td>Spam / not spam</td><td>Predicted house price</td><td>Customer segments</td></tr>
-        </table>
-        <p><b>Common confusion:</b> classification and regression are both "supervised," but classification predicts a category, while regression predicts a numeric quantity.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>11. Mathematical / formula component</summary>
-      <div class="body">
-        <p>A simple decision rule using <b>discriminant functions</b>: for each class ω<sub>i</sub>, compute a score g<sub>i</sub>(x). Assign x to class ω<sub>i</sub> if g<sub>i</sub>(x) > g<sub>j</sub>(x) for all other classes j.</p>
-        <p><i>Meaning:</i> each class "votes" with a score based on the input's features; the class with the highest score wins. Example: if g₁(x) = 7.2 and g₂(x) = 3.5, the pattern is assigned to class 1.</p>
-      </div>
-    </details>
-
-    <div class="anchor-box"><b>MEMORY ANCHOR</b>"Classification is the vote-counting step — every class scores the input, and the highest score wins."</div>
-    <div class="must-remember">
-      <b>MUST REMEMBER</b>
-      <ol>
-        <li>Classification assigns a feature vector to one predefined class using a decision rule.</li>
-        <li>The classifier is trained on labeled data, then applied ("inference") to new data.</li>
-        <li>A decision boundary is the geometric expression of the classifier's rule.</li>
-        <li>Discriminant functions g<sub>i</sub>(x) let classes "compete" for the highest score.</li>
-        <li>Classification (discrete output) differs from regression (continuous output).</li>
-      </ol>
-    </div>
-    <div class="flashcards">
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Define classification.</div><div class="a">A: Assigning a feature vector to one of several predefined classes using a learned decision rule.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is a decision boundary?</div><div class="a">A: The surface in feature space that separates one class's region from another's.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is a discriminant function?</div><div class="a">A: A function gi(x) that scores how strongly a feature vector belongs to class i; the highest-scoring class is chosen.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Classification vs regression — key difference?</div><div class="a">A: Classification outputs a discrete class label; regression outputs a continuous numeric value.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Why are points near the decision boundary risky?</div><div class="a">A: They are close to being equally likely under either class, so small noise can flip the decision.</div></div>
-    </div>
-  </section>
-
-  <!-- ============ CONCEPT 5 ============ -->
-  <section class="concept" id="c5">
-    <div class="concept-head"><span class="concept-num">05</span><h2>Steps Associated with Classification</h2></div>
-    <p class="builds-on">Builds on <a href="#c4">Classification</a> — this zooms out from the decision itself to the full pipeline around it.</p>
-
-    <details class="block" open>
-      <summary>1. Definition</summary>
-      <div class="body">
-        <p><b>Academic:</b> The steps of classification are the sequential stages — from raw data acquisition through preprocessing, feature extraction, training, decision-making, and evaluation — that together constitute a complete pattern recognition system.</p>
-        <p><b>Plain English:</b> It's the full recipe, start to finish, that turns a raw signal into a trustworthy class decision.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>2. Keywords</summary>
-      <div class="body">
-        <div class="kw-grid">
-          <span class="kw">Data acquisition</span><span class="kw">Preprocessing</span><span class="kw">Segmentation</span>
-          <span class="kw">Feature extraction</span><span class="kw">Feature selection</span>
-          <span class="kw">Dimensionality reduction</span><span class="kw">Training phase</span>
-          <span class="kw">Model selection</span><span class="kw">Testing phase</span><span class="kw">Evaluation</span>
-          <span class="kw">Cross-validation</span><span class="kw">Confusion matrix</span>
-          <span class="kw">Overfitting</span><span class="kw">Underfitting</span><span class="kw">Post-processing</span>
-        </div>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>3. Core explanation</summary>
-      <div class="body">
-        <p><b>What is it?</b> A structured pipeline, not a single algorithm — classification is the output of many coordinated stages.</p>
-        <p><b>What does it mean?</b> Each stage transforms the data further, and errors introduced early (e.g. bad preprocessing) propagate through every later stage.</p>
-        <p><b>Purpose:</b> to break an otherwise overwhelming problem (raw signal → decision) into manageable, testable steps.</p>
-        <p><b>Why it matters:</b> understanding the pipeline lets you diagnose where a system is failing — is it the sensor, the features, or the classifier itself?</p>
-        <p><b>Problem it solves:</b> provides a repeatable engineering process for building any pattern recognition system, regardless of domain.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>4. How it works</summary>
-      <div class="body">
-        <ol>
-          <li><b>Data acquisition:</b> collect raw samples via sensors.</li>
-          <li><b>Preprocessing:</b> remove noise, normalize scale, correct for missing values.</li>
-          <li><b>Segmentation:</b> isolate the object of interest from background (e.g. separating a face from the rest of a photo).</li>
-          <li><b>Feature extraction:</b> compute informative measurements from the segmented data.</li>
-          <li><b>Feature selection / dimensionality reduction:</b> keep only the most useful features, discard redundant ones.</li>
-          <li><b>Training:</b> fit a classifier on labeled examples (the training set).</li>
-          <li><b>Testing / classification:</b> apply the trained classifier to new, unseen data.</li>
-          <li><b>Evaluation:</b> measure accuracy/error using metrics like a confusion matrix; refine if needed.</li>
-        </ol>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>5. Diagram</summary>
-      <div class="body">
-<pre class="ascii">1 Data Acquisition
-      │
-2 Preprocessing
-      │
-3 Segmentation
-      │
-4 Feature Extraction
-      │
-5 Feature Selection / Dimensionality Reduction
-      │
-      ├──────────────┐
-      ▼              ▼
-6 Training      7 Testing (new data)
-  (labeled data)      │
-      └──────►  Classifier ──► Decision
-                       │
-                8 Evaluation (accuracy, confusion matrix)</pre>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>6. Example</summary>
-      <div class="body">
-        <p>Fingerprint recognition end-to-end: (1) a scanner captures the finger image, (2) the image is cleaned of smudges and normalized, (3) the ridge pattern is segmented from the background, (4) minutiae points (ridge endings, bifurcations) are extracted as features, (5) the most distinctive minutiae are kept, (6) the system is trained on many enrolled fingerprints, (7) a new scan is compared against stored templates, (8) the match rate is evaluated to tune thresholds.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>7. Applications</summary>
-      <div class="body">
-        <ul>
-          <li><b>Any deployed recognition system</b> — face ID, medical imaging AI, speech assistants — follows this same staged pipeline.</li>
-          <li><b>Industrial inspection systems</b> use it to move from a camera image to a pass/fail decision.</li>
-          <li><b>Document processing systems</b> use it to move from a scanned page to extracted, classified text.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>8. Advantages</summary>
-      <div class="body">
-        <ul>
-          <li><b>Modularity:</b> each stage can be improved or swapped independently.</li>
-          <li><b>Debuggability:</b> performance problems can be traced to a specific stage.</li>
-          <li><b>Reusability:</b> the same pipeline structure applies across very different domains.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>9. Limitations</summary>
-      <div class="body">
-        <ul>
-          <li><b>Error propagation:</b> a mistake in an early stage (e.g. bad segmentation) corrupts every later stage.</li>
-          <li><b>Complexity:</b> more stages mean more places for something to go wrong and more to tune.</li>
-          <li><b>Train/test mismatch:</b> if training data doesn't represent real-world conditions, testing performance can mislead.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>10. Comparisons</summary>
-      <div class="body">
-        <table class="cmp">
-          <tr><th></th><th>Training phase</th><th>Testing phase</th></tr>
-          <tr><td>Data used</td><td>Labeled training set</td><td>Unseen test set</td></tr>
-          <tr><td>Goal</td><td>Learn the decision rule</td><td>Evaluate/apply the decision rule</td></tr>
-          <tr><td>Labels available?</td><td>Yes</td><td>Used only for scoring accuracy, not for the decision itself</td></tr>
-        </table>
-        <p><b>Common confusion:</b> students often conflate "feature extraction" with "feature selection" — extraction <i>computes</i> new measurements, selection <i>chooses</i> which of them to keep.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>11. Mathematical / formula component</summary>
-      <div class="body">
-        <p>Data is commonly split into a training set and a test set, e.g. 70%/30% or 80%/20%. This is not a rigid law — it is a practical convention to check generalization. No further formal mathematics is essential at this foundational stage.</p>
-      </div>
-    </details>
-
-    <div class="anchor-box"><b>MEMORY ANCHOR</b>"Acquire → Clean → Isolate → Describe → Trim → Train → Test → Judge." Eight verbs, eight stages.</div>
-    <div class="must-remember">
-      <b>MUST REMEMBER</b>
-      <ol>
-        <li>The 8 stages: acquisition, preprocessing, segmentation, feature extraction, feature selection, training, testing, evaluation.</li>
-        <li>Errors early in the pipeline propagate to every later stage.</li>
-        <li>Training uses labeled data to learn the rule; testing applies it to unseen data.</li>
-        <li>Feature extraction computes new measurements; feature selection chooses among them.</li>
-        <li>Evaluation (e.g. confusion matrix) closes the loop and drives refinement.</li>
-      </ol>
-    </div>
-    <div class="flashcards">
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: List the eight steps of a classification pipeline in order.</div><div class="a">A: Data acquisition, preprocessing, segmentation, feature extraction, feature selection, training, testing, evaluation.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is segmentation?</div><div class="a">A: Isolating the object of interest from its background before feature extraction.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Difference between feature extraction and feature selection?</div><div class="a">A: Extraction computes new measurements from data; selection chooses which of those features to keep.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Why does error propagate through the pipeline?</div><div class="a">A: Each stage's output feeds the next, so a mistake early (e.g. bad segmentation) corrupts everything downstream.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is the purpose of the evaluation stage?</div><div class="a">A: To measure how well the classifier performs (e.g. via a confusion matrix) and guide refinement.</div></div>
-    </div>
-  </section>
-
-  <!-- ============ CONCEPT 6 ============ -->
-  <section class="concept" id="c6">
-    <div class="concept-head"><span class="concept-num">06</span><h2>Biometrics</h2></div>
-    <p class="builds-on">Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.</p>
-
-    <details class="block" open>
-      <summary>1. Definition</summary>
-      <div class="body">
-        <p><b>Academic:</b> Biometrics is the automated recognition of individuals based on their physiological and/or behavioral characteristics, applying pattern recognition and classification techniques to identity verification and identification.</p>
-        <p><b>Plain English:</b> It's using your body or behavior — fingerprint, face, iris, voice, gait — as your ID, instead of a password or a card.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>2. Keywords</summary>
-      <div class="body">
-        <div class="kw-grid">
-          <span class="kw"><b>Physiological biometric</b> — fingerprint, face, iris, DNA</span>
-          <span class="kw"><b>Behavioral biometric</b> — gait, signature, typing rhythm, voice</span>
-          <span class="kw">Enrollment</span><span class="kw">Template</span>
-          <span class="kw"><b>Verification (1:1)</b> — "are you who you claim?"</span>
-          <span class="kw"><b>Identification (1:N)</b> — "who are you, among everyone enrolled?"</span>
-          <span class="kw">Matching score</span>
-          <span class="kw"><b>FAR</b> — False Acceptance Rate</span>
-          <span class="kw"><b>FRR</b> — False Rejection Rate</span>
-          <span class="kw"><b>EER</b> — Equal Error Rate</span>
-          <span class="kw">Liveness detection</span><span class="kw">Spoofing</span>
-          <span class="kw">Uniqueness</span><span class="kw">Permanence</span><span class="kw">Universality</span><span class="kw">Collectability</span>
-        </div>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>3. Core explanation</summary>
-      <div class="body">
-        <p><b>What is it?</b> The direct, everyday application of everything covered this week: measuring a body/behavior trait, extracting features, and classifying against enrolled identities.</p>
-        <p><b>What does it mean?</b> A good biometric trait should be universal (everyone has it), unique (differs enough between people), permanent (stable over time), and collectable (practical to measure).</p>
-        <p><b>Purpose:</b> to confirm or determine identity without relying on something a person can forget, lose, or lend to someone else (like a password or key card).</p>
-        <p><b>Why it matters:</b> biometrics underpin phone unlocking, border control, banking security, and forensics.</p>
-        <p><b>Problem it solves:</b> passwords and cards can be stolen or shared; biometric traits are tied directly to the individual.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>4. How it works</summary>
-      <div class="body">
-        <ol>
-          <li><b>Enrollment:</b> a trait is measured and its features are extracted and stored as a template.</li>
-          <li><b>Capture:</b> at recognition time, the trait is measured again.</li>
-          <li><b>Feature extraction:</b> the new capture is converted into a feature vector the same way as during enrollment.</li>
-          <li><b>Matching:</b> the new feature vector is compared to stored template(s), producing a matching score.</li>
-          <li><b>Decision:</b> if verifying, the system accepts/rejects against one claimed identity; if identifying, it searches all templates for the best match.</li>
-        </ol>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>5. Diagram</summary>
-      <div class="body">
-<pre class="ascii">ENROLLMENT                      RECOGNITION
-Trait ──► Feature ──► Template   Trait ──► Feature ──► Query vector
-              │  (stored)                                  │
-              └──────────────────► Matching ◄───────────────┘
-                                      │
-                              Verification (1:1)   or   Identification (1:N)
-                                      │
-                                  Accept / Reject / Identity</pre>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>6. Example</summary>
-      <div class="body">
-        <p>Unlocking a phone with Face ID: your face was enrolled once as a template; each unlock attempt captures your face again and checks it matches (verification, 1:1).</p>
-        <p>An airport border system that identifies a traveler against a watchlist of thousands of faces is doing identification (1:N) rather than verification.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>7. Applications</summary>
-      <div class="body">
-        <ul>
-          <li><b>Consumer devices:</b> fingerprint/face unlock on phones and laptops.</li>
-          <li><b>Border control:</b> passport e-gates using face or iris recognition.</li>
-          <li><b>Banking:</b> voice or fingerprint authentication for transactions.</li>
-          <li><b>Forensics:</b> matching fingerprints or DNA to crime scene evidence.</li>
-          <li><b>Attendance/access systems:</b> workplace entry via fingerprint or face.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>8. Advantages</summary>
-      <div class="body">
-        <ul>
-          <li><b>Hard to lose or share:</b> unlike a password, you always "have" your fingerprint or face.</li>
-          <li><b>Convenience:</b> nothing to remember or carry.</li>
-          <li><b>Strong link to identity:</b> harder to impersonate than knowledge-based credentials.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>9. Limitations</summary>
-      <div class="body">
-        <ul>
-          <li><b>Privacy concerns:</b> biometric data is sensitive and, unlike a password, can't be "reset" if compromised.</li>
-          <li><b>Spoofing risk:</b> photos, fake fingerprints, or recordings can attempt to fool a system without liveness detection.</li>
-          <li><b>Trait changes over time:</b> injuries, aging, or illness can alter a trait and increase false rejections.</li>
-          <li><b>Cost and infrastructure:</b> high-quality sensors and matching systems can be expensive to deploy.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>10. Comparisons</summary>
-      <div class="body">
-        <table class="cmp">
-          <tr><th></th><th>Physiological biometric</th><th>Behavioral biometric</th></tr>
-          <tr><td>Based on</td><td>Physical body traits</td><td>Patterns of behavior</td></tr>
-          <tr><td>Examples</td><td>Fingerprint, face, iris, DNA</td><td>Gait, signature, typing rhythm, voice</td></tr>
-          <tr><td>Stability</td><td>Generally more stable</td><td>Can vary with mood, stress, context</td></tr>
-        </table>
-        <table class="cmp">
-          <tr><th></th><th>Verification (1:1)</th><th>Identification (1:N)</th></tr>
-          <tr><td>Question asked</td><td>"Are you who you claim?"</td><td>"Who are you, among all enrolled?"</td></tr>
-          <tr><td>Comparisons made</td><td>One</td><td>Many (against the whole database)</td></tr>
-          <tr><td>Example</td><td>Unlocking your own phone</td><td>Airport watchlist screening</td></tr>
-        </table>
-        <p><b>Common confusion:</b> verification and identification are often used interchangeably, but they are different matching problems — one comparison vs. a search across many.</p>
-      </div>
-    </details>
-
-    <details class="block">
-      <summary>11. Mathematical / formula component</summary>
-      <div class="body">
-        <p><b>False Acceptance Rate (FAR):</b> the proportion of impostor attempts wrongly accepted. <b>False Rejection Rate (FRR):</b> the proportion of genuine attempts wrongly rejected. The <b>Equal Error Rate (EER)</b> is the point where FAR = FRR — a common single-number summary of a biometric system's accuracy. Lower EER means a more accurate system.</p>
-      </div>
-    </details>
-
-    <div class="anchor-box"><b>MEMORY ANCHOR</b>"Enroll once, match every time." Biometrics is the classification pipeline running against a single question: does this match a stored template?</div>
-    <div class="must-remember">
-      <b>MUST REMEMBER</b>
-      <ol>
-        <li>Biometrics = identity recognition from physiological or behavioral traits.</li>
-        <li>Pipeline: enrollment → capture → feature extraction → matching → decision.</li>
-        <li>Verification is 1:1 ("are you who you claim?"); identification is 1:N ("who are you?").</li>
-        <li>A good trait is universal, unique, permanent, and collectable.</li>
-        <li>FAR, FRR, and EER quantify a biometric system's accuracy.</li>
-      </ol>
-    </div>
-    <div class="flashcards">
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Define biometrics.</div><div class="a">A: Automated recognition of individuals based on physiological/behavioral traits, using pattern recognition and classification.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Verification vs identification — what's the difference?</div><div class="a">A: Verification is a 1:1 check against a claimed identity; identification is a 1:N search across all enrolled identities.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Give two examples each of physiological and behavioral biometrics.</div><div class="a">A: Physiological: fingerprint, face/iris/DNA. Behavioral: gait, signature/typing rhythm/voice.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What do FAR and FRR measure?</div><div class="a">A: FAR = rate of wrongly accepting impostors; FRR = rate of wrongly rejecting genuine users.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: What is the Equal Error Rate (EER)?</div><div class="a">A: The point where FAR equals FRR — a single-number summary of biometric system accuracy; lower is better.</div></div>
-      <div class="fc" onclick="this.classList.toggle('revealed')"><span class="hint">tap</span><div class="q">Q: Why is biometric data considered higher-risk than a password if compromised?</div><div class="a">A: Unlike a password, a biometric trait cannot be "reset" once its data is stolen.</div></div>
-    </div>
-  </section>
-
-  <!-- ============ MASTER MAP ============ -->
-  <section id="map">
-    <div class="concept-head"><span class="concept-num">◆</span><h2 style="font-family:var(--serif); font-size:1.55rem; margin:0;">Week 1 Master Map</h2></div>
-    <p class="builds-on">How all six concepts connect, on one page.</p>
-    <div class="mapcard">
-      <svg viewBox="0 0 900 430" width="100%" style="min-width:640px;">
-        <defs>
-          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L6,3 L0,6 z" fill="#B9C4C1"/>
-          </marker>
-        </defs>
-
-        <path class="mapedge" d="M150,50 L150,110" marker-end="url(#arrow)"/>
-        <path class="mapedge" d="M150,150 L150,210" marker-end="url(#arrow)"/>
-        <path class="mapedge" d="M150,250 L150,310" marker-end="url(#arrow)"/>
-        <path class="mapedge" d="M270,330 C 400,330 400,330 470,330" marker-end="url(#arrow)"/>
-        <path class="mapedge" d="M590,330 C 650,330 650,330 690,330" marker-end="url(#arrow)"/>
-        <path class="mapedge" d="M150,350 C 150,390 350,410 470,370" marker-end="url(#arrow)"/>
-        <path class="mapedge" d="M150,250 C 350,250 550,150 690,150" marker-end="url(#arrow)"/>
-
-        <g class="mapnode core">
-          <rect x="60" y="15" width="180" height="38" rx="8"/>
-          <text x="150" y="39" text-anchor="middle">Pattern Recognition</text>
-        </g>
-        <text x="150" y="72" text-anchor="middle" class="maplabel">discipline / umbrella</text>
-
-        <g class="mapnode">
-          <rect x="60" y="115" width="180" height="38" rx="8"/>
-          <text x="150" y="139" text-anchor="middle">Measured Patterns</text>
-        </g>
-        <text x="150" y="172" text-anchor="middle" class="maplabel">sensing → raw data</text>
-
-        <g class="mapnode">
-          <rect x="60" y="215" width="180" height="38" rx="8"/>
-          <text x="150" y="239" text-anchor="middle">Classes</text>
-        </g>
-        <text x="150" y="272" text-anchor="middle" class="maplabel">predefined categories</text>
-
-        <g class="mapnode core">
-          <rect x="60" y="315" width="180" height="38" rx="8"/>
-          <text x="150" y="339" text-anchor="middle">Classification</text>
-        </g>
-        <text x="150" y="372" text-anchor="middle" class="maplabel">decision rule</text>
-
-        <g class="mapnode">
-          <rect x="470" y="315" width="220" height="38" rx="8"/>
-          <text x="580" y="339" text-anchor="middle">Steps of Classification</text>
-        </g>
-        <text x="580" y="372" text-anchor="middle" class="maplabel">the full 8-stage pipeline</text>
-
-        <g class="mapnode app">
-          <rect x="700" y="130" width="180" height="38" rx="8"/>
-          <text x="790" y="154" text-anchor="middle">Biometrics</text>
-        </g>
-        <text x="790" y="187" text-anchor="middle" class="maplabel">real-world application</text>
-
-        <text x="150" y="410" text-anchor="middle" class="maplabel">each concept below feeds the one above it</text>
-      </svg>
-    </div>
-    <div class="anchor-box" style="margin-top:1rem;">
-      <b>THE STORY IN ONE LINE</b>
-      Pattern recognition is the field; measured patterns are what you feed it; classes are what you're sorting into; classification is the act of sorting; the 8 steps are how that sorting is actually built; and biometrics is that entire pipeline, applied to proving who you are.
-    </div>
-  </section>
-
-  <!-- ============ TEST ============ -->
-  <section id="test" class="interactive-test"><div class="concept-head"><span class="concept-num">◆</span><h2 style="font-family:var(--serif); font-size:1.55rem; margin:0;">30-Question Interactive Foundation Test</h2></div><p class="builds-on">Pattern Recognition Week 1 — 30 questions covering measured patterns, classes, classification, the classification pipeline and biometrics. Click an answer for immediate correction and explanation. Your final score is shown at the end.</p><div id="foundationQuiz"></div><div id="foundationScore" class="anchor-box" style="margin-top:1rem;display:none;"></div><script>window.__FOUNDATION_QUESTIONS__=[{"concept": "Pattern Recognition", "question": "A pattern is best described as…", "options": ["A measurable set of characteristics used to describe an object/event", "Only a picture", "A database table", "A random guess"], "answer": 0, "explanation": "Patterns are represented through measurable characteristics so they can be analyzed and classified."}, {"concept": "Pattern Recognition", "question": "Which is a typical pattern-recognition pipeline?", "options": ["Sensing → preprocessing → feature extraction → classification → decision/output", "Printing → scanning → deleting → saving", "Database → password → printer → monitor", "Sorting → formatting → emailing → archiving"], "answer": 0, "explanation": "The lecture presents sensing, preprocessing, feature extraction, classification and decision/output as the core pipeline."}, {"concept": "Measured Patterns", "question": "A measured pattern is…", "options": ["Raw measurements obtained from an object through sensing", "A final class label", "A decision boundary", "A visualization legend"], "answer": 0, "explanation": "Measured patterns are the quantitative or qualitative measurements taken from an object before further processing."}, {"concept": "Measured Patterns", "question": "Which scale has categories with no inherent order?", "options": ["Nominal", "Ordinal", "Interval", "Ratio"], "answer": 0, "explanation": "Nominal data identify categories without a meaningful ranking."}, {"concept": "Measured Patterns", "question": "A transducer primarily…", "options": ["Converts a physical quantity into an electrical signal", "Assigns a class label", "Draws a histogram", "Removes all noise mathematically"], "answer": 0, "explanation": "A transducer converts quantities such as light, pressure or sound into signals that can be measured."}, {"concept": "Classes", "question": "In supervised pattern recognition, a class is…", "options": ["A predefined category used as a target label", "A random group found without labels", "A sensor reading", "A feature-extraction algorithm"], "answer": 0, "explanation": "Classes are predefined categories that the classifier learns to distinguish."}, {"concept": "Classes", "question": "Within-class variability means…", "options": ["Differences among members of the same class", "Differences between two classes only", "Measurement noise only", "The number of classes"], "answer": 0, "explanation": "Within-class variability describes how members of one class can differ from each other."}, {"concept": "Classification", "question": "Classification means…", "options": ["Assigning a pattern to one of several predefined classes", "Compressing an image", "Collecting raw sensor data", "Drawing a chart"], "answer": 0, "explanation": "Classification uses a decision rule to assign a feature vector to a predefined class."}, {"concept": "Classification", "question": "A decision boundary separates…", "options": ["Regions associated with different classes in feature space", "Training from testing files only", "Pixels from sensors", "Tables from charts"], "answer": 0, "explanation": "A decision boundary is the surface separating class regions in feature space."}, {"concept": "Classification", "question": "A discriminant function gᵢ(x) is used to…", "options": ["Score how strongly x belongs to class i", "Store an image", "Measure internet speed", "Define a database schema"], "answer": 0, "explanation": "The class with the highest discriminant score is selected by the simple decision rule described in the lecture."}, {"concept": "Steps of Classification", "question": "Which stage isolates the object of interest from its background?", "options": ["Segmentation", "Feature selection", "Testing", "Evaluation"], "answer": 0, "explanation": "Segmentation isolates the object of interest before useful features are extracted."}, {"concept": "Steps of Classification", "question": "Feature extraction differs from feature selection because extraction…", "options": ["Computes new informative measurements, while selection chooses features to keep", "Deletes all features", "Only labels classes", "Always happens after evaluation"], "answer": 0, "explanation": "Extraction creates/derives features; selection chooses which available features are retained."}, {"concept": "Steps of Classification", "question": "Why can an early pipeline error affect later stages?", "options": ["Each stage feeds its output into the next stage", "Later stages ignore earlier outputs", "Only the final stage uses data", "Errors disappear automatically"], "answer": 0, "explanation": "Because stages are connected, poor preprocessing or segmentation can corrupt downstream results."}, {"concept": "Biometrics", "question": "Biometrics recognizes people using…", "options": ["Physiological or behavioral traits", "Only passwords", "Only usernames", "Only geographic location"], "answer": 0, "explanation": "Biometrics uses physiological or behavioral characteristics for automated recognition."}, {"concept": "Biometrics", "question": "Verification is a…", "options": ["1:1 comparison against a claimed identity", "1:N search across every enrolled identity", "Random comparison", "Comparison with no stored template"], "answer": 0, "explanation": "Verification asks whether you are who you claim to be and is a one-to-one check."}, {"concept": "Biometrics", "question": "Identification is a…", "options": ["1:N search across enrolled identities", "1:1 check only", "Password reset", "Feature-selection step"], "answer": 0, "explanation": "Identification asks who you are among enrolled identities, requiring a search across many templates."}, {"concept": "Biometrics", "question": "FAR measures…", "options": ["Impostor attempts wrongly accepted", "Genuine users wrongly rejected", "All successful logins", "The number of enrolled users"], "answer": 0, "explanation": "False Acceptance Rate is the rate at which impostors are incorrectly accepted."}, {"concept": "Biometrics", "question": "FRR measures…", "options": ["Genuine attempts wrongly rejected", "Impostors wrongly accepted", "Number of sensors", "Number of classes"], "answer": 0, "explanation": "False Rejection Rate is the rate at which genuine users are incorrectly rejected."}, {"concept": "Biometrics", "question": "EER occurs when…", "options": ["FAR equals FRR", "FAR is zero in every case", "FRR equals 100%", "There are no enrolled users"], "answer": 0, "explanation": "Equal Error Rate is the point at which false acceptance and false rejection rates are equal."}, {"concept": "Pattern Recognition", "question": "Which is an example of pattern-recognition application?", "options": ["Fraud detection", "Typing a document manually", "Turning on a monitor", "Charging a battery"], "answer": 0, "explanation": "The lecture lists fraud detection among real-world applications of pattern recognition."}, {"concept": "Pattern Recognition", "question": "A feature vector is best represented as…", "options": ["An ordered list of numerical feature values", "A class name only", "A paragraph of text only", "A password"], "answer": 0, "explanation": "A feature vector such as [x₁,…,x_d] represents measurable properties of one pattern."}, {"concept": "Classification", "question": "Why are points near a decision boundary risky?", "options": ["Small noise can change the class decision", "They always belong to both classes", "They contain no features", "They cannot be tested"], "answer": 0, "explanation": "Points close to the boundary can switch class under small measurement or modeling changes."}, {"concept": "Measured Patterns", "question": "Calibration matters because poor calibration can introduce…", "options": ["Systematic measurement error", "New class labels", "More storage capacity", "A decision boundary automatically"], "answer": 0, "explanation": "Systematic sensor error can limit the accuracy of every downstream stage."}, {"concept": "Classes", "question": "Class imbalance can bias a classifier toward…", "options": ["The majority class", "The minority class only", "No class", "Every class equally"], "answer": 0, "explanation": "With far more examples in one class, a classifier may favor that majority class."}, {"concept": "Pattern Recognition", "question": "A cluster differs from a class because a cluster is…", "options": ["Discovered without predefined labels", "Always manually labeled", "A sensor signal", "A decision boundary"], "answer": 0, "explanation": "Classes are predefined labels; clusters are groups discovered without labels in unsupervised learning."}, {"concept": "Biometrics", "question": "Which is a behavioral biometric?", "options": ["Typing rhythm", "Fingerprint ridge pattern", "Iris pattern", "DNA"], "answer": 0, "explanation": "Typing rhythm is behavioral; fingerprints, iris and DNA are physiological examples."}, {"concept": "Biometrics", "question": "A good biometric trait should generally be…", "options": ["Universal, unique, permanent and collectable", "Secret, temporary and random", "Only cheap", "Only visible"], "answer": 0, "explanation": "The lecture highlights universality, uniqueness, permanence and collectability as desirable properties."}, {"concept": "Pattern Recognition", "question": "Classification differs from regression because classification outputs…", "options": ["A discrete class label", "A continuous numeric value", "Only an image", "Only raw measurements"], "answer": 0, "explanation": "Classification produces discrete labels, whereas regression predicts continuous numeric values."}, {"concept": "Steps of Classification", "question": "The purpose of evaluation is to…", "options": ["Measure classifier performance and guide refinement", "Collect the first sensor reading", "Create a class from nothing", "Replace feature extraction"], "answer": 0, "explanation": "Evaluation measures performance, for example with a confusion matrix, and helps guide improvement."}, {"concept": "Pattern Recognition", "question": "Overfitting occurs when a model…", "options": ["Fits training data too closely and generalizes poorly", "Never learns training data", "Uses no features", "Always predicts perfectly on new data"], "answer": 0, "explanation": "Overfitting means the model captures training-specific detail and performs poorly on unseen data."}];</script></section>
-
-<footer>Week 1 · Pattern Recognition foundation guide — tap any concept to expand only what you need.</footer>
-
-</main>
+  <nav><a href="/course/scs5103">&larr; SCS5103</a></nav>
+  <span class="title">WEEK 1 &middot; FOUNDATION NOTES &middot; SLIDES</span>
+  <nav><a href="/scs5103/week1-classic.html">Classic view</a></nav>
 </div>
 
-<script>
-  const contentsToggle = document.getElementById('contentsToggle');
-  const contentsPanel = document.getElementById('contentsPanel');
-  const nav = document.getElementById('sidenav');
+<div class="jumpstrip" id="jumpstrip"></div>
 
-  contentsToggle.addEventListener('click', () => {
-    const isOpen = nav.classList.toggle('open');
-    contentsToggle.setAttribute('aria-expanded', String(isOpen));
-    contentsPanel.hidden = !isOpen;
-  });
+<div class="stage">
+  <button class="arrowbtn prev" id="prevBtn" aria-label="Previous">&larr;</button>
+  <div class="slidewrap" id="slidewrap"></div>
+  <button class="arrowbtn next" id="nextBtn" aria-label="Next">&rarr;</button>
+</div>
 
-  contentsPanel.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      nav.classList.remove('open');
-      contentsToggle.setAttribute('aria-expanded', 'false');
-      contentsPanel.hidden = true;
-    });
-  });
-</script>
+<div class="footbar">
+  <span id="progressLabel"></span>
+  <div class="dots" id="dots"></div>
+</div>
+
+<script id="slides-data" type="application/json">[{"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 0, "bcount": 13, "btitle": "1. Definition", "html": "<p><b>Academic:</b> Pattern recognition is the scientific discipline concerned with the automatic discovery of regularities in data through algorithms, and the use of these regularities to take actions such as assigning the data to one of several categories.</p>\n<p><b>Plain English:</b> It's teaching a machine to notice a repeating shape, sound, or rule in data, and then use that noticing to make a decision — like sorting mail by handwritten zip code, or deciding a photo shows a cat and not a dog.</p>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 1, "bcount": 13, "btitle": "2. Keywords", "html": "<div class=\"kw-grid\">\n<span class=\"kw\"><b>Pattern</b> — a regularity or structure in data</span>\n<span class=\"kw\"><b>Feature</b> — a measurable property used to describe a pattern</span>\n<span class=\"kw\"><b>Feature vector</b> — an ordered list of features for one item</span>\n<span class=\"kw\"><b>Class / category</b> — the group a pattern is assigned to</span>\n<span class=\"kw\"><b>Classifier</b> — the algorithm that assigns classes</span>\n<span class=\"kw\">Training data</span>\n<span class=\"kw\">Test data</span>\n<span class=\"kw\"><b>Supervised learning</b> — learns from labeled examples</span>\n<span class=\"kw\"><b>Unsupervised learning</b> — finds structure without labels</span>\n<span class=\"kw\"><b>Decision boundary</b> — the line/surface separating classes</span>\n<span class=\"kw\">Feature space</span>\n<span class=\"kw\"><b>Dimensionality</b> — number of features</span>\n<span class=\"kw\"><b>Generalization</b> — performing well on unseen data</span>\n<span class=\"kw\"><b>Overfitting</b> — memorizing training data instead of learning the rule</span>\n<span class=\"kw\">Noise</span>\n<span class=\"kw\">Ground truth</span>\n<span class=\"kw\">Preprocessing</span>\n</div>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 2, "bcount": 13, "btitle": "3. Core explanation", "html": "<p><b>What is it?</b> A field that sits between statistics, computer science, and signal processing, all aimed at one question: given raw measurements, which category do they belong to?</p>\n<p><b>What does it mean?</b> Real-world objects — a face, a signature, a tumor on a scan — rarely repeat identically. Pattern recognition assumes that despite variation, members of the same class share statistical regularities that can be measured and learned.</p>\n<p><b>Purpose:</b> to automate decisions that would otherwise need a human expert looking at each item one by one.</p>\n<p><b>Why it matters:</b> almost every modern \"smart\" system — unlocking a phone by face, a spam filter, a doctor's diagnostic aid — is a pattern recognition system underneath.</p>\n<p><b>Problem it solves:</b> humans are slow, inconsistent, and don't scale. A trained system can process millions of items with a repeatable, tunable decision rule.</p>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 3, "bcount": 13, "btitle": "4. How it works", "html": "<ol>\n<li><b>Sensing:</b> a sensor captures raw data (camera, microphone, scanner).</li>\n<li><b>Preprocessing:</b> noise is reduced, signal is normalized.</li>\n<li><b>Feature extraction:</b> the raw data is turned into a compact, informative set of numbers.</li>\n<li><b>Classification:</b> a decision rule maps the feature vector to a class.</li>\n<li><b>Output:</b> the system reports a decision (and often a confidence score).</li>\n</ol>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 4, "bcount": 13, "btitle": "5. Diagram", "html": "<pre class=\"ascii\">Raw Object / Signal\n        │\n        ▼\n   Preprocessing\n        │\n        ▼\n Feature Extraction  ──►  Feature Vector [x1, x2, ..., xd]\n        │\n        ▼\n    Classification\n        │\n        ▼\n   Class / Decision</pre>\n<p>Each stage narrows raw, noisy input down to a single decision — the whole point is compression: from a huge signal to one label.</p>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 5, "bcount": 13, "btitle": "6. Example", "html": "<p>A postal sorting machine photographs a handwritten zip code, extracts the shape of each digit, and classifies each one as 0–9 — no human reads it.</p>\n<p>A phone camera detects a face in the frame and recognizes whose face it is, comparing it against stored templates.</p>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 6, "bcount": 13, "btitle": "7. Applications", "html": "<ul>\n<li><b>Biometrics:</b> fingerprint, face, and iris recognition for identity.</li>\n<li><b>Medicine:</b> classifying tumors as benign/malignant from scans.</li>\n<li><b>OCR:</b> reading printed or handwritten text.</li>\n<li><b>Speech:</b> recognizing spoken words or a speaker's identity.</li>\n<li><b>Industry:</b> detecting defective parts on a production line.</li>\n<li><b>Finance:</b> flagging fraudulent transactions.</li>\n</ul>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 7, "bcount": 13, "btitle": "8. Advantages", "html": "<ul>\n<li><b>Speed:</b> decisions in milliseconds at scale.</li>\n<li><b>Consistency:</b> the same input always gets the same treatment, unlike a tired human.</li>\n<li><b>Handles large data:</b> can sift through volumes no human team could review.</li>\n<li><b>Finds subtle regularities:</b> can pick up patterns too faint or high-dimensional for a person to notice.</li>\n</ul>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 8, "bcount": 13, "btitle": "9. Limitations", "html": "<ul>\n<li><b>Data-dependent:</b> poor or biased data produces poor or biased decisions.</li>\n<li><b>Sensitive to noise:</b> corrupted measurements can mislead the classifier.</li>\n<li><b>Generalization risk:</b> a system tuned too closely to training data can fail on new data (overfitting).</li>\n<li><b>Opacity:</b> some classifiers (e.g. neural networks) are hard to interpret.</li>\n</ul>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 9, "bcount": 13, "btitle": "10. Comparisons", "html": "<table class=\"cmp\">\n<tr><th></th><th>Pattern Recognition</th><th>Image Processing</th><th>Machine Learning</th></tr>\n<tr><td>Goal</td><td>Assign a category to input</td><td>Transform/enhance an image</td><td>Learn a function from data generally</td></tr>\n<tr><td>Output</td><td>A class label</td><td>A modified image</td><td>Predictions of any kind</td></tr>\n<tr><td>Relationship</td><td colspan=\"2\">Often uses image processing as its preprocessing step</td><td>Provides many of the algorithms pattern recognition uses</td></tr>\n</table>\n<p><b>Common confusion:</b> Pattern recognition is often treated as a synonym for machine learning — in reality, pattern recognition is the older, application-focused field (specifically about classification/description of patterns); machine learning is the broader set of learning algorithms it draws on.</p>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 10, "bcount": 13, "btitle": "11. Mathematical / formula component", "html": "<p>A pattern is represented as a feature vector <b>x</b> = [x₁, x₂, …, x<sub>d</sub>], a point in a <i>d</i>-dimensional feature space. No further formal mathematics is needed yet — this notation is simply the language every later concept will build on.</p>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 11, "bcount": 13, "btitle": "Recap", "html": "<div class=\"anchor-box\"><b>MEMORY ANCHOR</b>\"Measure it, describe it, decide it.\" Every pattern recognition system does exactly those three things, in that order.</div><div class=\"must-remember\">\n<b>MUST REMEMBER</b>\n<ol>\n<li>Pattern recognition = automatically discovering regularities in data and using them to classify.</li>\n<li>Pipeline: sensing → preprocessing → feature extraction → classification → decision.</li>\n<li>A feature vector is the numeric description of one pattern.</li>\n<li>It underlies biometrics, medical diagnosis, OCR, speech recognition, and fraud detection.</li>\n<li>Machine learning supplies the algorithms; pattern recognition is the applied discipline that uses them for classification/description.</li>\n</ol>\n</div>"}, {"cid": "c1", "cindex": 0, "cnum": "01", "ctitle": "Pattern Recognition", "cbuilds": "The umbrella discipline — everything else this week is a piece inside it.", "bindex": 12, "bcount": 13, "btitle": "Flashcards", "html": "<div class=\"flashcards\">\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What is pattern recognition, in one sentence?</div><div class=\"a\">A: The automatic discovery of regularities in data, used to assign data to categories.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Name the five stages of a basic pattern recognition pipeline.</div><div class=\"a\">A: Sensing, preprocessing, feature extraction, classification, decision/output.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What is a feature vector?</div><div class=\"a\">A: An ordered numeric list [x1,...,xd] describing one pattern's measurable properties.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What is overfitting?</div><div class=\"a\">A: When a classifier fits the training data too closely and fails to generalize to new data.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Give two real-world applications of pattern recognition.</div><div class=\"a\">A: Any two of: biometrics, OCR, medical diagnosis, speech recognition, fraud detection, defect inspection.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: How does pattern recognition differ from image processing?</div><div class=\"a\">A: Image processing transforms/enhances images; pattern recognition assigns a class label — image processing is often just a preprocessing step for it.</div></div>\n</div>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 0, "bcount": 13, "btitle": "1. Definition", "html": "<p><b>Academic:</b> A measured pattern is the set of quantitative or qualitative measurements taken from a real-world object or phenomenon through sensing and transduction, forming the raw input to a pattern recognition system.</p>\n<p><b>Plain English:</b> It's the actual numbers you get by measuring something — a fingerprint's ridge spacing, a photo's pixel brightness values, a patient's temperature — before any pattern-finding has happened.</p>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 1, "bcount": 13, "btitle": "2. Keywords", "html": "<div class=\"kw-grid\">\n<span class=\"kw\">Measurement</span><span class=\"kw\">Sensor</span><span class=\"kw\">Transducer</span>\n<span class=\"kw\">Raw data / signal</span><span class=\"kw\">Attribute / variable</span>\n<span class=\"kw\"><b>Nominal scale</b> — labels, no order (e.g. blood type)</span>\n<span class=\"kw\"><b>Ordinal scale</b> — ordered categories (e.g. mild/moderate/severe)</span>\n<span class=\"kw\"><b>Interval scale</b> — ordered, equal spacing, no true zero</span>\n<span class=\"kw\"><b>Ratio scale</b> — ordered, equal spacing, true zero</span>\n<span class=\"kw\">Continuous variable</span><span class=\"kw\">Discrete variable</span>\n<span class=\"kw\">Sampling</span><span class=\"kw\">Resolution</span><span class=\"kw\">Calibration</span>\n<span class=\"kw\">Digitization</span><span class=\"kw\">Noise</span>\n</div>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 2, "bcount": 13, "btitle": "3. Core explanation", "html": "<p><b>What is it?</b> The measurement stage is where the physical world gets converted into numbers a computer can process.</p>\n<p><b>What does it mean?</b> Every pattern recognition system starts from something physical — light, sound, pressure, temperature — that a sensor converts into a signal.</p>\n<p><b>Purpose:</b> to give the system a faithful, numeric description it can compare across many examples.</p>\n<p><b>Why it matters:</b> the whole system is only as good as its measurements — poor sensors or poor calibration put a ceiling on accuracy no algorithm can fix later.</p>\n<p><b>Problem it solves:</b> raw physical phenomena aren't directly computable; measurement bridges the physical world and the digital pipeline.</p>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 3, "bcount": 13, "btitle": "4. How it works", "html": "<ol>\n<li><b>Phenomenon:</b> the real-world object or event (e.g. a finger touching a scanner).</li>\n<li><b>Transduction:</b> a sensor converts a physical quantity into an electrical signal.</li>\n<li><b>Sampling/digitization:</b> the continuous signal is sampled at discrete points and converted to digital values.</li>\n<li><b>Measurement vector:</b> the digitized readings are organized into a structured record.</li>\n</ol>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 4, "bcount": 13, "btitle": "5. Diagram", "html": "<pre class=\"ascii\">Physical Phenomenon (light, sound, pressure...)\n        │\n        ▼\n    Sensor / Transducer\n        │\n        ▼\n   Analog Signal\n        │\n        ▼\n Sampling + Digitization\n        │\n        ▼\n  Measured Pattern  [reading1, reading2, ...]</pre>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 5, "bcount": 13, "btitle": "6. Example", "html": "<p>A fingerprint scanner measures ridge positions and pressure at thousands of points on a finger. A digital camera measures light intensity at every pixel. A hospital monitor measures heart rate, blood pressure, and oxygen saturation.</p>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 6, "bcount": 13, "btitle": "7. Applications", "html": "<ul>\n<li><b>Medical devices:</b> vitals monitoring feeding diagnostic systems.</li>\n<li><b>Biometric scanners:</b> capturing fingerprint, iris, or voice signals.</li>\n<li><b>Remote sensing:</b> satellites measuring reflected light for land classification.</li>\n<li><b>Industrial sensors:</b> measuring vibration or temperature to detect faults.</li>\n</ul>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 7, "bcount": 13, "btitle": "8. Advantages", "html": "<ul>\n<li><b>Objectivity:</b> numeric measurement removes subjective judgment.</li>\n<li><b>Reproducibility:</b> the same phenomenon can be re-measured and compared over time.</li>\n<li><b>Foundation for automation:</b> once digitized, data can be processed at any scale.</li>\n</ul>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 8, "bcount": 13, "btitle": "9. Limitations", "html": "<ul>\n<li><b>Sensor noise:</b> imperfect sensors introduce error.</li>\n<li><b>Calibration drift:</b> sensors can lose accuracy over time.</li>\n<li><b>Limited resolution:</b> some measurements can't capture fine detail.</li>\n<li><b>Cost:</b> precise sensing equipment can be expensive.</li>\n</ul>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 9, "bcount": 13, "btitle": "10. Comparisons", "html": "<table class=\"cmp\">\n<tr><th></th><th>Measured Pattern (raw)</th><th>Feature</th></tr>\n<tr><td>Stage</td><td>Straight from the sensor</td><td>After processing/selection</td></tr>\n<tr><td>Volume</td><td>Often large, redundant</td><td>Compact, informative</td></tr>\n<tr><td>Example</td><td>Every pixel value in an image</td><td>Edge count, average intensity</td></tr>\n</table>\n<p><b>Common confusion:</b> students often use \"measurement\" and \"feature\" interchangeably. A measurement is raw; a feature is a deliberately chosen or computed property that is useful for distinguishing classes.</p>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 10, "bcount": 13, "btitle": "11. Mathematical / formula component", "html": "<p>A measured pattern is represented as a vector of raw readings: <b>x</b> = [x₁, x₂, …, x<sub>n</sub>], where each x<sub>i</sub> is one sensor reading. Example: a blood pressure reading might be x = [120, 80] (systolic, diastolic) — two raw measurements, no interpretation yet.</p>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 11, "bcount": 13, "btitle": "Recap", "html": "<div class=\"anchor-box\"><b>MEMORY ANCHOR</b>\"Measurement is the world becoming numbers.\" Nothing else in the pipeline can happen until this step exists.</div><div class=\"must-remember\">\n<b>MUST REMEMBER</b>\n<ol>\n<li>A measured pattern is raw, sensor-derived data — before feature extraction.</li>\n<li>Sensors/transducers convert physical phenomena into signals; sampling digitizes them.</li>\n<li>Measurement scales: nominal, ordinal, interval, ratio.</li>\n<li>Measurement quality (noise, calibration, resolution) puts a ceiling on system accuracy.</li>\n<li>Measured pattern ≠ feature: features are derived from measurements.</li>\n</ol>\n</div>"}, {"cid": "c2", "cindex": 1, "cnum": "02", "ctitle": "Measured Patterns", "cbuilds": "Builds onPattern Recognition— before you can classify anything, you need actual measurements to work with.", "bindex": 12, "bcount": 13, "btitle": "Flashcards", "html": "<div class=\"flashcards\">\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What is a measured pattern?</div><div class=\"a\">A: The raw quantitative/qualitative measurements taken from an object via sensing, before further processing.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Name the four measurement scales.</div><div class=\"a\">A: Nominal, ordinal, interval, ratio.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What role does a transducer play?</div><div class=\"a\">A: Converts a physical quantity (light, pressure, sound) into an electrical signal.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: How does a measurement differ from a feature?</div><div class=\"a\">A: A measurement is raw sensor output; a feature is a derived, informative property computed from measurements.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Why does sensor calibration matter?</div><div class=\"a\">A: Poor calibration introduces systematic error that limits the accuracy of everything downstream.</div></div>\n</div>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 0, "bcount": 13, "btitle": "1. Definition", "html": "<p><b>Academic:</b> A class (or category) is a set of patterns that share common statistical or structural characteristics, defined so that a classification system can assign new patterns to it based on a decision rule.</p>\n<p><b>Plain English:</b> A class is a labeled bucket — \"cat,\" \"dog,\" \"spam,\" \"benign tumor\" — that things get sorted into once you know their measurements.</p>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 1, "bcount": 13, "btitle": "2. Keywords", "html": "<div class=\"kw-grid\">\n<span class=\"kw\">Class / category</span><span class=\"kw\">Label</span><span class=\"kw\">Class boundary</span>\n<span class=\"kw\"><b>Within-class variability</b> — differences among members of the same class</span>\n<span class=\"kw\"><b>Between-class variability</b> — differences that separate classes</span>\n<span class=\"kw\">Binary (two-class)</span><span class=\"kw\">Multi-class</span>\n<span class=\"kw\"><b>Prior probability</b> — how likely a class is before seeing any data</span>\n<span class=\"kw\"><b>Class-conditional density</b> — distribution of features given a class</span>\n<span class=\"kw\">Discriminant function</span><span class=\"kw\">Ground truth label</span>\n<span class=\"kw\">Class imbalance</span><span class=\"kw\">Cluster (unsupervised analog)</span>\n</div>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 2, "bcount": 13, "btitle": "3. Core explanation", "html": "<p><b>What is it?</b> The set of possible answers a classifier can give.</p>\n<p><b>What does it mean?</b> Defining classes is a design decision — a system must be told in advance what categories exist (in supervised settings) before it can learn to tell them apart.</p>\n<p><b>Purpose:</b> to give structure to the problem; without defined classes, \"classification\" has no target.</p>\n<p><b>Why it matters:</b> the quality of class definitions directly affects how learnable the problem is — poorly defined, overlapping classes make even a perfect algorithm struggle.</p>\n<p><b>Problem it solves:</b> converts an open-ended recognition problem into a closed decision among a known set of outcomes.</p>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 3, "bcount": 13, "btitle": "4. How it works", "html": "<ol>\n<li><b>Define classes:</b> decide, from domain knowledge, what categories exist (e.g. digits 0–9).</li>\n<li><b>Collect labeled examples:</b> gather patterns whose true class is known.</li>\n<li><b>Characterize each class:</b> examine how its feature values are distributed.</li>\n<li><b>Locate class regions:</b> in feature space, each class ideally occupies its own region.</li>\n</ol>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 4, "bcount": 13, "btitle": "5. Diagram", "html": "<pre class=\"ascii\">Feature 2\n   │        o o\n   │      o  o  o     Class A (o)\n   │        o o\n   │\n   │                x x\n   │              x  x  x   Class B (x)\n   │                x x\n   └──────────────────────── Feature 1</pre>\n<p>Each class occupies a region of feature space. Classification later works by figuring out which region a new point falls into.</p>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 5, "bcount": 13, "btitle": "6. Example", "html": "<p>In handwritten digit recognition, the classes are \"0\" through \"9.\" In medical diagnosis, the classes might be \"benign\" and \"malignant.\" In animal recognition, classes could be \"cat,\" \"dog,\" \"bird.\"</p>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 6, "bcount": 13, "btitle": "7. Applications", "html": "<ul>\n<li><b>Spam filtering:</b> classes are \"spam\" and \"not spam.\"</li>\n<li><b>Medical screening:</b> classes such as disease-present / disease-absent.</li>\n<li><b>Species identification:</b> classes correspond to species.</li>\n<li><b>Biometric identification:</b> each enrolled person is effectively their own class.</li>\n</ul>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 7, "bcount": 13, "btitle": "8. Advantages", "html": "<ul>\n<li><b>Clarity of goal:</b> well-defined classes give the whole system a clear target.</li>\n<li><b>Enables evaluation:</b> known classes let you measure accuracy against ground truth.</li>\n<li><b>Domain alignment:</b> classes can be chosen to match real decisions people need (e.g. treat/don't treat).</li>\n</ul>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 8, "bcount": 13, "btitle": "9. Limitations", "html": "<ul>\n<li><b>Overlapping classes:</b> real classes often share feature space, causing ambiguous cases.</li>\n<li><b>Class imbalance:</b> some classes may have far fewer examples, biasing the classifier.</li>\n<li><b>Subjectivity in definition:</b> where to draw class boundaries isn't always obvious (e.g. \"mild\" vs \"moderate\" disease).</li>\n</ul>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 9, "bcount": 13, "btitle": "10. Comparisons", "html": "<table class=\"cmp\">\n<tr><th></th><th>Class</th><th>Cluster</th></tr>\n<tr><td>Origin</td><td>Predefined by a human/domain expert</td><td>Discovered automatically from data</td></tr>\n<tr><td>Learning type</td><td>Supervised</td><td>Unsupervised</td></tr>\n<tr><td>Label available?</td><td>Yes, during training</td><td>No — labels are not given</td></tr>\n</table>\n<p><b>Common confusion:</b> \"class\" and \"cluster\" are often used loosely as synonyms; a class is known and labeled in advance, a cluster is a group the algorithm finds on its own.</p>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 10, "bcount": 13, "btitle": "11. Mathematical / formula component", "html": "<p>Each class ω<sub>i</sub> has a <b>prior probability</b> P(ω<sub>i</sub>) — how common that class is overall. Example: if 1 in 100 scans shows a tumor, P(malignant) = 0.01 and P(benign) = 0.99. This single number becomes important later when weighing decisions under uncertainty.</p>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 11, "bcount": 13, "btitle": "Recap", "html": "<div class=\"anchor-box\"><b>MEMORY ANCHOR</b>\"A class is a bucket someone already labeled; a cluster is a bucket the machine found by itself.\"</div><div class=\"must-remember\">\n<b>MUST REMEMBER</b>\n<ol>\n<li>A class is a predefined category patterns can be assigned to.</li>\n<li>Classes ideally occupy distinct regions of feature space.</li>\n<li>Within-class variability vs between-class variability determines how separable classes are.</li>\n<li>Prior probability P(ω<sub>i</sub>) reflects how common a class is.</li>\n<li>Classes (supervised, labeled) differ from clusters (unsupervised, discovered).</li>\n</ol>\n</div>"}, {"cid": "c3", "cindex": 2, "cnum": "03", "ctitle": "Classes", "cbuilds": "Builds onMeasured Patterns— once you can measure a pattern, you need buckets to sort it into.", "bindex": 12, "bcount": 13, "btitle": "Flashcards", "html": "<div class=\"flashcards\">\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Define a class in pattern recognition.</div><div class=\"a\">A: A predefined category of patterns sharing common characteristics, used as a target label.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What is the difference between within-class and between-class variability?</div><div class=\"a\">A: Within-class = differences among members of one class; between-class = differences that separate classes from each other.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What is a prior probability?</div><div class=\"a\">A: The probability of a class occurring before any measurement is considered, P(ωi).</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: How does class imbalance cause problems?</div><div class=\"a\">A: It biases classifiers toward the majority class since there is far less evidence for the minority class.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Class vs cluster — what's the key difference?</div><div class=\"a\">A: A class is predefined and labeled (supervised); a cluster is discovered automatically without labels (unsupervised).</div></div>\n</div>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 0, "bcount": 13, "btitle": "1. Definition", "html": "<p><b>Academic:</b> Classification is the process of assigning a pattern, represented by its feature vector, to one of several predefined classes based on a decision rule learned or derived from data.</p>\n<p><b>Plain English:</b> It's deciding which labeled bucket a new item belongs to, based on its measured features.</p>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 1, "bcount": 13, "btitle": "2. Keywords", "html": "<div class=\"kw-grid\">\n<span class=\"kw\">Classifier</span><span class=\"kw\">Decision rule</span><span class=\"kw\">Decision boundary</span>\n<span class=\"kw\">Discriminant function</span><span class=\"kw\">Supervised learning</span>\n<span class=\"kw\">Training set</span><span class=\"kw\">Test set</span><span class=\"kw\">Feature space</span>\n<span class=\"kw\"><b>Linear classifier</b> — separates classes with a straight line/plane</span>\n<span class=\"kw\"><b>Nonlinear classifier</b> — separates classes with a curved boundary</span>\n<span class=\"kw\">Bayes classifier</span><span class=\"kw\">Nearest neighbor</span>\n<span class=\"kw\">Decision tree</span><span class=\"kw\">Confusion matrix</span>\n<span class=\"kw\">Accuracy / error rate</span><span class=\"kw\">Generalization</span>\n</div>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 2, "bcount": 13, "btitle": "3. Core explanation", "html": "<p><b>What is it?</b> The decision-making core of a pattern recognition system.</p>\n<p><b>What does it mean?</b> A classifier is a function that takes a feature vector as input and outputs a class label.</p>\n<p><b>Purpose:</b> to automate the \"which bucket does this belong in\" decision, consistently and at scale.</p>\n<p><b>Why it matters:</b> this is the step that actually produces the useful output — everything before it (measuring, extracting features) exists to make this step possible.</p>\n<p><b>Problem it solves:</b> lets a system make a repeatable decision under uncertainty, rather than requiring exact matches to known examples.</p>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 3, "bcount": 13, "btitle": "4. How it works", "html": "<ol>\n<li><b>Training:</b> the classifier learns a decision rule from labeled feature vectors.</li>\n<li><b>Decision boundary formation:</b> the rule effectively draws a boundary separating classes in feature space.</li>\n<li><b>Inference:</b> a new, unlabeled feature vector is compared against the learned rule.</li>\n<li><b>Output:</b> the class on whichever side of the boundary the new point falls is returned as the decision.</li>\n</ol>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 4, "bcount": 13, "btitle": "5. Diagram", "html": "<pre class=\"ascii\">Feature 2\n   │      o o\n   │    o  o  o   │\n   │      o o     │  ← decision boundary\n   │               │\n   │               │   x x\n   │               │ x  x  x\n   │               │   x x\n   └──────────────────────────── Feature 1\n\n  New point ●  → falls left of boundary → classified as \"o\"</pre>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 5, "bcount": 13, "btitle": "6. Example", "html": "<p>A handwriting recognizer takes the stroke shape of a digit and classifies it as \"7\" rather than \"1.\" A medical classifier takes a tumor's size, shape, and texture and classifies it as \"benign\" or \"malignant.\"</p>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 6, "bcount": 13, "btitle": "7. Applications", "html": "<ul>\n<li><b>Email filtering:</b> classifying messages as spam or not.</li>\n<li><b>Diagnostics:</b> classifying scans or lab results as normal/abnormal.</li>\n<li><b>Speech:</b> classifying audio segments as specific words.</li>\n<li><b>Quality control:</b> classifying manufactured parts as pass/fail.</li>\n</ul>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 7, "bcount": 13, "btitle": "8. Advantages", "html": "<ul>\n<li><b>Automates expert judgment:</b> replicates decisions a human expert would make, at scale.</li>\n<li><b>Quantifiable performance:</b> accuracy, error rate, and confusion matrices let you measure and improve it.</li>\n<li><b>Adaptable:</b> retraining on new data lets the classifier improve over time.</li>\n</ul>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 8, "bcount": 13, "btitle": "9. Limitations", "html": "<ul>\n<li><b>Boundary errors:</b> points near the decision boundary are prone to misclassification.</li>\n<li><b>Depends on feature quality:</b> a classifier can't separate classes on features that don't actually differ between them.</li>\n<li><b>Overfitting risk:</b> an overly complex boundary may fit training noise rather than the true pattern.</li>\n</ul>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 9, "bcount": 13, "btitle": "10. Comparisons", "html": "<table class=\"cmp\">\n<tr><th></th><th>Classification</th><th>Regression</th><th>Clustering</th></tr>\n<tr><td>Output</td><td>A discrete class label</td><td>A continuous number</td><td>Groupings (no predefined labels)</td></tr>\n<tr><td>Learning type</td><td>Supervised</td><td>Supervised</td><td>Unsupervised</td></tr>\n<tr><td>Example</td><td>Spam / not spam</td><td>Predicted house price</td><td>Customer segments</td></tr>\n</table>\n<p><b>Common confusion:</b> classification and regression are both \"supervised,\" but classification predicts a category, while regression predicts a numeric quantity.</p>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 10, "bcount": 13, "btitle": "11. Mathematical / formula component", "html": "<p>A simple decision rule using <b>discriminant functions</b>: for each class ω<sub>i</sub>, compute a score g<sub>i</sub>(x). Assign x to class ω<sub>i</sub> if g<sub>i</sub>(x) &gt; g<sub>j</sub>(x) for all other classes j.</p>\n<p><i>Meaning:</i> each class \"votes\" with a score based on the input's features; the class with the highest score wins. Example: if g₁(x) = 7.2 and g₂(x) = 3.5, the pattern is assigned to class 1.</p>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 11, "bcount": 13, "btitle": "Recap", "html": "<div class=\"anchor-box\"><b>MEMORY ANCHOR</b>\"Classification is the vote-counting step — every class scores the input, and the highest score wins.\"</div><div class=\"must-remember\">\n<b>MUST REMEMBER</b>\n<ol>\n<li>Classification assigns a feature vector to one predefined class using a decision rule.</li>\n<li>The classifier is trained on labeled data, then applied (\"inference\") to new data.</li>\n<li>A decision boundary is the geometric expression of the classifier's rule.</li>\n<li>Discriminant functions g<sub>i</sub>(x) let classes \"compete\" for the highest score.</li>\n<li>Classification (discrete output) differs from regression (continuous output).</li>\n</ol>\n</div>"}, {"cid": "c4", "cindex": 3, "cnum": "04", "ctitle": "Classification", "cbuilds": "Builds onClasses— now that buckets exist, this is the act of putting a pattern into the right one.", "bindex": 12, "bcount": 13, "btitle": "Flashcards", "html": "<div class=\"flashcards\">\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Define classification.</div><div class=\"a\">A: Assigning a feature vector to one of several predefined classes using a learned decision rule.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What is a decision boundary?</div><div class=\"a\">A: The surface in feature space that separates one class's region from another's.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What is a discriminant function?</div><div class=\"a\">A: A function gi(x) that scores how strongly a feature vector belongs to class i; the highest-scoring class is chosen.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Classification vs regression — key difference?</div><div class=\"a\">A: Classification outputs a discrete class label; regression outputs a continuous numeric value.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Why are points near the decision boundary risky?</div><div class=\"a\">A: They are close to being equally likely under either class, so small noise can flip the decision.</div></div>\n</div>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 0, "bcount": 13, "btitle": "1. Definition", "html": "<p><b>Academic:</b> The steps of classification are the sequential stages — from raw data acquisition through preprocessing, feature extraction, training, decision-making, and evaluation — that together constitute a complete pattern recognition system.</p>\n<p><b>Plain English:</b> It's the full recipe, start to finish, that turns a raw signal into a trustworthy class decision.</p>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 1, "bcount": 13, "btitle": "2. Keywords", "html": "<div class=\"kw-grid\">\n<span class=\"kw\">Data acquisition</span><span class=\"kw\">Preprocessing</span><span class=\"kw\">Segmentation</span>\n<span class=\"kw\">Feature extraction</span><span class=\"kw\">Feature selection</span>\n<span class=\"kw\">Dimensionality reduction</span><span class=\"kw\">Training phase</span>\n<span class=\"kw\">Model selection</span><span class=\"kw\">Testing phase</span><span class=\"kw\">Evaluation</span>\n<span class=\"kw\">Cross-validation</span><span class=\"kw\">Confusion matrix</span>\n<span class=\"kw\">Overfitting</span><span class=\"kw\">Underfitting</span><span class=\"kw\">Post-processing</span>\n</div>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 2, "bcount": 13, "btitle": "3. Core explanation", "html": "<p><b>What is it?</b> A structured pipeline, not a single algorithm — classification is the output of many coordinated stages.</p>\n<p><b>What does it mean?</b> Each stage transforms the data further, and errors introduced early (e.g. bad preprocessing) propagate through every later stage.</p>\n<p><b>Purpose:</b> to break an otherwise overwhelming problem (raw signal → decision) into manageable, testable steps.</p>\n<p><b>Why it matters:</b> understanding the pipeline lets you diagnose where a system is failing — is it the sensor, the features, or the classifier itself?</p>\n<p><b>Problem it solves:</b> provides a repeatable engineering process for building any pattern recognition system, regardless of domain.</p>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 3, "bcount": 13, "btitle": "4. How it works", "html": "<ol>\n<li><b>Data acquisition:</b> collect raw samples via sensors.</li>\n<li><b>Preprocessing:</b> remove noise, normalize scale, correct for missing values.</li>\n<li><b>Segmentation:</b> isolate the object of interest from background (e.g. separating a face from the rest of a photo).</li>\n<li><b>Feature extraction:</b> compute informative measurements from the segmented data.</li>\n<li><b>Feature selection / dimensionality reduction:</b> keep only the most useful features, discard redundant ones.</li>\n<li><b>Training:</b> fit a classifier on labeled examples (the training set).</li>\n<li><b>Testing / classification:</b> apply the trained classifier to new, unseen data.</li>\n<li><b>Evaluation:</b> measure accuracy/error using metrics like a confusion matrix; refine if needed.</li>\n</ol>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 4, "bcount": 13, "btitle": "5. Diagram", "html": "<pre class=\"ascii\">1 Data Acquisition\n      │\n2 Preprocessing\n      │\n3 Segmentation\n      │\n4 Feature Extraction\n      │\n5 Feature Selection / Dimensionality Reduction\n      │\n      ├──────────────┐\n      ▼              ▼\n6 Training      7 Testing (new data)\n  (labeled data)      │\n      └──────►  Classifier ──► Decision\n                       │\n                8 Evaluation (accuracy, confusion matrix)</pre>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 5, "bcount": 13, "btitle": "6. Example", "html": "<p>Fingerprint recognition end-to-end: (1) a scanner captures the finger image, (2) the image is cleaned of smudges and normalized, (3) the ridge pattern is segmented from the background, (4) minutiae points (ridge endings, bifurcations) are extracted as features, (5) the most distinctive minutiae are kept, (6) the system is trained on many enrolled fingerprints, (7) a new scan is compared against stored templates, (8) the match rate is evaluated to tune thresholds.</p>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 6, "bcount": 13, "btitle": "7. Applications", "html": "<ul>\n<li><b>Any deployed recognition system</b> — face ID, medical imaging AI, speech assistants — follows this same staged pipeline.</li>\n<li><b>Industrial inspection systems</b> use it to move from a camera image to a pass/fail decision.</li>\n<li><b>Document processing systems</b> use it to move from a scanned page to extracted, classified text.</li>\n</ul>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 7, "bcount": 13, "btitle": "8. Advantages", "html": "<ul>\n<li><b>Modularity:</b> each stage can be improved or swapped independently.</li>\n<li><b>Debuggability:</b> performance problems can be traced to a specific stage.</li>\n<li><b>Reusability:</b> the same pipeline structure applies across very different domains.</li>\n</ul>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 8, "bcount": 13, "btitle": "9. Limitations", "html": "<ul>\n<li><b>Error propagation:</b> a mistake in an early stage (e.g. bad segmentation) corrupts every later stage.</li>\n<li><b>Complexity:</b> more stages mean more places for something to go wrong and more to tune.</li>\n<li><b>Train/test mismatch:</b> if training data doesn't represent real-world conditions, testing performance can mislead.</li>\n</ul>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 9, "bcount": 13, "btitle": "10. Comparisons", "html": "<table class=\"cmp\">\n<tr><th></th><th>Training phase</th><th>Testing phase</th></tr>\n<tr><td>Data used</td><td>Labeled training set</td><td>Unseen test set</td></tr>\n<tr><td>Goal</td><td>Learn the decision rule</td><td>Evaluate/apply the decision rule</td></tr>\n<tr><td>Labels available?</td><td>Yes</td><td>Used only for scoring accuracy, not for the decision itself</td></tr>\n</table>\n<p><b>Common confusion:</b> students often conflate \"feature extraction\" with \"feature selection\" — extraction <i>computes</i> new measurements, selection <i>chooses</i> which of them to keep.</p>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 10, "bcount": 13, "btitle": "11. Mathematical / formula component", "html": "<p>Data is commonly split into a training set and a test set, e.g. 70%/30% or 80%/20%. This is not a rigid law — it is a practical convention to check generalization. No further formal mathematics is essential at this foundational stage.</p>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 11, "bcount": 13, "btitle": "Recap", "html": "<div class=\"anchor-box\"><b>MEMORY ANCHOR</b>\"Acquire → Clean → Isolate → Describe → Trim → Train → Test → Judge.\" Eight verbs, eight stages.</div><div class=\"must-remember\">\n<b>MUST REMEMBER</b>\n<ol>\n<li>The 8 stages: acquisition, preprocessing, segmentation, feature extraction, feature selection, training, testing, evaluation.</li>\n<li>Errors early in the pipeline propagate to every later stage.</li>\n<li>Training uses labeled data to learn the rule; testing applies it to unseen data.</li>\n<li>Feature extraction computes new measurements; feature selection chooses among them.</li>\n<li>Evaluation (e.g. confusion matrix) closes the loop and drives refinement.</li>\n</ol>\n</div>"}, {"cid": "c5", "cindex": 4, "cnum": "05", "ctitle": "Steps Associated with Classification", "cbuilds": "Builds onClassification— this zooms out from the decision itself to the full pipeline around it.", "bindex": 12, "bcount": 13, "btitle": "Flashcards", "html": "<div class=\"flashcards\">\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: List the eight steps of a classification pipeline in order.</div><div class=\"a\">A: Data acquisition, preprocessing, segmentation, feature extraction, feature selection, training, testing, evaluation.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What is segmentation?</div><div class=\"a\">A: Isolating the object of interest from its background before feature extraction.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Difference between feature extraction and feature selection?</div><div class=\"a\">A: Extraction computes new measurements from data; selection chooses which of those features to keep.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Why does error propagate through the pipeline?</div><div class=\"a\">A: Each stage's output feeds the next, so a mistake early (e.g. bad segmentation) corrupts everything downstream.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What is the purpose of the evaluation stage?</div><div class=\"a\">A: To measure how well the classifier performs (e.g. via a confusion matrix) and guide refinement.</div></div>\n</div>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 0, "bcount": 13, "btitle": "1. Definition", "html": "<p><b>Academic:</b> Biometrics is the automated recognition of individuals based on their physiological and/or behavioral characteristics, applying pattern recognition and classification techniques to identity verification and identification.</p>\n<p><b>Plain English:</b> It's using your body or behavior — fingerprint, face, iris, voice, gait — as your ID, instead of a password or a card.</p>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 1, "bcount": 13, "btitle": "2. Keywords", "html": "<div class=\"kw-grid\">\n<span class=\"kw\"><b>Physiological biometric</b> — fingerprint, face, iris, DNA</span>\n<span class=\"kw\"><b>Behavioral biometric</b> — gait, signature, typing rhythm, voice</span>\n<span class=\"kw\">Enrollment</span><span class=\"kw\">Template</span>\n<span class=\"kw\"><b>Verification (1:1)</b> — \"are you who you claim?\"</span>\n<span class=\"kw\"><b>Identification (1:N)</b> — \"who are you, among everyone enrolled?\"</span>\n<span class=\"kw\">Matching score</span>\n<span class=\"kw\"><b>FAR</b> — False Acceptance Rate</span>\n<span class=\"kw\"><b>FRR</b> — False Rejection Rate</span>\n<span class=\"kw\"><b>EER</b> — Equal Error Rate</span>\n<span class=\"kw\">Liveness detection</span><span class=\"kw\">Spoofing</span>\n<span class=\"kw\">Uniqueness</span><span class=\"kw\">Permanence</span><span class=\"kw\">Universality</span><span class=\"kw\">Collectability</span>\n</div>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 2, "bcount": 13, "btitle": "3. Core explanation", "html": "<p><b>What is it?</b> The direct, everyday application of everything covered this week: measuring a body/behavior trait, extracting features, and classifying against enrolled identities.</p>\n<p><b>What does it mean?</b> A good biometric trait should be universal (everyone has it), unique (differs enough between people), permanent (stable over time), and collectable (practical to measure).</p>\n<p><b>Purpose:</b> to confirm or determine identity without relying on something a person can forget, lose, or lend to someone else (like a password or key card).</p>\n<p><b>Why it matters:</b> biometrics underpin phone unlocking, border control, banking security, and forensics.</p>\n<p><b>Problem it solves:</b> passwords and cards can be stolen or shared; biometric traits are tied directly to the individual.</p>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 3, "bcount": 13, "btitle": "4. How it works", "html": "<ol>\n<li><b>Enrollment:</b> a trait is measured and its features are extracted and stored as a template.</li>\n<li><b>Capture:</b> at recognition time, the trait is measured again.</li>\n<li><b>Feature extraction:</b> the new capture is converted into a feature vector the same way as during enrollment.</li>\n<li><b>Matching:</b> the new feature vector is compared to stored template(s), producing a matching score.</li>\n<li><b>Decision:</b> if verifying, the system accepts/rejects against one claimed identity; if identifying, it searches all templates for the best match.</li>\n</ol>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 4, "bcount": 13, "btitle": "5. Diagram", "html": "<pre class=\"ascii\">ENROLLMENT                      RECOGNITION\nTrait ──► Feature ──► Template   Trait ──► Feature ──► Query vector\n              │  (stored)                                  │\n              └──────────────────► Matching ◄───────────────┘\n                                      │\n                              Verification (1:1)   or   Identification (1:N)\n                                      │\n                                  Accept / Reject / Identity</pre>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 5, "bcount": 13, "btitle": "6. Example", "html": "<p>Unlocking a phone with Face ID: your face was enrolled once as a template; each unlock attempt captures your face again and checks it matches (verification, 1:1).</p>\n<p>An airport border system that identifies a traveler against a watchlist of thousands of faces is doing identification (1:N) rather than verification.</p>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 6, "bcount": 13, "btitle": "7. Applications", "html": "<ul>\n<li><b>Consumer devices:</b> fingerprint/face unlock on phones and laptops.</li>\n<li><b>Border control:</b> passport e-gates using face or iris recognition.</li>\n<li><b>Banking:</b> voice or fingerprint authentication for transactions.</li>\n<li><b>Forensics:</b> matching fingerprints or DNA to crime scene evidence.</li>\n<li><b>Attendance/access systems:</b> workplace entry via fingerprint or face.</li>\n</ul>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 7, "bcount": 13, "btitle": "8. Advantages", "html": "<ul>\n<li><b>Hard to lose or share:</b> unlike a password, you always \"have\" your fingerprint or face.</li>\n<li><b>Convenience:</b> nothing to remember or carry.</li>\n<li><b>Strong link to identity:</b> harder to impersonate than knowledge-based credentials.</li>\n</ul>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 8, "bcount": 13, "btitle": "9. Limitations", "html": "<ul>\n<li><b>Privacy concerns:</b> biometric data is sensitive and, unlike a password, can't be \"reset\" if compromised.</li>\n<li><b>Spoofing risk:</b> photos, fake fingerprints, or recordings can attempt to fool a system without liveness detection.</li>\n<li><b>Trait changes over time:</b> injuries, aging, or illness can alter a trait and increase false rejections.</li>\n<li><b>Cost and infrastructure:</b> high-quality sensors and matching systems can be expensive to deploy.</li>\n</ul>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 9, "bcount": 13, "btitle": "10. Comparisons", "html": "<table class=\"cmp\">\n<tr><th></th><th>Physiological biometric</th><th>Behavioral biometric</th></tr>\n<tr><td>Based on</td><td>Physical body traits</td><td>Patterns of behavior</td></tr>\n<tr><td>Examples</td><td>Fingerprint, face, iris, DNA</td><td>Gait, signature, typing rhythm, voice</td></tr>\n<tr><td>Stability</td><td>Generally more stable</td><td>Can vary with mood, stress, context</td></tr>\n</table>\n<table class=\"cmp\">\n<tr><th></th><th>Verification (1:1)</th><th>Identification (1:N)</th></tr>\n<tr><td>Question asked</td><td>\"Are you who you claim?\"</td><td>\"Who are you, among all enrolled?\"</td></tr>\n<tr><td>Comparisons made</td><td>One</td><td>Many (against the whole database)</td></tr>\n<tr><td>Example</td><td>Unlocking your own phone</td><td>Airport watchlist screening</td></tr>\n</table>\n<p><b>Common confusion:</b> verification and identification are often used interchangeably, but they are different matching problems — one comparison vs. a search across many.</p>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 10, "bcount": 13, "btitle": "11. Mathematical / formula component", "html": "<p><b>False Acceptance Rate (FAR):</b> the proportion of impostor attempts wrongly accepted. <b>False Rejection Rate (FRR):</b> the proportion of genuine attempts wrongly rejected. The <b>Equal Error Rate (EER)</b> is the point where FAR = FRR — a common single-number summary of a biometric system's accuracy. Lower EER means a more accurate system.</p>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 11, "bcount": 13, "btitle": "Recap", "html": "<div class=\"anchor-box\"><b>MEMORY ANCHOR</b>\"Enroll once, match every time.\" Biometrics is the classification pipeline running against a single question: does this match a stored template?</div><div class=\"must-remember\">\n<b>MUST REMEMBER</b>\n<ol>\n<li>Biometrics = identity recognition from physiological or behavioral traits.</li>\n<li>Pipeline: enrollment → capture → feature extraction → matching → decision.</li>\n<li>Verification is 1:1 (\"are you who you claim?\"); identification is 1:N (\"who are you?\").</li>\n<li>A good trait is universal, unique, permanent, and collectable.</li>\n<li>FAR, FRR, and EER quantify a biometric system's accuracy.</li>\n</ol>\n</div>"}, {"cid": "c6", "cindex": 5, "cnum": "06", "ctitle": "Biometrics", "cbuilds": "Builds on all five prior concepts — biometrics is a complete, real-world application of the whole pipeline.", "bindex": 12, "bcount": 13, "btitle": "Flashcards", "html": "<div class=\"flashcards\">\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Define biometrics.</div><div class=\"a\">A: Automated recognition of individuals based on physiological/behavioral traits, using pattern recognition and classification.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Verification vs identification — what's the difference?</div><div class=\"a\">A: Verification is a 1:1 check against a claimed identity; identification is a 1:N search across all enrolled identities.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Give two examples each of physiological and behavioral biometrics.</div><div class=\"a\">A: Physiological: fingerprint, face/iris/DNA. Behavioral: gait, signature/typing rhythm/voice.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What do FAR and FRR measure?</div><div class=\"a\">A: FAR = rate of wrongly accepting impostors; FRR = rate of wrongly rejecting genuine users.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: What is the Equal Error Rate (EER)?</div><div class=\"a\">A: The point where FAR equals FRR — a single-number summary of biometric system accuracy; lower is better.</div></div>\n<div class=\"fc\" onclick=\"this.classList.toggle('revealed')\"><span class=\"hint\">tap</span><div class=\"q\">Q: Why is biometric data considered higher-risk than a password if compromised?</div><div class=\"a\">A: Unlike a password, a biometric trait cannot be \"reset\" once its data is stolen.</div></div>\n</div>"}, {"cid": "map", "cindex": 6, "cnum": "◆", "ctitle": "Master Map", "cbuilds": "How all six concepts connect, on one page.", "bindex": 0, "bcount": 1, "btitle": "Master Map", "html": "<div class=\"mapcard\">\n<svg style=\"min-width:640px;\" viewbox=\"0 0 900 430\" width=\"100%\">\n<defs>\n<marker id=\"arrow\" markerheight=\"8\" markerwidth=\"8\" orient=\"auto\" refx=\"6\" refy=\"3\">\n<path d=\"M0,0 L6,3 L0,6 z\" fill=\"#B9C4C1\"></path>\n</marker>\n</defs>\n<path class=\"mapedge\" d=\"M150,50 L150,110\" marker-end=\"url(#arrow)\"></path>\n<path class=\"mapedge\" d=\"M150,150 L150,210\" marker-end=\"url(#arrow)\"></path>\n<path class=\"mapedge\" d=\"M150,250 L150,310\" marker-end=\"url(#arrow)\"></path>\n<path class=\"mapedge\" d=\"M270,330 C 400,330 400,330 470,330\" marker-end=\"url(#arrow)\"></path>\n<path class=\"mapedge\" d=\"M590,330 C 650,330 650,330 690,330\" marker-end=\"url(#arrow)\"></path>\n<path class=\"mapedge\" d=\"M150,350 C 150,390 350,410 470,370\" marker-end=\"url(#arrow)\"></path>\n<path class=\"mapedge\" d=\"M150,250 C 350,250 550,150 690,150\" marker-end=\"url(#arrow)\"></path>\n<g class=\"mapnode core\">\n<rect height=\"38\" rx=\"8\" width=\"180\" x=\"60\" y=\"15\"></rect>\n<text text-anchor=\"middle\" x=\"150\" y=\"39\">Pattern Recognition</text>\n</g>\n<text class=\"maplabel\" text-anchor=\"middle\" x=\"150\" y=\"72\">discipline / umbrella</text>\n<g class=\"mapnode\">\n<rect height=\"38\" rx=\"8\" width=\"180\" x=\"60\" y=\"115\"></rect>\n<text text-anchor=\"middle\" x=\"150\" y=\"139\">Measured Patterns</text>\n</g>\n<text class=\"maplabel\" text-anchor=\"middle\" x=\"150\" y=\"172\">sensing → raw data</text>\n<g class=\"mapnode\">\n<rect height=\"38\" rx=\"8\" width=\"180\" x=\"60\" y=\"215\"></rect>\n<text text-anchor=\"middle\" x=\"150\" y=\"239\">Classes</text>\n</g>\n<text class=\"maplabel\" text-anchor=\"middle\" x=\"150\" y=\"272\">predefined categories</text>\n<g class=\"mapnode core\">\n<rect height=\"38\" rx=\"8\" width=\"180\" x=\"60\" y=\"315\"></rect>\n<text text-anchor=\"middle\" x=\"150\" y=\"339\">Classification</text>\n</g>\n<text class=\"maplabel\" text-anchor=\"middle\" x=\"150\" y=\"372\">decision rule</text>\n<g class=\"mapnode\">\n<rect height=\"38\" rx=\"8\" width=\"220\" x=\"470\" y=\"315\"></rect>\n<text text-anchor=\"middle\" x=\"580\" y=\"339\">Steps of Classification</text>\n</g>\n<text class=\"maplabel\" text-anchor=\"middle\" x=\"580\" y=\"372\">the full 8-stage pipeline</text>\n<g class=\"mapnode app\">\n<rect height=\"38\" rx=\"8\" width=\"180\" x=\"700\" y=\"130\"></rect>\n<text text-anchor=\"middle\" x=\"790\" y=\"154\">Biometrics</text>\n</g>\n<text class=\"maplabel\" text-anchor=\"middle\" x=\"790\" y=\"187\">real-world application</text>\n<text class=\"maplabel\" text-anchor=\"middle\" x=\"150\" y=\"410\">each concept below feeds the one above it</text>\n</svg>\n</div><div class=\"anchor-box\" style=\"margin-top:1rem;\">\n<b>THE STORY IN ONE LINE</b>\n      Pattern recognition is the field; measured patterns are what you feed it; classes are what you're sorting into; classification is the act of sorting; the 8 steps are how that sorting is actually built; and biometrics is that entire pipeline, applied to proving who you are.\n    </div>"}, {"cid": "test", "cindex": 7, "cnum": "◆", "ctitle": "Foundation Test", "cbuilds": "Pattern Recognition Week 1 — 30 questions covering measured patterns, classes, classification, the classification pipeline and biometrics. Click an answer for immediate correction and explanation. Your final score is shown at the end.", "bindex": 0, "bcount": 1, "btitle": "30-Question Test", "html": "<div id=\"foundationQuiz\"></div><div class=\"anchor-box\" id=\"foundationScore\" style=\"display:none;\"></div>"}]</script>
+<script id="nav-data" type="application/json">[{"id": "c1", "num": "01", "title": "Pattern Recognition", "firstSlide": 0}, {"id": "c2", "num": "02", "title": "Measured Patterns", "firstSlide": 13}, {"id": "c3", "num": "03", "title": "Classes", "firstSlide": 26}, {"id": "c4", "num": "04", "title": "Classification", "firstSlide": 39}, {"id": "c5", "num": "05", "title": "Steps Associated with Classification", "firstSlide": 52}, {"id": "c6", "num": "06", "title": "Biometrics", "firstSlide": 65}, {"id": "map", "num": "◆", "title": "Master Map", "firstSlide": 78}, {"id": "test", "num": "◆", "title": "Foundation Test", "firstSlide": 79}]</script>
+<script>window.__FOUNDATION_QUESTIONS__ = [{"concept": "Pattern Recognition", "question": "A pattern is best described as…", "options": ["A measurable set of characteristics used to describe an object/event", "Only a picture", "A database table", "A random guess"], "answer": 0, "explanation": "Patterns are represented through measurable characteristics so they can be analyzed and classified."}, {"concept": "Pattern Recognition", "question": "Which is a typical pattern-recognition pipeline?", "options": ["Sensing → preprocessing → feature extraction → classification → decision/output", "Printing → scanning → deleting → saving", "Database → password → printer → monitor", "Sorting → formatting → emailing → archiving"], "answer": 0, "explanation": "The lecture presents sensing, preprocessing, feature extraction, classification and decision/output as the core pipeline."}, {"concept": "Measured Patterns", "question": "A measured pattern is…", "options": ["Raw measurements obtained from an object through sensing", "A final class label", "A decision boundary", "A visualization legend"], "answer": 0, "explanation": "Measured patterns are the quantitative or qualitative measurements taken from an object before further processing."}, {"concept": "Measured Patterns", "question": "Which scale has categories with no inherent order?", "options": ["Nominal", "Ordinal", "Interval", "Ratio"], "answer": 0, "explanation": "Nominal data identify categories without a meaningful ranking."}, {"concept": "Measured Patterns", "question": "A transducer primarily…", "options": ["Converts a physical quantity into an electrical signal", "Assigns a class label", "Draws a histogram", "Removes all noise mathematically"], "answer": 0, "explanation": "A transducer converts quantities such as light, pressure or sound into signals that can be measured."}, {"concept": "Classes", "question": "In supervised pattern recognition, a class is…", "options": ["A predefined category used as a target label", "A random group found without labels", "A sensor reading", "A feature-extraction algorithm"], "answer": 0, "explanation": "Classes are predefined categories that the classifier learns to distinguish."}, {"concept": "Classes", "question": "Within-class variability means…", "options": ["Differences among members of the same class", "Differences between two classes only", "Measurement noise only", "The number of classes"], "answer": 0, "explanation": "Within-class variability describes how members of one class can differ from each other."}, {"concept": "Classification", "question": "Classification means…", "options": ["Assigning a pattern to one of several predefined classes", "Compressing an image", "Collecting raw sensor data", "Drawing a chart"], "answer": 0, "explanation": "Classification uses a decision rule to assign a feature vector to a predefined class."}, {"concept": "Classification", "question": "A decision boundary separates…", "options": ["Regions associated with different classes in feature space", "Training from testing files only", "Pixels from sensors", "Tables from charts"], "answer": 0, "explanation": "A decision boundary is the surface separating class regions in feature space."}, {"concept": "Classification", "question": "A discriminant function gᵢ(x) is used to…", "options": ["Score how strongly x belongs to class i", "Store an image", "Measure internet speed", "Define a database schema"], "answer": 0, "explanation": "The class with the highest discriminant score is selected by the simple decision rule described in the lecture."}, {"concept": "Steps of Classification", "question": "Which stage isolates the object of interest from its background?", "options": ["Segmentation", "Feature selection", "Testing", "Evaluation"], "answer": 0, "explanation": "Segmentation isolates the object of interest before useful features are extracted."}, {"concept": "Steps of Classification", "question": "Feature extraction differs from feature selection because extraction…", "options": ["Computes new informative measurements, while selection chooses features to keep", "Deletes all features", "Only labels classes", "Always happens after evaluation"], "answer": 0, "explanation": "Extraction creates/derives features; selection chooses which available features are retained."}, {"concept": "Steps of Classification", "question": "Why can an early pipeline error affect later stages?", "options": ["Each stage feeds its output into the next stage", "Later stages ignore earlier outputs", "Only the final stage uses data", "Errors disappear automatically"], "answer": 0, "explanation": "Because stages are connected, poor preprocessing or segmentation can corrupt downstream results."}, {"concept": "Biometrics", "question": "Biometrics recognizes people using…", "options": ["Physiological or behavioral traits", "Only passwords", "Only usernames", "Only geographic location"], "answer": 0, "explanation": "Biometrics uses physiological or behavioral characteristics for automated recognition."}, {"concept": "Biometrics", "question": "Verification is a…", "options": ["1:1 comparison against a claimed identity", "1:N search across every enrolled identity", "Random comparison", "Comparison with no stored template"], "answer": 0, "explanation": "Verification asks whether you are who you claim to be and is a one-to-one check."}, {"concept": "Biometrics", "question": "Identification is a…", "options": ["1:N search across enrolled identities", "1:1 check only", "Password reset", "Feature-selection step"], "answer": 0, "explanation": "Identification asks who you are among enrolled identities, requiring a search across many templates."}, {"concept": "Biometrics", "question": "FAR measures…", "options": ["Impostor attempts wrongly accepted", "Genuine users wrongly rejected", "All successful logins", "The number of enrolled users"], "answer": 0, "explanation": "False Acceptance Rate is the rate at which impostors are incorrectly accepted."}, {"concept": "Biometrics", "question": "FRR measures…", "options": ["Genuine attempts wrongly rejected", "Impostors wrongly accepted", "Number of sensors", "Number of classes"], "answer": 0, "explanation": "False Rejection Rate is the rate at which genuine users are incorrectly rejected."}, {"concept": "Biometrics", "question": "EER occurs when…", "options": ["FAR equals FRR", "FAR is zero in every case", "FRR equals 100%", "There are no enrolled users"], "answer": 0, "explanation": "Equal Error Rate is the point at which false acceptance and false rejection rates are equal."}, {"concept": "Pattern Recognition", "question": "Which is an example of pattern-recognition application?", "options": ["Fraud detection", "Typing a document manually", "Turning on a monitor", "Charging a battery"], "answer": 0, "explanation": "The lecture lists fraud detection among real-world applications of pattern recognition."}, {"concept": "Pattern Recognition", "question": "A feature vector is best represented as…", "options": ["An ordered list of numerical feature values", "A class name only", "A paragraph of text only", "A password"], "answer": 0, "explanation": "A feature vector such as [x₁,…,x_d] represents measurable properties of one pattern."}, {"concept": "Classification", "question": "Why are points near a decision boundary risky?", "options": ["Small noise can change the class decision", "They always belong to both classes", "They contain no features", "They cannot be tested"], "answer": 0, "explanation": "Points close to the boundary can switch class under small measurement or modeling changes."}, {"concept": "Measured Patterns", "question": "Calibration matters because poor calibration can introduce…", "options": ["Systematic measurement error", "New class labels", "More storage capacity", "A decision boundary automatically"], "answer": 0, "explanation": "Systematic sensor error can limit the accuracy of every downstream stage."}, {"concept": "Classes", "question": "Class imbalance can bias a classifier toward…", "options": ["The majority class", "The minority class only", "No class", "Every class equally"], "answer": 0, "explanation": "With far more examples in one class, a classifier may favor that majority class."}, {"concept": "Pattern Recognition", "question": "A cluster differs from a class because a cluster is…", "options": ["Discovered without predefined labels", "Always manually labeled", "A sensor signal", "A decision boundary"], "answer": 0, "explanation": "Classes are predefined labels; clusters are groups discovered without labels in unsupervised learning."}, {"concept": "Biometrics", "question": "Which is a behavioral biometric?", "options": ["Typing rhythm", "Fingerprint ridge pattern", "Iris pattern", "DNA"], "answer": 0, "explanation": "Typing rhythm is behavioral; fingerprints, iris and DNA are physiological examples."}, {"concept": "Biometrics", "question": "A good biometric trait should generally be…", "options": ["Universal, unique, permanent and collectable", "Secret, temporary and random", "Only cheap", "Only visible"], "answer": 0, "explanation": "The lecture highlights universality, uniqueness, permanence and collectability as desirable properties."}, {"concept": "Pattern Recognition", "question": "Classification differs from regression because classification outputs…", "options": ["A discrete class label", "A continuous numeric value", "Only an image", "Only raw measurements"], "answer": 0, "explanation": "Classification produces discrete labels, whereas regression predicts continuous numeric values."}, {"concept": "Steps of Classification", "question": "The purpose of evaluation is to…", "options": ["Measure classifier performance and guide refinement", "Collect the first sensor reading", "Create a class from nothing", "Replace feature extraction"], "answer": 0, "explanation": "Evaluation measures performance, for example with a confusion matrix, and helps guide improvement."}, {"concept": "Pattern Recognition", "question": "Overfitting occurs when a model…", "options": ["Fits training data too closely and generalizes poorly", "Never learns training data", "Uses no features", "Always predicts perfectly on new data"], "answer": 0, "explanation": "Overfitting means the model captures training-specific detail and performs poorly on unseen data."}];</script>
 
 <script>
 (function(){
-  const root=document.getElementById('foundationQuiz');
-  const scoreBox=document.getElementById('foundationScore');
-  const qs=window.__FOUNDATION_QUESTIONS__||[];
-  if(!root||!qs.length)return;
-  const state={};
-  function render(){
-    root.innerHTML='';
-    qs.forEach((q,i)=>{
-      const card=document.createElement('article'); card.className='testgroup';
-      const h=document.createElement('h4'); h.textContent=`Question ${String(i+1).padStart(2,'0')} · ${q.concept}`; card.appendChild(h);
-      const p=document.createElement('p'); p.innerHTML='<b>'+q.question+'</b>'; card.appendChild(p);
-      q.options.forEach((opt,j)=>{
-        const b=document.createElement('button'); b.type='button'; b.className='test-option'; b.innerHTML='<b>'+String.fromCharCode(65+j)+'</b> '+opt;
-        if(state[i]!==undefined){
-          if(j===q.answer)b.classList.add('correct');
-          if(j===state[i]&&j!==q.answer)b.classList.add('wrong');
-          b.disabled=true;
-        }
-        b.onclick=()=>{state[i]=j; render();}; card.appendChild(b);
-      });
-      if(state[i]!==undefined){
-        const f=document.createElement('div'); f.className='test-feedback '+(state[i]===q.answer?'good':'bad');
-        f.innerHTML='<b>'+(state[i]===q.answer?'✓ Correct':'✗ Incorrect — correct answer highlighted in green')+'</b><br>'+q.explanation; card.appendChild(f);
-      }
-      root.appendChild(card);
-    });
-    const n=Object.keys(state).length, sc=Object.keys(state).filter(i=>state[i]===qs[i].answer).length;
-    if(n===qs.length){scoreBox.style.display='block'; scoreBox.innerHTML='<b>FINAL SCORE</b><div style="font-size:2rem;font-weight:800;margin:.3rem 0">'+sc+'/'+qs.length+'</div>'+(sc>=27?'Excellent work.':sc>=21?'Good work — review the questions you missed.':'Keep practising and revisit the relevant Week 1 sections.')+' <button type="button" class="reset-test" onclick="location.reload()">Reset test →</button>';} else scoreBox.style.display='none';
+  const slides = JSON.parse(document.getElementById('slides-data').textContent);
+  const navItems = JSON.parse(document.getElementById('nav-data').textContent);
+  let i = 0;
+
+  const jumpstrip = document.getElementById('jumpstrip');
+  const slidewrap = document.getElementById('slidewrap');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const progressLabel = document.getElementById('progressLabel');
+  const dots = document.getElementById('dots');
+
+  navItems.forEach(n => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'jumppill';
+    b.textContent = n.num + ' ' + n.title;
+    b.dataset.first = n.firstSlide;
+    b.addEventListener('click', () => go(n.firstSlide));
+    jumpstrip.appendChild(b);
+  });
+
+  function currentConceptIndex(){
+    return slides[i].cindex;
   }
+
+  function fitSlide(){
+    const content = slidewrap.querySelector('.slidecontent');
+    if (!content) return;
+
+    content.style.transform = 'scale(1)';
+    const availableW = Math.max(0, slidewrap.clientWidth - 2);
+    const availableH = Math.max(0, slidewrap.clientHeight - 2);
+    const contentW = content.scrollWidth;
+    const contentH = content.scrollHeight;
+
+    if (!contentW || !contentH) return;
+
+    const scale = Math.min(1, availableW / contentW, availableH / contentH);
+    content.style.transform = 'scale(' + scale.toFixed(4) + ')';
+  }
+
+  function render(){
+    const s = slides[i];
+    slidewrap.scrollTop = 0;
+    slidewrap.innerHTML =
+      '<div class="slidecontent">' +
+      '<div class="slide-eyebrow"><span class="cnum">' + s.cnum + '</span><span class="ctitle">' + s.ctitle + '</span></div>' +
+      '<h2 class="slide-btitle">' + s.btitle + '</h2>' +
+      (s.bindex === 0 && s.cbuilds ? '<p class="slide-builds">' + s.cbuilds + '</p>' : '') +
+      '<div class="slide-body">' + s.html + '</div>' +
+      '</div>';
+
+    fitSlide();
+
+    prevBtn.disabled = i === 0;
+    nextBtn.disabled = i === slides.length - 1;
+    progressLabel.textContent = s.ctitle + '  \u00b7  ' + (s.bindex + 1) + ' / ' + s.bcount;
+
+    [...jumpstrip.children].forEach((el, idx) => el.classList.toggle('active', idx === currentConceptIndex()));
+
+    dots.innerHTML = '';
+    for (let d = 0; d < s.bcount; d++){
+      const dot = document.createElement('span');
+      if (d === s.bindex) dot.classList.add('on');
+      dots.appendChild(dot);
+    }
+
+    if (s.cid === 'test') initTest();
+  }
+
+  function go(n){
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    render();
+  }
+
+  prevBtn.addEventListener('click', () => go(i - 1));
+  nextBtn.addEventListener('click', () => go(i + 1));
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') go(i + 1);
+    if (e.key === 'ArrowLeft') go(i - 1);
+  });
+  window.addEventListener('resize', fitSlide);
+
+  let testInitDone = false;
+  function initTest(){
+    if (testInitDone) return;
+    testInitDone = true;
+    const root = document.getElementById('foundationQuiz');
+    const scoreBox = document.getElementById('foundationScore');
+    const qs = window.__FOUNDATION_QUESTIONS__ || [];
+    if (!root || !qs.length) return;
+    const state = {};
+    function renderTest(){
+      root.innerHTML = '';
+      qs.forEach((q, qi) => {
+        const card = document.createElement('article'); card.className = 'testgroup';
+        const h = document.createElement('h4'); h.textContent = 'Question ' + String(qi + 1).padStart(2, '0') + ' \u00b7 ' + q.concept; card.appendChild(h);
+        const p = document.createElement('p'); p.innerHTML = '<b>' + q.question + '</b>'; card.appendChild(p);
+        q.options.forEach((opt, j) => {
+          const b = document.createElement('button'); b.type = 'button'; b.className = 'test-option';
+          b.innerHTML = '<b>' + String.fromCharCode(65 + j) + '</b> ' + opt;
+          if (state[qi] !== undefined){
+            if (j === q.answer) b.classList.add('correct');
+            if (j === state[qi] && j !== q.answer) b.classList.add('wrong');
+            b.disabled = true;
+          }
+          b.onclick = () => { state[qi] = j; renderTest(); };
+          card.appendChild(b);
+        });
+        if (state[qi] !== undefined){
+          const f = document.createElement('div'); f.className = 'test-feedback ' + (state[qi] === q.answer ? 'good' : 'bad');
+          f.innerHTML = '<b>' + (state[qi] === q.answer ? '\u2713 Correct' : '\u2717 Incorrect \u2014 correct answer highlighted in green') + '</b><br>' + q.explanation;
+          card.appendChild(f);
+        }
+        root.appendChild(card);
+      });
+      const n = Object.keys(state).length, sc = Object.keys(state).filter(k => state[k] === qs[k].answer).length;
+      if (n === qs.length){
+        scoreBox.style.display = 'block';
+        scoreBox.innerHTML = '<b>FINAL SCORE</b><div style="font-size:1.8rem;font-weight:700;margin:.3rem 0">' + sc + '/' + qs.length + '</div>' +
+          (sc >= 27 ? 'Excellent work.' : sc >= 21 ? 'Good work \u2014 review the questions you missed.' : 'Keep practising and revisit the relevant Week 1 sections.') +
+          ' <button type="button" class="reset-test" onclick="location.reload()">Reset test &rarr;</button>';
+      } else scoreBox.style.display = 'none';
+    }
+    renderTest();
+  }
+
+  const hashId = location.hash.replace('#', '');
+  const hashNav = navItems.find(n => n.id === hashId);
+  if (hashNav) i = hashNav.firstSlide;
+
   render();
 })();
 </script>
-<style>
-.test-option{display:block;width:100%;text-align:left;background:#fff;border:1px solid #ddd;border-radius:12px;padding:12px 14px;margin:8px 0;cursor:pointer;font:inherit}.test-option b{display:inline-grid;place-items:center;width:28px;height:28px;border:1px solid #ddd;border-radius:50%;margin-right:8px}.test-option.correct{background:#e8f4ea;border-color:#8bb692}.test-option.wrong{background:#f8e9e9;border-color:#c68b8b}.test-feedback{padding:12px 14px;border-radius:10px;margin-top:10px;line-height:1.5}.test-feedback.good{background:#e8f4ea}.test-feedback.bad{background:#f8e9e9}.reset-test{margin-top:10px;border:1px solid #222;border-radius:999px;background:#111;color:#fff;padding:9px 14px;cursor:pointer}
-</style>
 </body>
 </html>
