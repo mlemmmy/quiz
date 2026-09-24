@@ -1,1 +1,14 @@
-import "./globals.css"; export const metadata={title:"SCS5102 Quiz Hub",description:"Discrete Mathematics revision"}; export default function RootLayout({children}){return <html lang="en"><body>{children}</body></html>}
+import "./globals.css";
+
+export const metadata = {
+  title: "Study Hub",
+  description: "Course revision and exam preparation hub",
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}

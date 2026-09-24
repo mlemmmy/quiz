@@ -1,28 +1,17 @@
-# SCS Study Hub — BDA Lectures 2 & 3 Update
+# Study Hub
 
-Latest deployable Next.js Study Hub.
+Clean deployment build for the Study Hub.
 
-## New Big Data Analytics content
-- Lecture 2: Data Gathering & Preparation
-  - Full uploaded lecture text preserved slide-by-slide
-  - 36 application-focused questions
-  - Concept filter
-  - Shuffle
-  - Immediate green/red correction and explanation
-  - Final score
-- Lecture 3: Data Analytics & Visualisation
-  - Full uploaded lecture text preserved slide-by-slide
-  - 32 application-focused questions
-  - Concept filter
-  - Shuffle
-  - Immediate green/red correction and explanation
-  - Final score
-
-## Existing content preserved
-- SCS5102 Discrete Mathematics, including Rosen-style Relations/Rules of Inference practice
-- SCS5103 Pattern Recognition Week 1
-- SIDS5101 Big Data Analytics Week 1
-- Existing Study Hub styling and routes
+## Included
+- SCS5102 Discrete Mathematics
+- SCS5103 Pattern Recognition
+- SIDS5101 Big Data Analytics
+- SCS5107 Enterprise Programming Modules 01–13
+- Compact 45-day study plan at the bottom of the homepage
+- No AI tutor and no OpenAI dependency
 
 ## Deploy
-Push the project contents to GitHub and import the repository into Vercel as a Next.js project.
+```bash
+npm install
+npm run build
+```

@@ -44,7 +44,7 @@ export default function Home() {
         <div className="card muted"><div><h3>More courses coming</h3><p>Add your other modules here later.</p></div></div>
       </section>
 
-      <section className="studyPlan">
+      <section className="studyPlan" aria-label="45-day study plan">
         <div className="planTop">
           <div>
             <small>45-DAY PLAN</small>
