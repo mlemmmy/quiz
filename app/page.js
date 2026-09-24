@@ -30,17 +30,17 @@ export default function Home() {
   return (
     <main className="shell">
       <header className="hero">
-        <Link href="/" className="hubPill">STUDY HUB</Link>
+        <span className="mark">Index</span>
         <h1>Study Hub</h1>
-        <p>Build your revision course-by-course, topic-by-topic.</p>
+        <p>Build your revision course by course, topic by topic.</p>
       </header>
 
       <section>
         <h2>Courses</h2>
-        <Link className="card" href="/course/scs5102"><div><small>SCS5102</small><h3>Discrete Mathematics</h3><p>Propositional logic, truth tables, applications and more.</p></div><span>→</span></Link>
-        <Link className="card" href="/course/sids5101"><div><small>SIDS5101</small><h3>Big Data Analytics</h3><p>Big Data, analytics, data preparation, data mining, visualization and interactive lecture quizzes.</p></div><span>→</span></Link>
-        <Link className="card" href="/course/scs5103"><div><small>SCS5103</small><h3>Pattern Recognition</h3><p>Measured patterns, classification, biometrics and Week 1 foundations.</p></div><span>→</span></Link>
-        <Link className="card" href="/course/scs5107"><div><small>SCS5107</small><h3>Enterprise Programming</h3><p>Enterprise Python architecture, design patterns, data-intensive systems, concurrency, testing, security, microservices and resilience.</p></div><span>→</span></Link>
+        <Link className="card" data-course="scs5102" href="/course/scs5102"><div><small>SCS5102</small><h3>Discrete Mathematics</h3><p>Propositional logic, truth tables, applications and more.</p></div></Link>
+        <Link className="card" data-course="sids5101" href="/course/sids5101"><div><small>SIDS5101</small><h3>Big Data Analytics</h3><p>Big Data, analytics, data preparation, data mining, visualization and interactive lecture quizzes.</p></div></Link>
+        <Link className="card" data-course="scs5103" href="/course/scs5103"><div><small>SCS5103</small><h3>Pattern Recognition</h3><p>Measured patterns, classification, biometrics and Week 1 foundations.</p></div></Link>
+        <Link className="card" data-course="scs5107" href="/course/scs5107"><div><small>SCS5107</small><h3>Enterprise Programming</h3><p>Enterprise Python architecture, design patterns, data-intensive systems, concurrency, testing, security, microservices and resilience.</p></div></Link>
         <div className="card muted"><div><h3>More courses coming</h3><p>Add your other modules here later.</p></div></div>
       </section>
 

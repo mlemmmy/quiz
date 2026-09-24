@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Course() {
   return (
-    <main className="shell">
+    <main className="shell" data-course="scs5103">
       <nav>
         <Link href="/">← All courses</Link>
         <span>SCS5103</span>
@@ -24,7 +24,7 @@ export default function Course() {
             memory anchors and more.
           </p>
         </div>
-        <span>→</span>
+        
       </Link>
 
       <Link className="card" href="/scs5103/week1.html#foundation-test">
@@ -36,7 +36,7 @@ export default function Course() {
             measured patterns and biometrics.
           </p>
         </div>
-        <span>→</span>
+        
       </Link>
 
       <div className="card muted">

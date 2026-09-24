@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function ModulePage() {
   return (
-    <main className="shell">
+    <main className="shell" data-course="scs5107">
       <nav><Link href="/course/scs5107">← Enterprise Programming</Link><span>SCS5107</span></nav>
       <header className="courseHead">
         <small>MODULE 03</small>

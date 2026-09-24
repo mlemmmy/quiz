@@ -18,7 +18,7 @@ const modules = [
 
 export default function EnterpriseProgramming() {
   return (
-    <main className="shell">
+    <main className="shell" data-course="scs5107">
       <nav><Link href="/">← Study Hub</Link><span>SCS5107</span></nav>
       <header className="courseHead">
         <small>SCS5107</small>
@@ -31,7 +31,7 @@ export default function EnterpriseProgramming() {
         {modules.map(([number, title, description]) => (
           <Link className="card" href={`/course/scs5107/module/${number}`} key={number}>
             <div><small>MODULE {number}</small><h3>{title}</h3><p>{description}</p></div>
-            <span>→</span>
+            
           </Link>
         ))}
       </section>
