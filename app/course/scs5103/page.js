@@ -27,6 +27,17 @@ export default function Course() {
         
       </Link>
 
+      <Link className="card" href="/scs5103/practical.html">
+        <div>
+          <small>PRACTICAL · ANSWERS</small>
+          <h2>Practical Questions & Answers</h2>
+          <p>
+            Five practical Pattern Recognition tasks covering image classification,
+            segmentation, feature extraction, object detection and image restoration.
+          </p>
+        </div>
+      </Link>
+
       <Link className="card" href="/scs5103/week1.html#test">
         <div>
           <small>30 QUESTIONS</small>

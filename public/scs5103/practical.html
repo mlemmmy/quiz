@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SCS5103 — Practical Questions & Answers</title>
+<link rel="stylesheet" href="../../app/globals.css">
+</head>
+<body data-course="scs5103">
+<main class="shell">
+  <nav><a href="/course/scs5103">← SCS5103</a><span>PRACTICAL</span></nav>
+  <header class="courseHead">
+    <small>SCS5103 · PATTERN RECOGNITION</small>
+    <h1>Practical Questions & Answers</h1>
+    <p>Exam-focused practical tasks based on the SCS 5103 practical-question sheet. Use the answer sections to revise implementation, evaluation and discussion points.</p>
+  </header>
+
+  <section class="question">
+    <div class="conceptTag">QUESTION 01 · IMAGE CLASSIFICATION</div>
+    <h2>Classify 10,000 labelled images belonging to five classes using k-NN, SVM and a CNN. Preprocess the images and evaluate accuracy, precision, recall, F1-score and confusion matrices.</h2>
+    <div class="explainWrap open"><div><div class="explain">
+      <p><b>Answer / procedure:</b></p>
+      <ol>
+        <li>Split the labelled images into training and test sets, then resize all images to a common size.</li>
+        <li>Normalize pixel values, for example to the range 0–1, so that features are on a consistent scale.</li>
+        <li>Train three classifiers: <b>k-Nearest Neighbors (k-NN)</b>, <b>Support Vector Machine (SVM)</b>, and a <b>Convolutional Neural Network (CNN)</b>.</li>
+        <li>For k-NN and SVM, represent each image as a feature vector. For a CNN, retain the image structure and learn features through convolutional layers.</li>
+        <li>Predict the classes of the test images and construct a confusion matrix for each classifier.</li>
+        <li>Calculate accuracy, precision, recall and F1-score. For multiple classes, report macro/weighted averages where appropriate.</li>
+      </ol>
+      <p><b>Key formulas:</b> Accuracy = correct predictions / total predictions. Precision = TP/(TP+FP). Recall = TP/(TP+FN). F1 = 2(Precision×Recall)/(Precision+Recall).</p>
+      <p><b>Conclusion:</b> compare the three classifiers using the measured results rather than assuming one is best. Discuss errors visible in the confusion matrices and possible causes such as similar-looking classes, noise or insufficient training data.</p>
+      <p><b>Marks:</b> preprocessing 5; classifier implementation 10; evaluation metrics and confusion matrices 10.</p>
+    </div></div></div>
+  </section>
+
+  <section class="question">
+    <div class="conceptTag">QUESTION 02 · IMAGE SEGMENTATION</div>
+    <h2>Segment a medical image containing possible tumours using Otsu's method and k-means clustering. Visualize and compare the outputs using Dice or Jaccard, then discuss challenges and improvements.</h2>
+    <div class="explainWrap open"><div><div class="explain">
+      <p><b>Answer / procedure:</b></p>
+      <ol>
+        <li>Load and preprocess the MRI image, keeping the image dimensions and intensity information consistent.</li>
+        <li>Apply <b>Otsu's thresholding</b> to automatically choose an intensity threshold separating foreground and background.</li>
+        <li>Apply <b>k-means clustering</b> to group pixel intensities/features into clusters; select the cluster corresponding to the suspected tumour region.</li>
+        <li>Display the original image beside both segmentation masks so the results can be visually inspected.</li>
+        <li>Compare each segmentation against the available ground-truth mask using Dice coefficient or Jaccard index.</li>
+      </ol>
+      <p><b>Dice:</b> 2|A∩B|/(|A|+|B|). <b>Jaccard:</b> |A∩B|/|A∪B|. Higher values indicate greater overlap with the reference segmentation.</p>
+      <p><b>Challenges:</b> medical images can contain noise, intensity variation, weak tumour boundaries, artefacts and tissues with similar intensities. Improvements can include denoising, contrast enhancement, better feature selection, morphological post-processing and more appropriate clustering/segmentation models.</p>
+      <p><b>Marks:</b> segmentation implementation 10; visualization/comparison 10; challenges and improvements 5.</p>
+    </div></div></div>
+  </section>
+
+  <section class="question">
+    <div class="conceptTag">QUESTION 03 · FEATURE EXTRACTION & DIMENSIONALITY REDUCTION</div>
+    <h2>For grayscale handwritten-digit images, extract features using PCA and HOG, reduce the dimensions to two principal components, visualize the result and discuss classification trade-offs.</h2>
+    <div class="explainWrap open"><div><div class="explain">
+      <p><b>Answer / procedure:</b></p>
+      <ol>
+        <li>Flatten each grayscale image into a feature vector when preparing the data for PCA.</li>
+        <li>Apply <b>Principal Component Analysis (PCA)</b> to transform the original variables into principal components ordered by explained variance.</li>
+        <li>Keep the first two principal components and plot the samples on a 2-D scatter plot, using different markers/labels for digit classes.</li>
+        <li>Compute <b>Histogram of Oriented Gradients (HOG)</b> features to describe local edge directions and shape structure.</li>
+        <li>Use the extracted features as inputs to a classifier and compare classification performance, computational cost and dimensionality.</li>
+      </ol>
+      <p><b>Interpretation:</b> PCA is a dimensionality-reduction technique that preserves directions of high variance, while HOG is a shape/edge descriptor. PCA can greatly reduce the number of variables, but information useful for class separation may not always correspond to the highest variance. HOG can retain useful shape information but introduces feature-design and parameter choices.</p>
+      <p><b>Marks:</b> feature extraction implementation 10; reduced-dimension visualization 10; discussion of techniques and trade-offs 5.</p>
+    </div></div></div>
+  </section>
+
+  <section class="question">
+    <div class="conceptTag">QUESTION 04 · OBJECT DETECTION</div>
+    <h2>Detect and localize household objects using a pre-trained CNN-based detector such as YOLO, SSD or Faster R-CNN. Fine-tune it with transfer learning and evaluate using mAP.</h2>
+    <div class="explainWrap open"><div><div class="explain">
+      <p><b>Answer / procedure:</b></p>
+      <ol>
+        <li>Prepare the household-object dataset with images and corresponding object annotations/bounding boxes.</li>
+        <li>Select a pre-trained detector such as <b>YOLO, SSD or Faster R-CNN</b>.</li>
+        <li>Replace/adapt the detection head for the required object classes and fine-tune the network using transfer learning.</li>
+        <li>Run the trained detector on unseen test images and obtain predicted classes, confidence scores and bounding boxes.</li>
+        <li>Evaluate detection performance using <b>mean Average Precision (mAP)</b> and inspect predictions visually.</li>
+        <li>Show sample images with bounding boxes and labels to demonstrate correct detections and common errors.</li>
+      </ol>
+      <p><b>Interpretation:</b> a useful evaluation should discuss both numerical performance and localization quality. Errors can include missed objects, false detections, poor localization and confusion between similar household items.</p>
+      <p><b>Marks:</b> object-detection implementation 10; fine-tuning/performance evaluation 10; visualization 5.</p>
+    </div></div></div>
+  </section>
+
+  <section class="question">
+    <div class="conceptTag">QUESTION 05 · IMAGE RESTORATION</div>
+    <h2>Restore images corrupted by Gaussian noise using a Wiener filter and Non-Local Means denoising. Compare visual quality, PSNR and SSIM, then discuss parameter optimization.</h2>
+    <div class="explainWrap open"><div><div class="explain">
+      <p><b>Answer / procedure:</b></p>
+      <ol>
+        <li>Load the clean/reference images and their Gaussian-noise versions, where available.</li>
+        <li>Apply a <b>Wiener filter</b> to estimate the underlying image while accounting for noise and local signal characteristics.</li>
+        <li>Apply <b>Non-Local Means (NLM)</b>, which denoises a pixel using similar patches found across the image rather than relying only on immediate neighbours.</li>
+        <li>Compare the restored images visually for sharpness, texture preservation and remaining noise.</li>
+        <li>Calculate <b>PSNR</b> and <b>SSIM</b> against the clean reference. Higher values generally indicate closer agreement with the reference for these metrics.</li>
+        <li>Repeat with sensible parameter settings and select settings based on validation results, balancing noise removal against loss of detail.</li>
+      </ol>
+      <p><b>Parameter discussion:</b> filter strength, estimated noise level, search-window size and patch size can affect the restoration result. Over-aggressive denoising may remove useful detail, while weak settings may leave visible noise.</p>
+      <p><b>Marks:</b> restoration implementation 10; objective and subjective comparison 10; parameters and optimization 5.</p>
+    </div></div></div>
+  </section>
+
+  <section class="note" style="margin-top:22px">
+    <strong>EXAM CHECKLIST</strong>
+    <h2>What to include in every practical answer</h2>
+    <ul>
+      <li>State the objective and identify the input data.</li>
+      <li>Describe preprocessing before the main algorithm.</li>
+      <li>Name the algorithm and explain its role.</li>
+      <li>State the evaluation metric and what it measures.</li>
+      <li>Show/describe the expected visualization or output.</li>
+      <li>Discuss limitations, errors and possible improvements.</li>
+      <li>Use the reported results to support the conclusion.</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
